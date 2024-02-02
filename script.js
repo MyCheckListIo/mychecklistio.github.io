@@ -13,6 +13,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+function iniciarComoInvitado() {
+  // Aquí puedes realizar cualquier lógica adicional antes de redirigir, si es necesario.
+  
+  // Redirigir a la página "home.html"
+  window.location.href = 'home.html';
+}
+
 function crearServicioVerificacion() {
   client.verify.services.create({
     friendlyName: 'MyVerifyService', // Puedes cambiar esto según tus preferencias
