@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="tienda.css">
+  <title>MyCheckList - Tienda</title>
+</head>
+<body>
+  <header class="user-header header-container">
+    <div class="container">
+      <h1>Tienda</h1>
+      <div class="user-details" id="userDetails">
+        <!-- Aquí se mostrarán los detalles del usuario -->
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Bienvenido a la Tienda</h2>
+    <div class="categorias-tienda">
+      <ul>
+        <li><button onclick="mostrarMejorasInterfaz()">Mejoras de Interfaz</button></li>
+        <li><button onclick="mostrarRecetas('Postres')">Recetas de Postres</button></li>
+        <!-- Agrega más categorías según sea necesario -->
+      </ul>
+    </div>
+
+  <div class="home-button-container" id="homeButtonContainer">
+    <button id="volverHomeButton">Volver a Home</button>
+  </div>
+
+  <script src="tienda.js"></script>
+</body>
+</html>

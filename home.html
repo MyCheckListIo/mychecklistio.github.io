@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home.css">
+  <title>MyCheckList - Home</title>
+</head>
+<body>
+  <header class="user-header header-container">
+    <div class="container">
+      <h1>MyCheckList</h1>
+      
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="user-stats-container">
+  <div class="user-info">
+    <h3>Datos del Usuario</h3>
+    <p>Nombre: Usuario Ejemplo</p>
+    <p>Tokens: 50</p>
+    <p>Gemas: 10</p>
+  </div>
+  <div class="additional-info">
+    <div class="section">
+      <h3>Estadísticas de la App</h3>
+      <p>Listas creadas: 2,000</p>
+      <p>Ítems completados: 15,000</p>
+      <p>Usuarios registrados: 100,000</p>
+    </div>
+  </div>
+</div>
+  <button class="scroll-button" onclick="Scroll()">Scroll</button>
+    <div class="home-container">
+      <div class="home-buttons">
+        <button onclick="navegarA('crearLista')">Crear Lista</button>
+        <button onclick="navegarA('listasGuardadas')">Listas Guardadas</button>
+        <button onclick="navegarA('activarLista')">Activar Lista</button>
+        <button onclick="navegarA('tienda')">Tienda</button>
+        <button onclick="navegarA('stats')">Stats</button>
+      </div>
+      <div class="logout-container">
+        <button class="login-button" onclick="cerrarSesion()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="home.js"></script>
+</body>
+</html>
