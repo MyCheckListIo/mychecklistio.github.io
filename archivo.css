@@ -1,0 +1,242 @@
+.list {
+  
+  padding: 0;
+  font-size: 2vh;
+}
+
+.list li {
+  margin-bottom: 10px;
+}
+
+.list li span {
+  
+  background-color: rgba(242, 242, 242, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.list li span:hover {
+  background-color: rgba(230, 230, 230, 0.7);
+}
+
+.input-text {
+  width: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 102, 204, 0.9);
+  color: #fff;
+}
+
+.input-text::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.slot {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0;
+  background-color: rgba(0, 102, 204, 0.9);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s; 
+  font-size: 2vh;
+  font-weight: bold;
+  color: #fff;
+}
+
+.slot:hover {
+  background-color: lightcoral;
+}
+
+.slot-button {
+  display: inline-block;
+  padding: 10px 10px;
+  border: 2px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #000000;
+  font-size: 3vw;
+  font-family: Roobert;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.slot-icon {
+  display: inline-block;
+  background-color: #ffffff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.slot-text {
+  vertical-align: center;
+}
+
+.slot-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.slot-button:active {
+  transform: translateY(2px);
+}
+
+.changename-button {
+  font-size: 2vh;
+  color: white;
+  font-family: "Roobert", bold;
+  background-color: rgba(0, 102, 204, 0.9);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.changename-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.delete-button {
+  font-size: 2vh;
+  color: white;
+  font-family: "Roobert", bold;
+  background-color: rgba(204, 0, 0, 0.9);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.edit-button {
+  font-size: 2vh;
+  color: white;
+  font-family: "Roobert", bold;
+  background-color: rgba(255, 165, 0, 0.9);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.btn-volver {
+  font-size: 1.5vh;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: coral;
+  color: #fff; /* Color de texto blanco */
+  border: none; /* Quita el borde */
+  transition: background-color 0.3s; /* Transición suave para el cambio de color de fondo */
+}
+
+.btn-volver:hover {
+  background-color: lightcoral; /* Cambio de color de fondo al pasar el ratón */
+}
+
+.AgregarItemsButt {
+  font-size: 2vh;
+  color: white;
+  font-family: "Roobert", bold; /* Agregué una fuente de respaldo */
+  background-color: rgba(0, 102, 204, 0.9); /* Cambié el color de fondo */
+  padding: 0px 0px; /* Agregué un espaciado interno */
+  border: none; /* Quité el borde */
+  border-radius: 5px; /* Agregué bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.AgregarItemsButt:hover {
+  background-color: rgba(0, 0, 0, 0.2); /* Color de fondo al pasar el ratón */
+  color: #fff; /* Cambio de color de texto al pasar el ratón */
+}
+
+.progressBar {
+  width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 15px;
+  font-size: 2vh;
+  font-family: Roobert;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Quita el borde */
+  transition: background-color 0.3s;
+  
+}
+
+.btn:hover {
+  background-color: #45a049; /* Cambia el color de fondo */
+}
+
+.btn:active {
+  background-color: #3e8e41; /* Cambia el color de fondo */
+}
+
+.userbtn {
+  display: inline-block;
+  font-size: 2vh;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #ffffff;
+  border: 2px solid #007bff;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.userbtn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.userbtn:active {
+  background-color: #004080;
+  border-color: #004080;
+}
+
+.save-btn {
+  font-size: 2vh;
+  color: white;
+  font-family: "Roobert", bold;
+  background-color: rgba(0, 153, 51, 0.9);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.save-btn:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
