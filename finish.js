@@ -36,18 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
   `;
 
-  userRewards.innerHTML = `
-    <div class="container">
-      <h2>Recompensas</h2>
-      
-      <p>Puntos de Lealtad: ${rewards.loyaltyPoints}</p>
-      <p>Cupones Obtenidos:</p>
-      <ul>
-        ${rewards.coupons.map(coupon => `<li>${coupon}</li>`).join('')}
-      </ul>
-    </div>
-  `;
-
   redeemBtn.addEventListener('click', redeemRewards);
 
   function redeemRewards() {
