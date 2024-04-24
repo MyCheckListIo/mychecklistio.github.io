@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const purchaseDetails = document.getElementById('purchaseDetails');
   const userRewards = document.getElementById('userRewards');
 
-  // Función para contar la cantidad de productos y la cantidad total de ítems
   function countProductsAndItems(history) {
     let productCounts = {};
     let totalItems = 0;
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
   userRewards.innerHTML = `
     <div class="container">
       <h2>Recompensas</h2>
-      <p>Experiencia Ganada: ${rewards.experience}</p>
+      
       <p>Puntos de Lealtad: ${rewards.loyaltyPoints}</p>
       <p>Cupones Obtenidos:</p>
       <ul>
