@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     localStorage.setItem('redeemedRewards', JSON.stringify(redeemedRewards));
 
-    // Limpiar el slot1 después de finalizar la compra
     localStorage.removeItem('slot1');
 
     window.location.href = 'index.html';

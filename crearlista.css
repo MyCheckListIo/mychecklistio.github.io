@@ -24,7 +24,7 @@ body {
 }
 
 form {
-  width: 90%;
+  width: 70%;
   margin-bottom: 5px;
   font-family: 'Helvetica';
 }
@@ -64,7 +64,7 @@ input[type="text"]:focus {
 #itemInput,
 #quantityInput,
 #unitInput {
-  width: 94%;
+  width: 97%;
   margin: 0 auto; 
   margin-bottom: 10px;
 }
@@ -79,7 +79,7 @@ button:hover {
 }
 
 .item-container {
-  width: 85%;
+  width: 68%;
   min-height: 40vh;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;

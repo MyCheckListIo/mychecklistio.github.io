@@ -20,7 +20,7 @@ document.getElementById('btnCrearLista').addEventListener('click', function() {
 });
 
 document.getElementById('btnListasGuardadas').addEventListener('click', function() {
-  redirectToPage('listasGuardadas');
+  redirectToPage('listasguardadas');
 });
 
 document.getElementById('btnActivarLista').addEventListener('click', function() {
