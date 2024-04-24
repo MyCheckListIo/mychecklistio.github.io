@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial de Listas</title>
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <h1>Historial de Listas</h1>
+
+  <div id="historyList">
+    <!-- Aquí se mostrará la lista de historial -->
+  </div>
+
+  <div class="buttonContainer">
+    <button id="backBtn">Volver a Estadísticas</button>
+    <button id="homeBtn">Volver al Inicio</button>
+  </div>
+
+  <!-- Popup para mostrar detalles de lista -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close">&times;</span>
+      <h2 id="popupTitle">Detalles de la Lista</h2>
+      <div id="popupDetails">
+        <!-- Contenido dinámico de la lista -->
+      </div>
+    </div>
+  </div>
+
+  <script src="history.js"></script>
+</body>
+</html>

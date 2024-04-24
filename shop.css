@@ -1,0 +1,64 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Estilos del encabezado */
+h1 {
+  font-size: 3.5vh;
+  margin-bottom: 20px;
+  margin-top: 80px;
+  text-align: center;
+}
+
+/* Estilos del contenedor de ítems de la tienda */
+#shopItems {
+  margin: 0 auto;
+  width: 70%;
+}
+
+/* Estilos de los ítems de la tienda */
+.shopItem {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.shopItem h2 {
+  margin: 5px 0;
+}
+
+.shopItem p {
+  margin: 5px 0;
+}
+
+/* Estilos del contenedor de botones */
+.buttonContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Estilos de los botones */
+.buttonContainer button {
+  padding: 15px 5vw;
+  margin: 0 10px;
+  max-width: 40%;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.3em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonContainer button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}

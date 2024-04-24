@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+  opacity: 1;
+}
+
+.container {
+  text-align: center;
+  margin-top: 10px;
+  opacity: 1;
+  transition: opacity 1.5s ease;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 80px;
+}
+
+.container.fadeIn {
+  opacity: 1;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.item-list {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo con transparencia */
+  border-radius: 8px; /* Borde redondeado */
+}
+
+.dynamicBtn {
+  display: none;
+}
+
+.item {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}

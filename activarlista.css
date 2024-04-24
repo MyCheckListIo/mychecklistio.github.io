@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+  opacity: 1;
+}
+
+.container {
+  text-align: center;
+  margin-top: 10vh;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container.fadeIn {
+  opacity: 1;
+}
+
+.title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.item-list {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  padding: 10px;
+}
+
+.item {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  display: flex;
+  height: 10vh;
+  align-items: center;
+}
+
+.item input[type="checkbox"] {
+  margin-right: 10px;
+  font-size: 3vh;
+}
+
+.buttons {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 2.5vh;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 7px 40px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  font-size: 2vh;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}

@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+  opacity: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.list-container {
+  width: 80%;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  height: 11%;
+  margin-bottom: 70px;
+}
+
+.list-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 8px;
+
+  margin-bottom: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.list-card {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card-body {
+  margin-bottom: 10px;
+}
+
+.card-footer button {
+  margin-right: 5px;
+}
+
+#noListsMessage {
+  margin-top: 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+.buttons button {
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}

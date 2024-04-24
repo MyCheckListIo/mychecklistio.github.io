@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyCheckList</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">MyCheckList</h1>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            
+            <div class="menu-container">
+              <button id="btnCrearLista" class="menu-button">Crear Lista</button>
+              <button id="btnListasGuardadas" class="menu-button">Listas Guardadas</button>
+              <button id="btnActivarLista" class="menu-button">Activar Lista</button>
+              <button id="btnStats" class="menu-button">Stats</button>
+              <button id="btnTienda" class="menu-button">Tienda</button>
+              <button id="btnUsuario" class="menu-button">Usuario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+  <script>
+    
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_DOMINIO.firebaseapp.com",
+      databaseURL: "https://TU_DOMINIO.firebaseio.com",
+      projectId: "TU_ID_DE_PROYECTO",
+      storageBucket: "TU_STORAGE_BUCKET.appspot.com",
+      messagingSenderId: "TU_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  
+  <script src="app.js"></script>
+</body>
+</html>
