@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario - MyCheckList</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap">
+  <link rel="stylesheet" href="user.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Perfil de Usuario</h1>
+    <div id="userDetails" class="card">
+      <div class="card-body">
+        <div class="user-info">
+          <div>
+            <label for="userName">Nombre de Usuario:</label>
+            <input type="text" id="userName" value="Nombre de usuario" readonly>
+            <button id="editNameBtn">Editar</button>
+          </div>
+          <div>
+            <p>Nivel: <span id="userLevel">1</span></p>
+            <p>Experiencia: <span id="userXP">100 XP</span></p>
+            <p>Tokens MCL: <span id="userTokens">50</span></p>
+            <p>Gemas: <span id="userGems">10</span></p>
+          </div>
+          <div class="button-container">
+            <button id="settingsBtn">Ajustes</button>
+            <button onclick="window.location.href = 'index.html'">Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="user.js"></script>
+</body>
+</html>

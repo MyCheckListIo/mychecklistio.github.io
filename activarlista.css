@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
   height: 100vh;
@@ -10,13 +10,12 @@ body {
 
 .container {
   text-align: center;
-  margin-top: 10vh;
+  margin-top: 7vh;
   opacity: 0;
   transition: opacity 1.5s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .container.fadeIn {
@@ -24,33 +23,32 @@ body {
 }
 
 .title {
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 4vh;
+  margin-bottom: 40px;
 }
 
 .item-list {
-  margin-top: 40px;
   display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(2vh, 1fr));
   gap: 40px;
   padding: 10px;
+  font-size: 3vh;
 }
 
 .item {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 10px;
+  font-size: 3vh;
   color: #fff;
-
   display: flex;
-  height: 10vh;
+  height: 20vh;
   align-items: center;
 }
 
 .item input[type="checkbox"] {
   margin-right: 10px;
-  font-size: 3vh;
+  font-size: 2vh;
 }
 
 .buttons {
@@ -64,8 +62,9 @@ button {
   padding: 7px 40px;
   margin-right: 10px;
   margin-bottom: 20px;
-  font-size: 2vh;
+  font-size: 1.8vh;
   margin-top: 10px;
+  width: 100%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.2);
   border: none;

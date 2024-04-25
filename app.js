@@ -14,7 +14,6 @@ function redirectToPage(pageName) {
   window.location.href = `${pageName}.html`;
 }
 
-// Event Listeners para los botones de navegación
 document.getElementById('btnCrearLista').addEventListener('click', function() {
   redirectToPage('crearlista');
 });
@@ -36,5 +35,5 @@ document.getElementById('btnTienda').addEventListener('click', function() {
 });
 
 document.getElementById('btnUsuario').addEventListener('click', function() {
-  redirectToPage('usuario');
+  redirectToPage('user');
 });
