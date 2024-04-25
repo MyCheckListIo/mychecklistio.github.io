@@ -130,6 +130,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!confirmOverride) {
       return; // Cancelar la operación si el usuario no confirma
     }
+
+    // Eliminar la lista existente en el slot elegido
+    savedLists.splice(existingListIndex, 1);
   }
 
   const newItemList = itemList.map(item => ({
@@ -140,19 +143,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const newList = { slot: slotNumber, name: listName, items: newItemList };
 
-  if (existingListIndex !== -1) {
-    savedLists[existingListIndex] = newList;
-  } else {
-    savedLists.push(newList);
+  savedLists.push(newList);
+
+    // Guardar savedLists en localStorage
+    localStorage.setItem('savedLists', JSON.stringify(savedLists));
+
+    alert(`Lista guardada correctamente en el slot ${slotNumber}.`);
+    window.location.href = 'index.html';
   }
-
-  // Guardar savedLists en localStorage
-  localStorage.setItem('savedLists', JSON.stringify(savedLists));
-
-  alert(`Lista guardada correctamente en el slot ${slotNumber}.`);
-  window.location.href = 'index.html';
-}
-
 
 
   backBtn.addEventListener('click', function () {

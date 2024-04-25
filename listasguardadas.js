@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let savedLists = [];
 
-  // Cargar listas desde el localStorage al cargar la página
   loadListsFromLocalStorage();
 
   function loadListsFromLocalStorage() {

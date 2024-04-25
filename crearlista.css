@@ -4,7 +4,7 @@ body {
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
   height: 100vh;
-  width: 100%;
+ 
   opacity: 1;
 }
 
@@ -13,8 +13,6 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  height: 100;
-  width: 100;
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -24,16 +22,16 @@ body {
 }
 
 form {
-  width: 70%;
+  width: 100%;
   margin-bottom: 5px;
   font-family: 'Helvetica';
 }
 
 h1 {
-  font-size: 2.5em;
-  margin-top: 3.5vh;
+  font-size: 3.5vh;
+  margin-top: 4vh;
   font-family: 'Helvetica';
-  margin-bottom: 3.5vh;
+  margin-bottom: 3vh;
 }
 
 input[type="text"],
@@ -44,10 +42,10 @@ button {
   margin-bottom: 10px;
   border: none;
   font-family: 'Helvetica';
-  border-radius: 5px;
+  border-radius: 24px;
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 2vh;
+  font-size: 2.2vh;
   transition: background-color 0.3s ease;
 }
 
@@ -63,10 +61,11 @@ input[type="text"]:focus {
 
 #itemInput,
 #quantityInput,
-#unitInput {
-  width: 97%;
-  margin: 0 auto; 
-  margin-bottom: 10px;
+#unitInput,
+#addItemBtn {
+  width: 80%;
+  margin-bottom: 5px;
+  margin-left: 9vw;
 }
 
 button {
@@ -79,13 +78,13 @@ button:hover {
 }
 
 .item-container {
-  width: 68%;
+  width: 80%;
   min-height: 40vh;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  margin-top: 0px;
+  margin-top: 5px;
 }
 
 .item {
@@ -94,7 +93,7 @@ button:hover {
   padding: 5px;
   margin-bottom: 5px;
   transition: background-color 0.3s ease;
-  font-size: 2.5vh;
+  font-size: 2.4vh;
   font-family: Helvetica;
 }
 
@@ -105,5 +104,5 @@ button:hover {
 .buttons button {
   margin-right: 10px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }

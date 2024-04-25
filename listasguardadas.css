@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
   height: 100vh;
@@ -14,11 +14,11 @@ body {
   align-items: center;
   height: 100vh;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 7vh;
 }
 
 h1 {
-  font-size: 2.5em;
+  font-size: 4vh;
   margin-bottom: 10px;
 }
 
@@ -26,23 +26,22 @@ h1 {
   width: 80%;
   margin: 20px auto;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  padding: 10px;
-  height: 11%;
-  margin-bottom: 70px;
+  border-radius: 24px;
+  padding: 15px;
+  height: 60%;
+  margin-bottom: 40px;
 }
 
 .list-item {
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  padding: 8px;
-
-  margin-bottom: 8px;
+  border-radius: 24px;
+  padding: 15px;
+  margin-bottom: 12px;
   transition: background-color 0.3s ease;
 }
 
 .list-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .list-card {
@@ -50,21 +49,27 @@ h1 {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
+  height: 15%;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .card-header {
-  font-size: 18px;
+  font-size: 2vh;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .card-body {
   margin-bottom: 10px;
+  font-size: 1.6vh;
 }
 
 .card-footer button {
   margin-right: 5px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #cc;
+  font-size: 1.5vh;
+  border-radius: 5px;
 }
 
 #noListsMessage {
@@ -76,14 +81,17 @@ h1 {
 .buttons button {
   margin-right: 10px;
   cursor: pointer;
+  height: 4vh;
+  font-size: 1.5vh;
+  width: 60vw;
   transition: background-color 0.3s ease;
-  padding: 10px;
+  padding: 15px;
   border: none;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
 }
 
 .buttons button:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
 }

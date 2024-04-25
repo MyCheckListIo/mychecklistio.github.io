@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
   const itemList = document.getElementById('itemList');
   const finishBtn = document.getElementById('finishBtn');
-  const backBtn = document.createElement('button');
-  backBtn.textContent = 'Volver';
-  backBtn.classList.add('dynamicBtn'); // Agregar una clase al botón creado dinámicamente
-  document.body.appendChild(backBtn);
+  const shareBtn = document.getElementById('shareBtn');
+  const copyLinkBtn = document.getElementById('copyLinkBtn');
+  const whatsappBtn = document.getElementById('whatsappBtn');
 
-  let items = []; // Inicializamos la lista de items vacía
+  let items = [];
 
   function loadList() {
     const slotData = localStorage.getItem('savedLists');
@@ -56,7 +55,43 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'finish.html';
   }
 
+  function compartirLista(id) {
+    localStorage.setItem(id, JSON.stringify(items));
+    const baseUrl = 'https://mychecklistio.github.io/slot1/'; // URL base de tu sitio
+    const listaUrl = `${baseUrl}?id=${id}`; // Enlace completo con la ID única
+    return listaUrl;
+  }
+
+
+  function copiarEnlace() {
+    const enlace = compartirLista(generarIdUnica());
+    // Copiar el enlace al portapapeles
+    navigator.clipboard.writeText(enlace)
+      .then(() => alert('¡Enlace copiado al portapapeles!'))
+      .catch(err => console.error('Error al copiar el enlace:', err));
+  }
+
+  function compartirPorWhatsApp() {
+    const enlace = compartirLista(generarIdUnica());
+    const mensaje = encodeURIComponent(`¡Echa un vistazo a esta lista! ${enlace}`);
+    // Abrir WhatsApp con el mensaje predefinido
+    window.open(`https://wa.me/?text=${mensaje}`);
+  }
+
+  function generarIdUnica() {
+    return 'lista_' + new Date().getTime();
+  }
+
   loadList();
 
   finishBtn.addEventListener('click', finishList);
+
+  shareBtn.addEventListener('click', function() {
+    copyLinkBtn.style.display = 'inline-block';
+    whatsappBtn.style.display = 'inline-block';
+  });
+
+  copyLinkBtn.addEventListener('click', copiarEnlace);
+
+  whatsappBtn.addEventListener('click', compartirPorWhatsApp);
 });

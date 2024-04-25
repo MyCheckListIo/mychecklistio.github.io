@@ -5,17 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estadísticas de Compra</title>
   <link rel="stylesheet" href="stats.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <h1>Estadísticas de Compra</h1>
 
   <div id="statsContainer">
-    <!-- Aquí se mostrarán las estadísticas -->
-  </div>
+    <div id="chartContainer" style="width: ; height: ;">
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <div id="statsDetails">
+      <div class="statItem">Listas Creadas: <span id="listasCreadas"></span></div>
+      <div class="statItem">Items Finalizados: <span id="itemsFinalizados"></span></div>
+      <div class="statItem">Experiencia: <span id="experienciaUsuario"></span></div>
+      <div class="statItem">Nivel: <span id="nivel"></span></div>
+      <div class="statItem">Monedas Ganadas Total: <span id="monedasGanadasTotal"></span></div>
+      <div class="statItem">Monedas Gastadas: <span id="monedasGastadas"></span></div>
+      <div class="statItem">Gemas Total: <span id="gemasTotal"></span></div>
+      <div class="statItem">Gemas Gastadas: <span id="gemasGastadas"></span></div>
+    </div>
+  </div> <!-- Cerrar la etiqueta statsContainer aquí -->
 
   <div class="buttonContainer">
-    <button id="backBtn">Volver al Inicio</button>
-    <button id="historyBtn">Ver Historial</button>
+    <button id="historyBtn" onclick="goToHistory()">Ver Historial</button>
+    <a href="index.html"><button>Volver al Inicio</button></a>
   </div>
 
   <script src="stats.js"></script>

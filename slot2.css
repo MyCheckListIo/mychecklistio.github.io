@@ -83,23 +83,3 @@ button {
 button:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
-
-#copyLinkBtn,
-#whatsappBtn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-right: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 24px;
-  color: #fff;
-  transition: background-color 0.3s ease;
-}
-
-#copyLinkBtn:hover,
-#whatsappBtn:hover {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-

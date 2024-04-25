@@ -7,22 +7,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function displaySavedLists() {
     listContainer.innerHTML = '';
-    if (savedLists.length === 0) {
-      noListsMessage.style.display = 'block'; // Mostrar mensaje de lista vacía
-    } else {
-      noListsMessage.style.display = 'none'; // Ocultar mensaje de lista vacía si hay listas
-      savedLists.forEach((list, index) => {
-        const listCard = document.createElement('div');
-        listCard.classList.add('list-card');
+    const maxSlots = 5; // Número máximo de slots
+
+    for (let slot = 1; slot <= maxSlots; slot++) {
+      const listCard = document.createElement('div');
+      listCard.classList.add('list-card');
+      const listIndex = savedLists.findIndex(list => parseInt(list.slot) === slot);
+      if (listIndex !== -1) {
+        // Si hay una lista en este slot
+        const list = savedLists[listIndex];
         listCard.innerHTML = `
           <div class="card-header">Slot ${list.slot}</div>
           <div class="card-body">${list.name}</div>
           <div class="card-footer">
-            <button class="activateBtn" data-index="${index}">Activar</button>
+            <button class="activateBtn" data-index="${listIndex}">Activar</button>
           </div>
         `;
-        listContainer.appendChild(listCard);
-      });
+      } else {
+        // Si no hay lista en este slot
+        listCard.innerHTML = `
+          <div class="card-header">Slot ${slot}</div>
+          <div class="card-body">No hay lista</div>
+          <div class="card-footer">
+            <button class="activateBtn" data-slot="${slot}">Activar</button>
+          </div>
+        `;
+      }
+      listContainer.appendChild(listCard);
     }
 
     const activateButtons = document.querySelectorAll('.activateBtn');
@@ -31,30 +42,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function activateList(event) {
     const index = event.target.dataset.index;
-    const slotNumber = parseInt(savedLists[index].slot);
+    const slotNumber = event.target.dataset.slot || parseInt(savedLists[index].slot);
 
-    // Verificar si hay una lista activa en el slot actual
     const activeListData = localStorage.getItem(`activeList${slotNumber}`);
     if (activeListData) {
       const confirmOverride = confirm(`Ya hay una lista activa en el slot ${slotNumber}. ¿Desea reemplazarla?`);
       if (!confirmOverride) {
-        return; // Salir de la función si el usuario decide no reemplazar la lista
+        return;
       }
     }
 
-    // Guardar la lista activa en el localStorage
     localStorage.setItem(`activeList${slotNumber}`, JSON.stringify(savedLists[index]));
-    window.location.href = `slot${slotNumber}.html`; // Redirigir a la página del slot
+    window.location.href = `slot${slotNumber}.html`;
   }
 
   backBtn.addEventListener('click', function () {
     window.location.href = 'index.html';
   });
 
-  // Mostrar los elementos gradualmente al cargar la página
   const container = document.querySelector('.container');
   container.classList.add('fadeIn');
 
-  // Llamamos a la función para mostrar las listas al cargar la página
   displaySavedLists();
 });
