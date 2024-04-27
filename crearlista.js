@@ -110,47 +110,48 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function saveList() {
-  const listName = prompt('Ingrese un nombre para la lista:');
-  if (listName === null || listName.trim() === '') {
-    alert('Debe ingresar un nombre para la lista.');
-    return;
-  }
-
-  const slotNumberText = prompt('Ingrese el número de slot para la lista (del 1 al 5):');
-  const slotNumber = parseInt(slotNumberText);
-
-  if (isNaN(slotNumber) || slotNumber < 1 || slotNumber > 5) {
-    alert('El número de slot debe ser un número del 1 al 5.');
-    return;
-  }
-
-  const existingListIndex = savedLists.findIndex(list => list.slot === slotNumber);
-  if (existingListIndex !== -1) {
-    const confirmOverride = confirm(`Ya hay una lista guardada en el slot ${slotNumber}. ¿Desea reemplazarla?`);
-    if (!confirmOverride) {
-      return; // Cancelar la operación si el usuario no confirma
+    const listName = prompt('Ingrese un nombre para la lista:');
+    if (listName === null || listName.trim() === '') {
+      alert('Debe ingresar un nombre para la lista.');
+      return;
     }
 
-    // Eliminar la lista existente en el slot elegido
-    savedLists.splice(existingListIndex, 1);
-  }
+    const slotNumberText = prompt('Ingrese el número de slot para la lista (del 1 al 5):');
+    const slotNumber = parseInt(slotNumberText);
 
-  const newItemList = itemList.map(item => ({
-    item: item.item,
-    quantity: item.quantity,
-    unit: item.unit,
-  }));
+    if (isNaN(slotNumber) || slotNumber < 1 || slotNumber > 5) {
+      alert('El número de slot debe ser un número del 1 al 5.');
+      return;
+    }
 
-  const newList = { slot: slotNumber, name: listName, items: newItemList };
+    const existingListIndex = savedLists.findIndex(list => list.slot === slotNumber);
+    if (existingListIndex !== -1) {
+      const confirmOverride = confirm(`Ya hay una lista guardada en el slot ${slotNumber}. ¿Desea reemplazarla?`);
+      if (!confirmOverride) {
+        return; // Cancelar la operación si el usuario no confirma
+      }
 
-  savedLists.push(newList);
+      // Eliminar la lista existente en el slot elegido
+      savedLists.splice(existingListIndex, 1);
+    }
+
+    const newItemList = itemList.map(item => ({
+      item: item.item,
+      quantity: item.quantity,
+      unit: item.unit,
+    }));
+
+    const newList = { slot: slotNumber, name: listName, items: newItemList };
+
+    savedLists.push(newList);
 
     // Guardar savedLists en localStorage
     localStorage.setItem('savedLists', JSON.stringify(savedLists));
 
-    alert(`Lista guardada correctamente en el slot ${slotNumber}.`);
+    alert(`Lista "${listName}" guardada correctamente en el slot ${slotNumber}.`);
     window.location.href = 'index.html';
   }
+
 
 
   backBtn.addEventListener('click', function () {

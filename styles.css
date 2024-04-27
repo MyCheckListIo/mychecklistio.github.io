@@ -30,13 +30,12 @@ h1 {
   font-size: 4.5vh;
   font-family: 'Helvetica';
   margin-bottom: 20px;
-  
 }
 
 .menu-button {
   padding: 20px 5vw;
   margin: 10px 0;
-  height: 3.5%; 
+  height: 3%; 
   max-width: 70%;
   font-family: 'Helvetica';
   width: 60%; 
@@ -45,7 +44,7 @@ h1 {
   border-radius: 7px;
   margin-top: 10px;
   color: #fff;
-  font-size: 1.3em;
+  font-size: 2.5vh;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargar Lista</title>
+  <link rel="stylesheet" href="cargarlista.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Cargar Lista</h1>
+    <form id="loadListForm">
+      <label for="listID">Ingrese el ID de la lista:</label>
+      <input type="text" id="listID" name="listID" required>
+      <button type="submit">Cargar Lista</button>
+    </form>
+    <p id="validationMessage" class="text-center"></p>
+    <div id="slotSelection" class="hidden">
+      <label for="slot">Seleccione un slot para alojar la lista:</label>
+      <select id="slot" name="slot">
+        <option value="1">Slot 1</option>
+        <option value="2">Slot 2</option>
+        <option value="3">Slot 3</option>
+        <option value="4">Slot 4</option>
+        <option value="5">Slot 5</option>
+      </select>
+      <button id="confirmSlotBtn">Confirmar Slot</button>
+    </div>
+    <button id="goToIndexBtn" onclick="goToIndex()">Volver a Inicio</button>
+  </div>
+  <script src="cargarlista.js"></script>
+</body>
+</html>

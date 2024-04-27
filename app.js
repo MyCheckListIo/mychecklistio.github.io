@@ -22,16 +22,16 @@ document.getElementById('btnListasGuardadas').addEventListener('click', function
   redirectToPage('listasguardadas');
 });
 
+document.getElementById('btnCargarLista').addEventListener('click', function() {
+  redirectToPage('cargarlista');
+});
+
 document.getElementById('btnActivarLista').addEventListener('click', function() {
   redirectToPage('activarlista');
 });
 
 document.getElementById('btnStats').addEventListener('click', function() {
   redirectToPage('stats');
-});
-
-document.getElementById('btnTienda').addEventListener('click', function() {
-  redirectToPage('shop');
 });
 
 document.getElementById('btnUsuario').addEventListener('click', function() {

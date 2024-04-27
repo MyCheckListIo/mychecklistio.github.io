@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 16px;
+}
+
+input[type="text"],
+button,
+select {
+  width: 96%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 2vh;
+  transition: background-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+button {
+  padding: 12px 24px;
+  width: 40vh;
+  cursor: pointer;
+}
+
+button:hover,
+#goToIndexBtn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#goToIndexBtn {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 32vw;
+  border-radius: 24px;
+}
+
+#confirmSlotBtn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#confirmSlotBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#loadListForm button[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  width: 30vw;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#loadListForm button[type="submit"]:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hidden {
+  display: none;
+}
+
+#slotSelection {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  #goToIndexBtn {
+    width: 100%;
+  }
+}

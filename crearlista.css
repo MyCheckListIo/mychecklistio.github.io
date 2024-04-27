@@ -4,7 +4,6 @@ body {
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
   height: 100vh;
- 
   opacity: 1;
 }
 
@@ -28,7 +27,7 @@ form {
 }
 
 h1 {
-  font-size: 3.5vh;
+  font-size: 4vh;
   margin-top: 4vh;
   font-family: 'Helvetica';
   margin-bottom: 3vh;
@@ -65,7 +64,7 @@ input[type="text"]:focus {
 #addItemBtn {
   width: 80%;
   margin-bottom: 5px;
-  margin-left: 9vw;
+  margin-left: 9.2vw;
 }
 
 button {
@@ -74,7 +73,7 @@ button {
 }
 
 button:hover {
-  background-color: rgba(152, 212, 255, 0.3);
+  background-color: rgba(152, 212, 255, 0.5);
 }
 
 .item-container {

@@ -10,16 +10,24 @@ body {
 
 .container {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 80px; /* Ajusta este valor según sea necesario */
+  padding-top: 40px; /* Mantén este valor si te gusta el espacio interno */
   opacity: 1;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   transition: opacity 1.5s ease;
 }
 
-h1 {
-  font-size: 2.5em;
-  margin-bottom: 80px;
+h1.title {
+  font-size: 4vh;
+  margin-bottom: 20px;
+}
+
+.list-name {
+  font-size: 3.5vh;
+  margin-bottom: 20px;
+  color: #fff;
+  display: block;
 }
 
 .container.fadeIn {
@@ -34,15 +42,67 @@ h1 {
 .item-list {
   margin-top: 20px;
   display: grid;
+  width: 60vw;
+  position: relative;
+  margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px; /* Borde redondeado */
+  border-radius: 8px;
 }
 
 .dynamicBtn {
   display: none;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%);
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+.delete-icon:hover {
+  color: #ff4d4d;
+}
+
+/* Estilos actualizados para la zona de eliminación y su texto */
+.delete-area {
+  position: absolute; /* Cambiado de fixed a absolute */
+  top: 50%;
+  left: -160px; /* Ajustado para que esté a la izquierda de la lista */
+  transform: translateY(-50%);
+  width: 140px; /* Ajustado el ancho */
+  padding: 10px;
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+}
+
+/* Estilos para el texto dentro de la zona de eliminación */
+.delete-text {
+  margin-bottom: 5px; /* Espaciado inferior */
+}
+
+
+.item-list.dragging .delete-area {
+  opacity: 1;
+}
+
+.item-list.dragging .item {
+  opacity: 0.5;
+}
+
+.item-list.dragging .delete-icon {
+  display: block;
 }
 
 .item {
@@ -52,9 +112,24 @@ h1 {
   color: #fff;
   width: 90%;
   margin: 0 auto;
-  font-size: 1.8em;
+  position: relative;
+  font-size: 2.4vh;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.item.dragging {
+  opacity: 0.2;
+}
+
+#itemList.dragover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: #999;
 }
 
 .item input[type="checkbox"] {
