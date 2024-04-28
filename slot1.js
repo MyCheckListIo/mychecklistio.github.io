@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const deleteArea = document.getElementById('deleteArea');
 
   let items = [];
-
-  let draggedItem = null; // Elemento arrastrado
+  let draggedItem = null;
+  let checkboxStates = [];
 
   function generarIdUnica() {
     return Math.random().toString(36).substr(2, 9);
@@ -53,13 +53,14 @@ document.addEventListener('DOMContentLoaded', function () {
       const itemDiv = createItemElement(item, index);
       itemList.appendChild(itemDiv);
     });
+    updateCheckboxState();
   }
 
   function createItemElement(item, index) {
     const itemDiv = document.createElement('div');
     itemDiv.classList.add('item');
-    itemDiv.draggable = true; // Permitir arrastrar elementos
-    itemDiv.dataset.index = index; // Almacenar índice del elemento
+    itemDiv.draggable = true;
+    itemDiv.dataset.index = index;
 
     itemDiv.innerHTML = `
       <input type="checkbox" id="checkbox${index}" ${item.completed ? 'checked' : ''}>
@@ -69,17 +70,31 @@ document.addEventListener('DOMContentLoaded', function () {
     itemDiv.addEventListener('dragstart', handleDragStart);
     itemDiv.addEventListener('dragover', handleDragOver);
     itemDiv.addEventListener('drop', handleDrop);
-    itemDiv.addEventListener('dragend', handleDragEnd); // Nuevo evento dragend
+    itemDiv.addEventListener('dragend', handleDragEnd);
+
+    itemDiv.addEventListener('touchstart', handleDragStart);
+    itemDiv.addEventListener('touchmove', handleTouchMove);
 
     return itemDiv;
   }
 
   function handleDragStart(event) {
     draggedItem = event.target;
+    
+    updateCheckboxStates();
+    checkboxStates = items.map(item => item.completed);
+  }
+
+
+  function handleTouchMove(event) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    draggedItem.style.left = touch.clientX + 'px';
+    draggedItem.style.top = touch.clientY + 'px';
   }
 
   function handleDragOver(event) {
-    event.preventDefault(); // Permitir soltar el elemento
+    event.preventDefault();
   }
 
   function handleDrop(event) {
@@ -92,7 +107,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const temp = items[targetIndex];
       items[targetIndex] = items[draggedIndex];
       items[draggedIndex] = temp;
+
+      checkboxStates = items.map(item => item.completed);
       displayItems();
+      restoreCheckboxStates();
     }
   }
 
@@ -101,11 +119,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropzone = document.elementFromPoint(event.clientX, event.clientY);
     if (!dropzone.closest('.item-list')) {
       if (confirm('¿Estás seguro de que deseas eliminar este elemento de la lista?')) {
+        checkboxStates = items.map(item => item.completed); 
         const indexToRemove = parseInt(event.target.dataset.index);
         items.splice(indexToRemove, 1);
         displayItems();
+        restoreCheckboxStates();
       }
     }
+  }
+
+  function restoreCheckboxStates() {
+    items.forEach((item) => {
+      item.completed = false;
+    });
+
+    items.forEach((item, index) => {
+      const checkbox = document.getElementById(`checkbox${index}`);
+      if (checkbox) {
+        checkbox.checked = item.completed;
+      }
+    });
+  }
+
+  function updateCheckboxStates() {
+    items.forEach((item, index) => {
+      const checkbox = document.getElementById(`checkbox${index}`);
+      if (checkbox) {
+        item.completed = checkbox.checked;
+      }
+    });
   }
 
   function finishList() {

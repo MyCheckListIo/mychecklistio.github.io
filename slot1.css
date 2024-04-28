@@ -10,8 +10,8 @@ body {
 
 .container {
   text-align: center;
-  margin-top: 80px; /* Ajusta este valor según sea necesario */
-  padding-top: 40px; /* Mantén este valor si te gusta el espacio interno */
+  margin-top: 80px; 
+  padding-top: 40px;
   opacity: 1;
   width: 100%;
   margin: 0 auto;
@@ -52,6 +52,42 @@ h1.title {
   border-radius: 8px;
 }
 
+.item input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.item input[type="checkbox"]:checked {
+  background-color: rgba(255, 255, 255, 1);
+  border-color: #3498db;
+}
+
+.item input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  width: 10px;
+  height: 5px;
+  border-left: 3px solid green;
+  border-bottom: 3px solid green;
+  transform: rotate(-45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.item input[type="checkbox"]:checked::after {
+  opacity: 0.8;
+}
+
 .dynamicBtn {
   display: none;
 }
@@ -70,13 +106,12 @@ h1.title {
   color: #ff4d4d;
 }
 
-/* Estilos actualizados para la zona de eliminación y su texto */
 .delete-area {
-  position: absolute; /* Cambiado de fixed a absolute */
+  position: absolute;
   top: 50%;
-  left: -160px; /* Ajustado para que esté a la izquierda de la lista */
+  left: -160px;
   transform: translateY(-50%);
-  width: 140px; /* Ajustado el ancho */
+  width: 140px; 
   padding: 10px;
   background-color: rgba(255, 0, 0, 0.5);
   color: white;
@@ -87,11 +122,9 @@ h1.title {
   opacity: 0;
 }
 
-/* Estilos para el texto dentro de la zona de eliminación */
 .delete-text {
-  margin-bottom: 5px; /* Espaciado inferior */
+  margin-bottom: 5px; 
 }
-
 
 .item-list.dragging .delete-area {
   opacity: 1;
@@ -99,10 +132,20 @@ h1.title {
 
 .item-list.dragging .item {
   opacity: 0.5;
+  visibility: hidden;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
 }
 
 .item-list.dragging .delete-icon {
   display: block;
+}
+
+.item-list .item {
+  visibility: visible;
+}
+
+.item-list .item:hover {
+  opacity: 1;
 }
 
 .item {
@@ -116,7 +159,9 @@ h1.title {
   font-size: 2.4vh;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  margin-bottom: 10px;
+  height: 40px;
 }
 
 .item:hover {

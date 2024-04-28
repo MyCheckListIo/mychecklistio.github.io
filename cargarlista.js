@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const storedList = localStorage.getItem(listID);
 
       if (storedList) {
-        alert(`¡La lista con ID ${listID} está disponible!`);
-        window.location.href = `https://mychecklistio.github.io/slot${selectedSlot}/?id=${listID}`;
+        alert(`¡La lista con ID ${listID} está disponible en el Slot ${selectedSlot}!`);
+        redirectToSlot(selectedSlot, listID);
       } else {
         alert('El ID de lista proporcionado no corresponde a ninguna lista guardada.');
       }
@@ -41,7 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function validateList(listID) {
-    return listID.length > 0;
+    const storedList = localStorage.getItem(listID);
+    return storedList !== null && storedList !== undefined;
+  }
+
+  function redirectToSlot(slot, listID) {
+    const baseUrl = window.location.origin;
+    const slotUrl = `${baseUrl}/slot${slot}/?id=${listID}`;
+    window.location.href = slotUrl;
   }
 });
 
