@@ -32,7 +32,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(2vh, 1fr));
   gap: 40px;
   padding: 10px;
-  font-size: 3vh;
+  font-size: 3.5vh;
 }
 
 .item {
@@ -48,7 +48,7 @@ body {
 
 .item input[type="checkbox"] {
   margin-right: 10px;
-  font-size: 2vh;
+  font-size: 3vh;
 }
 
 .buttons {
@@ -63,7 +63,7 @@ button {
   margin-right: 10px;
   margin-bottom: 20px;
   font-size: 1.8vh;
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.2);

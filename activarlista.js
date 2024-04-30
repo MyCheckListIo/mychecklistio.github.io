@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function displaySavedLists() {
     listContainer.innerHTML = '';
-    const maxSlots = 5; // Número máximo de slots
+    const maxSlots = 5;
 
     for (let slot = 1; slot <= maxSlots; slot++) {
       const listCard = document.createElement('div');
       listCard.classList.add('list-card');
       const listIndex = savedLists.findIndex(list => parseInt(list.slot) === slot);
       if (listIndex !== -1) {
-        // Si hay una lista en este slot
+        
         const list = savedLists[listIndex];
         listCard.innerHTML = `
           <div class="card-header">Slot ${list.slot}</div>
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
         `;
       } else {
-        // Si no hay lista en este slot
+        
         listCard.innerHTML = `
           <div class="card-header">Slot ${slot}</div>
           <div class="card-body">No hay lista</div>

@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let items = [];
   let draggedItem = null;
   let checkboxStates = [];
+  let touchOffsetX;
+  let touchOffsetY;
 
   function generarIdUnica() {
     return Math.random().toString(36).substr(2, 9);
@@ -53,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const itemDiv = createItemElement(item, index);
       itemList.appendChild(itemDiv);
     });
-    updateCheckboxState();
+    updateCheckboxStates();
   }
 
   function createItemElement(item, index) {
@@ -85,16 +87,29 @@ document.addEventListener('DOMContentLoaded', function () {
     checkboxStates = items.map(item => item.completed);
   }
 
+  function handleDragOver(event) {
+    event.preventDefault();
+  }
 
   function handleTouchMove(event) {
     event.preventDefault();
     const touch = event.touches[0];
-    draggedItem.style.left = touch.clientX + 'px';
-    draggedItem.style.top = touch.clientY + 'px';
-  }
 
-  function handleDragOver(event) {
-    event.preventDefault();
+    if (!touchOffsetX && !touchOffsetY) {
+      touchOffsetX = touch.clientX - draggedItem.getBoundingClientRect().left;
+      touchOffsetY = touch.clientY - draggedItem.getBoundingClientRect().top;
+    }
+
+    const offsetX = touch.clientX - touchOffsetX;
+    const offsetY = touch.clientY - touchOffsetY;
+
+    draggedItem.style.left = offsetX + 'px';
+    draggedItem.style.top = offsetY + 'px';
+
+    if (offsetY < -10) {
+      items[draggedIndex].favorite = !items[draggedIndex].favorite;
+      displayItems();
+    }
   }
 
   function handleDrop(event) {
@@ -103,14 +118,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const targetIndex = parseInt(targetItem.dataset.index);
     const draggedIndex = parseInt(draggedItem.dataset.index);
 
-    if (targetIndex !== draggedIndex) {
-      const temp = items[targetIndex];
-      items[targetIndex] = items[draggedIndex];
-      items[draggedIndex] = temp;
+    const movementX = event.clientX - draggedItem.offsetLeft;
+    const movementY = event.clientY - draggedItem.offsetTop;
 
-      checkboxStates = items.map(item => item.completed);
+    if (movementX > 0) {
+
+      items[draggedIndex].completed = true;
       displayItems();
-      restoreCheckboxStates();
+    } else if (movementX < 0) {
+      
+      if (confirm('¿Estás seguro de que deseas eliminar este elemento de la lista?')) {
+        items.splice(draggedIndex, 1);
+        displayItems();
+      }
     }
   }
 
@@ -151,15 +171,32 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function finishList() {
+    const markedProducts = [];
+    const unmarkedProducts = [];
+
+    items.forEach(item => {
+      if (item.completed) {
+        markedProducts.push({
+          name: item.item,
+          quantity: item.quantity,
+          unit: item.unit,
+          completed: item.completed
+        });
+      } else {
+        unmarkedProducts.push({
+          name: item.item,
+          quantity: item.quantity,
+          unit: item.unit,
+          completed: item.completed
+        });
+      }
+    });
+
     const totalProducts = items.reduce((acc, item) => acc + parseInt(item.quantity), 0);
-    const productHistory = items.map(item => ({
-      name: item.item,
-      quantity: item.quantity,
-      unit: item.unit,
-      completed: item.completed
-    }));
     localStorage.setItem('totalProducts', totalProducts);
-    localStorage.setItem('productHistory', JSON.stringify(productHistory));
+    localStorage.setItem('markedProductHistory', JSON.stringify(markedProducts));
+    localStorage.setItem('unmarkedProductHistory', JSON.stringify(unmarkedProducts));
+
     window.location.href = 'finish.html';
   }
 
@@ -188,4 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
   finishBtn.addEventListener('click', finishList);
   copyLinkBtn.addEventListener('click', copiarEnlace);
   whatsappBtn.addEventListener('click', compartirPorWhatsApp);
+  itemDiv.addEventListener('touchstart', handleDragStart);
+  itemDiv.addEventListener('touchmove', handleTouchMove);
+  itemDiv.addEventListener('touchend', handleDrop);
 });

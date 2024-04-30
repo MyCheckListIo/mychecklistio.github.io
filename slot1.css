@@ -40,13 +40,13 @@ h1.title {
 }
 
 .item-list {
-  margin-top: 20px;
+  margin-top: 10px;
   display: grid;
-  width: 60vw;
+  width: 80vw;
   position: relative;
   margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
+  gap: 5px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
@@ -106,6 +106,10 @@ h1.title {
   color: #ff4d4d;
 }
 
+.item-list .item.favorite {
+  border-left: 5px solid #FFD700;
+}
+
 .delete-area {
   position: absolute;
   top: 50%;
@@ -120,14 +124,15 @@ h1.title {
   transition: opacity 0.3s ease;
   z-index: 1000;
   opacity: 0;
-}
-
-.delete-text {
-  margin-bottom: 5px; 
+  border-right: 5px solid red;
 }
 
 .item-list.dragging .delete-area {
   opacity: 1;
+}
+
+.delete-text {
+  margin-bottom: 5px; 
 }
 
 .item-list.dragging .item {
@@ -142,10 +147,30 @@ h1.title {
 
 .item-list .item {
   visibility: visible;
+  position: ; absolute;
+  transition: left 0.3s ease, top 0.3s ease;
 }
 
 .item-list .item:hover {
   opacity: 1;
+}
+
+.item-list.touch-dragging .item {
+  position: relative;
+  width: auto;
+  height: auto;
+  z-index: 1000;
+  transform: translate(20%, -20%);
+  pointer-events: none;
+}
+
+.item-list.touch-dragging .item.dragging {
+  opacity: 0.8;
+  cursor: grabbing;
+}
+
+.item-list .item.dragging {
+  cursor: grabbing;
 }
 
 .item {
@@ -156,12 +181,12 @@ h1.title {
   width: 90%;
   margin: 0 auto;
   position: relative;
-  font-size: 2.4vh;
+  font-size: 2.2vh;
   display: flex;
   align-items: center;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  margin-bottom: 10px;
-  height: 40px;
+  margin-bottom: 5px;
+  height: 5vh;
 }
 
 .item:hover {
@@ -182,7 +207,7 @@ h1.title {
 }
 
 .buttons {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -223,3 +248,18 @@ button:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .item-list .item {
+    height: 5vh;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Helvetica';
+    background: linear-gradient(to bottom right, #3498db, #9b59b6);
+    color: #fff;
+    height: 100vh;
+    width: 100%;
+    opacity: 1;
+  }
+}

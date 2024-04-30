@@ -47,9 +47,21 @@ document.addEventListener('DOMContentLoaded', function () {
   redeemBtn.addEventListener('click', redeemRewards);
 
   function redeemRewards() {
-    let redeemedTokens = totalItems; // 1 token por cada ítem
-    let redeemedExperience = Object.keys(productCounts).length * 10; // 10 de experiencia por cada producto
-    let redeemedGems = 1; // 1 gema por cada lista finalizada
+    let redeemedTokens = 0;
+    let redeemedExperience = 0;
+    let redeemedGems = 0;
+
+    productHistory.forEach(item => {
+      if (item.completed) {
+        // Sumar tokens por cada ítem con checkbox marcado
+        redeemedTokens += parseInt(item.quantity);
+        // Sumar experiencia por cada producto con checkbox marcado
+        redeemedExperience += 10;
+      }
+    });
+
+    // Sumar 1 gema por cada lista finalizada
+    redeemedGems = 1;
 
     // Actualizar recompensas
     userInfo.tokens += redeemedTokens;
