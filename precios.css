@@ -1,0 +1,144 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+  opacity: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto; 
+  margin-top: 7vh; 
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px; 
+  transition: opacity 0.5s ease; 
+  opacity: 1; 
+}
+
+.container.fadeIn {
+  opacity: 1;
+}
+
+h1 {
+  font-size: 4vh;
+  margin-bottom: 40px;
+}
+
+.menu-button {
+  cursor: pointer;
+  height: 5.5vh;
+  font-size: 2vh;
+  width: 40vw;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  border: none;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tabla-precios {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.tabla-precios div {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px; 
+  margin-bottom: 8px; 
+  transition: background-color 0.3s ease; 
+}
+
+.tabla-precios div:last-child {
+  border-bottom: none; 
+}
+
+.tabla-precios div:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
+}
+
+.precios-info {
+  font-size: 1.4vh;
+  margin-bottom: 20px;
+  width: 70%;
+  text-align: center;
+}
+
+.precio-info {
+  background-color: rgba(255, 255, 255, 0.2); 
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 24px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.precio-row {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.precio-row .highlight {
+  color: #ff8c00; 
+  font-weight: bold;
+}
+
+.opciones-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.opciones-container button {
+  cursor: pointer;
+  height: 40px;
+  font-size: 1.5vw;
+  width: 100%;
+  max-width: 100vw;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  border: none;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  margin-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.opciones-container button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}

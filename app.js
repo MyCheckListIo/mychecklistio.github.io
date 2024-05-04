@@ -5,11 +5,6 @@ function fadeInAnimation() {
 
 document.addEventListener('DOMContentLoaded', fadeInAnimation);
 
-function handleTransitionEnd() {
-  const container = document.querySelector('.container');
-  container.style.opacity = '1';
-}
-
 function redirectToPage(pageName) {
   window.location.href = `${pageName}.html`;
 }
@@ -22,12 +17,16 @@ document.getElementById('btnListasGuardadas').addEventListener('click', function
   redirectToPage('listasguardadas');
 });
 
+document.getElementById('btnActivarLista').addEventListener('click', function() {
+  redirectToPage('activarlista');
+});
+
 document.getElementById('btnCargarLista').addEventListener('click', function() {
   redirectToPage('cargarlista');
 });
 
-document.getElementById('btnActivarLista').addEventListener('click', function() {
-  redirectToPage('activarlista');
+document.getElementById('btnPrecios').addEventListener('click', function() {
+  redirectToPage('precios');
 });
 
 document.getElementById('btnStats').addEventListener('click', function() {

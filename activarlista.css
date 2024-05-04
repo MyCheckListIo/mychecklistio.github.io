@@ -10,7 +10,7 @@ body {
 
 .container {
   text-align: center;
-  margin-top: 7vh;
+  margin-top: 6vh;
   opacity: 0;
   transition: opacity 1.5s ease;
   display: flex;
@@ -28,13 +28,13 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 15px;
-  height: 60%;
+  height: 60vh;
   margin-bottom: 40px;
 }
 
 .title {
   font-size: 4vh;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .item-list {
@@ -73,7 +73,7 @@ button {
   margin-right: 10px;
   margin-bottom: 20px;
   font-size: 1.8vh;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.2);
