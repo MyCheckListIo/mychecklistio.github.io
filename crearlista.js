@@ -92,9 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function editItem(event) {
     const index = event.target.dataset.index;
-    const editedItem = prompt('Ingrese el nuevo valor del elemento:', itemList[index].item);
-    if (editedItem !== null && editedItem !== '') {
+    const editedItem = prompt('Ingrese el nuevo nombre del elemento:', itemList[index].item);
+    if (editedItem !== null && editedItem.trim() !== '') {
+      const editedQuantity = prompt('Ingrese la nueva cantidad:', itemList[index].quantity);
+      const editedUnit = prompt('Ingrese la nueva unidad de medida:', itemList[index].unit);
+
       itemList[index].item = editedItem.trim();
+      itemList[index].quantity = editedQuantity.trim();
+      itemList[index].unit = editedUnit.trim();
+
       displayItemList();
     }
   }

@@ -3,7 +3,7 @@ body {
   font-family: 'Helvetica';
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
-  height: 92vh;
+  height: 100vh;
   width: 100%;
   opacity: 1;
 }

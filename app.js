@@ -25,10 +25,6 @@ document.getElementById('btnCargarLista').addEventListener('click', function() {
   redirectToPage('cargarlista');
 });
 
-document.getElementById('btnPrecios').addEventListener('click', function() {
-  redirectToPage('precios');
-});
-
 document.getElementById('btnStats').addEventListener('click', function() {
   redirectToPage('stats');
 });

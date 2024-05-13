@@ -4,6 +4,7 @@ body {
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
   height: 120vh;
+  max-height: auto;
   opacity: 1;
 }
 
@@ -30,7 +31,7 @@ h1 {
   font-size: 4vh;
   margin-top: 4vh;
   font-family: 'Helvetica';
-  margin-bottom: 3vh;
+  margin-bottom: 2vh;
 }
 
 input[type="text"],
@@ -60,10 +61,14 @@ input[type="text"]:focus {
 
 #itemInput,
 #quantityInput,
-#unitInput,
-#addItemBtn {
-  width: 80%;
+#unitInput {
+  width: 78%;
   margin-bottom: 5px;
+  margin-left: 9.2vw;
+}
+
+#addItemBtn {
+  width: 83%;
   margin-left: 9.2vw;
 }
 
@@ -97,7 +102,7 @@ button:hover {
 }
 
 .item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .buttons button {
