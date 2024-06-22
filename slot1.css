@@ -10,7 +10,7 @@ body {
 
 .container {
   text-align: center;
-  margin-top: 80px; 
+  margin-top: 80px;
   padding-top: 40px;
   opacity: 1;
   width: 100%;
@@ -76,7 +76,6 @@ h1.title {
   position: absolute;
   top: 3px;
   left: 2px;
-  
   width: 10px;
   height: 5px;
   border-left: 3px solid green;
@@ -117,7 +116,7 @@ h1.title {
   top: 50%;
   left: -160px;
   transform: translateY(-50%);
-  width: 140px; 
+  width: 140px;
   padding: 10px;
   background-color: rgba(255, 0, 0, 0.5);
   color: white;
@@ -133,10 +132,6 @@ h1.title {
   opacity: 1;
 }
 
-.delete-text {
-  margin-bottom: 5px; 
-}
-
 .item-list.dragging .item {
   opacity: 0.5;
   visibility: hidden;
@@ -148,13 +143,24 @@ h1.title {
 }
 
 .item-list .item {
-  visibility: visible;
-  position: ; absolute;
-  transition: left 0.3s ease, top 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  font-size: 2.2vh;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  margin-bottom: 5px;
+  height: 5vh; /* Ajuste el alto según el diseño deseado */
+  cursor: grabbing; /* Establecer el cursor de agarre por defecto */
 }
 
 .item-list .item:hover {
-  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .item-list.touch-dragging .item {
@@ -172,7 +178,7 @@ h1.title {
 }
 
 .item-list .item.dragging {
-  cursor: grabbing;
+  opacity: 0.2;
 }
 
 .item {
@@ -252,16 +258,17 @@ button:hover {
 
 @media (hover: none) and (pointer: coarse) {
   .item-list .item {
-    height: 5vh;
+    height: 4vh;
+    cursor: grab;
   }
+}
 
-  body {
-    margin: 0;
-    font-family: 'Helvetica';
-    background: linear-gradient(to bottom right, #3498db, #9b59b6);
-    color: #fff;
-    height: 100vh;
-    width: 100%;
-    opacity: 1;
-  }
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  background-color: transparent;
 }

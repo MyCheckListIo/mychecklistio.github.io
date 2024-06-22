@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     itemDiv.addEventListener('dragover', handleDragOver);
     itemDiv.addEventListener('drop', handleDrop);
     itemDiv.addEventListener('dragend', handleDragEnd);
-
+    itemDiv.addEventListener('touchcancel', handleTouchCancel);
     itemDiv.addEventListener('touchstart', handleDragStart);
     itemDiv.addEventListener('touchmove', handleTouchMove);
 
@@ -82,34 +82,72 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleDragStart(event) {
     draggedItem = event.target;
-    
+
     updateCheckboxStates();
     checkboxStates = items.map(item => item.completed);
   }
 
   function handleDragOver(event) {
     event.preventDefault();
+    event.dataTransfer.setData('text/plain', 'anything');
+  }
+
+  function handleTouchStart(event) {
+    const touch = event.touches[0];
+    draggedItem = event.target.closest('.item');
+    const rect = draggedItem.getBoundingClientRect();
+    touchOffsetX = touch.clientX - rect.left;
+    touchOffsetY = touch.clientY - rect.top;
+    draggedItem.style.position = 'absolute';
+    draggedItem.style.zIndex = 1000;
+  
+    // Para prevenir el comportamiento predeterminado y permitir el arrastre
+    event.preventDefault();
+  }
+  
+  function handleTouchCancel(event) {
+    draggedItem.style.position = '';
+    draggedItem.style.zIndex = '';
+    draggedItem.style.left = '';
+    draggedItem.style.top = '';
+    draggedItem = null;
+  
+    // Para prevenir el comportamiento predeterminado
+    event.preventDefault();
   }
 
   function handleTouchMove(event) {
-    event.preventDefault();
     const touch = event.touches[0];
-
-    if (!touchOffsetX && !touchOffsetY) {
-      touchOffsetX = touch.clientX - draggedItem.getBoundingClientRect().left;
-      touchOffsetY = touch.clientY - draggedItem.getBoundingClientRect().top;
-    }
-
     const offsetX = touch.clientX - touchOffsetX;
     const offsetY = touch.clientY - touchOffsetY;
-
-    draggedItem.style.left = offsetX + 'px';
-    draggedItem.style.top = offsetY + 'px';
-
-    if (offsetY < -10) {
-      items[draggedIndex].favorite = !items[draggedIndex].favorite;
-      displayItems();
+    draggedItem.style.left = `${offsetX}px`;
+    draggedItem.style.top = `${offsetY}px`;
+  
+    // Para prevenir el comportamiento predeterminado
+    event.preventDefault();
+  }  
+  
+  function handleTouchEnd(event) {
+    draggedItem.style.position = '';
+    draggedItem.style.zIndex = '';
+    draggedItem.style.left = '';
+    draggedItem.style.top = '';
+  
+    const targetItem = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY).closest('.item');
+    if (targetItem) {
+      const draggedIndex = parseInt(draggedItem.dataset.index);
+      const targetIndex = parseInt(targetItem.dataset.index);
+      if (targetIndex !== draggedIndex) {
+        const temp = items[targetIndex];
+        items[targetIndex] = items[draggedIndex];
+        items[draggedIndex] = temp;
+        displayItems();
+      }
     }
+    draggedItem = null;
+  
+    // Para prevenir el comportamiento predeterminado
+    event.preventDefault();
   }
 
   function handleDrop(event) {
@@ -122,11 +160,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const movementY = event.clientY - draggedItem.offsetTop;
 
     if (movementX > 0) {
-
       items[draggedIndex].completed = true;
       displayItems();
     } else if (movementX < 0) {
-      
       if (confirm('¿Estás seguro de que deseas eliminar este elemento de la lista?')) {
         items.splice(draggedIndex, 1);
         displayItems();
@@ -139,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropzone = document.elementFromPoint(event.clientX, event.clientY);
     if (!dropzone.closest('.item-list')) {
       if (confirm('¿Estás seguro de que deseas eliminar este elemento de la lista?')) {
-        checkboxStates = items.map(item => item.completed); 
+        checkboxStates = items.map(item => item.completed);
         const indexToRemove = parseInt(event.target.dataset.index);
         items.splice(indexToRemove, 1);
         displayItems();
@@ -176,7 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
       totalProducts: totalProducts,
       markedProducts: markedProducts,
       unmarkedProducts: unmarkedProducts
-      // Puedes agregar más información aquí si es necesario
     };
     localStorage.setItem('stats', JSON.stringify(statsData));
   }
@@ -186,11 +221,10 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'finish.html';
   }
 
-  // Dentro de la función finishList(), utiliza estas funciones
   function finishList() {
     const markedProducts = [];
     const unmarkedProducts = [];
-
+  
     // Separar productos marcados y no marcados
     items.forEach(item => {
       if (item.completed) {
@@ -209,14 +243,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
-
+  
+    // Guardar productos marcados en localStorage
+    localStorage.setItem('markedProductHistory', JSON.stringify(markedProducts));
+  
     // Calcular la cantidad total de productos
     const totalProducts = items.reduce((acc, item) => acc + parseInt(item.quantity), 0);
-
+  
     // Llamar a las funciones para guardar estadísticas y redireccionar
     saveStats(totalProducts, markedProducts, unmarkedProducts);
     redirectToFinishPage();
   }
+  
 
   function compartirLista(id) {
     localStorage.setItem(id, JSON.stringify(items));
@@ -243,7 +281,4 @@ document.addEventListener('DOMContentLoaded', function () {
   finishBtn.addEventListener('click', finishList);
   copyLinkBtn.addEventListener('click', copiarEnlace);
   whatsappBtn.addEventListener('click', compartirPorWhatsApp);
-  itemDiv.addEventListener('touchstart', handleDragStart);
-  itemDiv.addEventListener('touchmove', handleTouchMove);
-  itemDiv.addEventListener('touchend', handleDrop);
 });

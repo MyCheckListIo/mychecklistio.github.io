@@ -1,6 +1,8 @@
 function fadeInAnimation() {
   const container = document.querySelector('.container');
-  container.classList.add('fadeIn');
+  if (container) {
+    container.classList.add('fadeIn');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', fadeInAnimation);
@@ -9,26 +11,21 @@ function redirectToPage(pageName) {
   window.location.href = `${pageName}.html`;
 }
 
-document.getElementById('btnCrearLista').addEventListener('click', function() {
-  redirectToPage('crearlista');
-});
+function addButtonEvent(buttonId, pageName) {
+  const button = document.getElementById(buttonId);
+  if (button) {
+    button.addEventListener('click', () => redirectToPage(pageName));
+  }
+}
 
-document.getElementById('btnListasGuardadas').addEventListener('click', function() {
-  redirectToPage('listasguardadas');
-});
+const buttons = [
+  { id: 'btnCrearLista', page: 'crearlista' },
+  { id: 'btnListasGuardadas', page: 'listasguardadas' },
+  { id: 'btnActivarLista', page: 'activarlista' },
+  { id: 'btnCargarLista', page: 'cargarlista' },
+  { id: 'btnStats', page: 'stats' },
+  { id: 'btnUsuario', page: 'user' },
+  { id: 'btnPrecios', page: 'precios' }
+];
 
-document.getElementById('btnActivarLista').addEventListener('click', function() {
-  redirectToPage('activarlista');
-});
-
-document.getElementById('btnCargarLista').addEventListener('click', function() {
-  redirectToPage('cargarlista');
-});
-
-document.getElementById('btnStats').addEventListener('click', function() {
-  redirectToPage('stats');
-});
-
-document.getElementById('btnUsuario').addEventListener('click', function() {
-  redirectToPage('user');
-});
+buttons.forEach(btn => addButtonEvent(btn.id, btn.page));
