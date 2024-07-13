@@ -25,7 +25,9 @@ const buttons = [
   { id: 'btnCargarLista', page: 'cargarlista' },
   { id: 'btnStats', page: 'stats' },
   { id: 'btnUsuario', page: 'user' },
-  { id: 'btnPrecios', page: 'precios' }
+  { id: 'btnPrecios', page: 'precios' },
+  { id: 'btnTopLeft', page: 'listasespeciales' }, 
+  { id: 'btnTopRight', page: 'recompensadiaria' } 
 ];
 
 buttons.forEach(btn => addButtonEvent(btn.id, btn.page));

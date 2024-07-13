@@ -1,7 +1,8 @@
 body {
   margin: 0;
-  font-family: 'Helvetica';
+  font-family: 'Helvetica', sans-serif;
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  background-attachment: fixed;
   color: #fff;
   height: 100vh;
   width: 100%;
@@ -10,6 +11,7 @@ body {
 }
 
 .container {
+  position: relative;
   text-align: center;
   margin-top: 8vh;
   opacity: 0; 
@@ -31,9 +33,40 @@ body {
 
 h1 {
   font-size: 4.5vh;
-  font-family: 'Helvetica';
+  font-family: 'Helvetica', sans-serif;
   margin-bottom: 20px;
   z-index: 1;
+}
+
+.corner-button {
+  position: absolute;
+  width: 130px; 
+  height: 50px;
+  padding: 0;
+  border-radius: 12px;
+  font-size: 1.5vh;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.corner-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.corner-button:focus {
+  outline: 2px solid #fff;
+}
+
+.top-left {
+  top: 0px;
+  left: 30px;
+}
+
+.top-right {
+  top: 0px;
+  right: 3%;
 }
 
 .menu-button {
@@ -42,7 +75,7 @@ h1 {
   height: 3%; 
   max-width: 70%;
   z-index: 1;
-  font-family: 'Helvetica';
+  font-family: 'Helvetica', sans-serif;
   width: 60%; 
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -58,6 +91,10 @@ h1 {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+.menu-button:focus {
+  outline: 2px solid #fff;
+}
+
 #particles-js {
   position: absolute;
   width: 100%;
@@ -66,4 +103,16 @@ h1 {
   left: 0;
   z-index: -2;
   background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .menu-button {
+    width: 90%;
+    font-size: 2vh;
+  }
+  .corner-button {
+    width: 100px;
+    height: 40px;
+    font-size: 1.2vh;
+  }
 }

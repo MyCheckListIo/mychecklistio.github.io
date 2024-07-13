@@ -16,12 +16,14 @@
       <div id="opcionesProductos" class="opciones-container">
         <button id="btnFrutas" class="menu-button">Frutas</button>
         <button id="btnHortalizas" class="menu-button">Verduras</button>
-         
       </div>
     </div>
 
-    <div id="tablaPrecios" class="tabla-precios">
-      
+    <div id="tablaPrecios" class="tabla-precios"></div>
+    <div id="detalleProducto" class="detalle-producto">
+      <h2 id="nombreProducto"></h2>
+      <p id="infoProducto"></p>
+      <canvas id="graficoPrecios"></canvas>
     </div>
 
     <div class="precios-info">
@@ -33,13 +35,12 @@
     <div class="buttons">
       <a href="index.html"><button>Volver</button></a>
     </div>
-    
   </div>
 
   <div id="particles-js"></div>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="particles-config.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="precios.js"></script>
 </body>
 </html>
