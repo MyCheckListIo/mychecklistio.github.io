@@ -113,6 +113,7 @@ h1 {
   .corner-button {
     width: 100px;
     height: 40px;
+    margin-top: -60px;
     font-size: 1.2vh;
   }
 }

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const infoProducto = document.getElementById("infoProducto");
   const graficoPrecios = document.getElementById("graficoPrecios").getContext('2d');
 
-  let chartInstance = null; // Variable para mantener el gráfico actual
+  let chartInstance = null;
 
   const precios = {
     frutas: {
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
     infoProducto.textContent = detalles.info;
 
     if (chartInstance) {
-      chartInstance.destroy(); // Destruye el gráfico anterior
+      chartInstance.destroy();
     }
 
     chartInstance = new Chart(graficoPrecios, {
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
           "13/07/2024 - 15/07/2024"
         ],
         datasets: [{
-          label: `Evolución del precio de ${producto}`,
+          label: `Evolución precio de ${producto}`,
           data: detalles.preciosHistoricos,
           borderColor: 'rgba(175, 92, 192, 1)',
           borderWidth: 2,
@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             beginAtZero: true
