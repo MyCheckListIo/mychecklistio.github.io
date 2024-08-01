@@ -1,0 +1,174 @@
+body {
+    margin: 0;
+    font-family: 'Helvetica';
+    background: linear-gradient(to bottom right, #3498db, #9b59b6);
+    color: #fff;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .container {
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+  }
+  
+  .menu-button {
+    padding: 20px;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  #tokenContainer {
+    margin-bottom: 20px;
+  }
+  
+  #listasEspecialesContainer, #listasCompradasContainer, #historialComprasContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .lista-especial, .lista-comprada {
+    padding: 20px;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .lista-especial:hover, .lista-comprada:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .btn-comprar, .btn-activar {
+    padding: 10px;
+    margin-left: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-comprar:hover, .btn-activar:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .btn-ver-detalles {
+    padding: 10px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-ver-detalles:hover {
+    background-color: #2980b9;
+  }
+
+  .modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+  }
+  
+  .modal-content p {
+    text-align: center; /* Asegura que los párrafos estén centrados */
+    margin-bottom: 10px;
+  }
+  
+  .modal-content ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center; /* Asegura que la lista esté centrada */
+  }
+  
+  .modal-content ul li {
+    margin-bottom: 5px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #modalBtnComprar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #modalBtnComprar:hover {
+    background-color: #2980b9;
+  }
+
+  .btn-volver {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .btn-volver:hover {
+    background-color: #2980b9;
+  }
+  

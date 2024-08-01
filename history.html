@@ -7,21 +7,31 @@
   <link rel="stylesheet" href="history.css">
 </head>
 <body>
-  <h1>Historial de Listas</h1>
+  <header>
+    <h1>Historial de Listas</h1>
+  </header>
 
-  <div id="historyList">
-    <!-- Aquí se mostrará la lista de historial -->
-  </div>
+  <main>
+    <section id="historyList">
+      <!-- Aquí se mostrará la lista de historial -->
+    </section>
 
-  <div class="buttonContainer">
-    <button id="backBtn">Volver a Estadísticas</button>
-    <button id="homeBtn">Volver al Inicio</button>
-  </div>
+    <nav id="pagination">
+      <!-- Aquí se mostrarán los botones de paginación -->
+    </nav>
+  </main>
+
+  <footer>
+    <div class="buttonContainer">
+      <button id="homeBtn">Volver al Inicio</button>
+      <button id="backBtn">Volver a Estadísticas</button>
+    </div>
+  </footer>
 
   <!-- Popup para mostrar detalles de lista -->
   <div id="popup" class="popup">
     <div class="popup-content">
-      <span class="close">&times;</span>
+      <button class="close" aria-label="Cerrar">&times;</button>
       <h2 id="popupTitle">Detalles de la Lista</h2>
       <div id="popupDetails">
         <!-- Contenido dinámico de la lista -->

@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/slot1/:id", "destination": "/slot1.html" }
+  ]
+}

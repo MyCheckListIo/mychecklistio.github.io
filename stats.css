@@ -5,40 +5,45 @@ body {
   color: #fff;
   height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 h1 {
-  font-size: 3.5vh;
-  margin-bottom: 30px;
-  margin-top: 40px;
+  font-size: 4vh;
+  margin: 4vh 0;
   text-align: center;
 }
 
 #statsContainer {
   margin: 0 auto;
   width: 90%; 
+  max-width: 1200px;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 20px;
-  height: 70vh;
   box-sizing: border-box;
   overflow: hidden;
 }
 
 #chartContainer {
-  margin-bottom: 5px;
+  margin-bottom: 2vh;
   background-color: transparent;
+  width: 100%;
+  height: auto;
 }
 
 #statsDetails {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 5px;
+  gap: 1.5vh;
 }
 
 .statItem {
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 1vh;
+  margin-bottom: 1.5vh;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   text-align: left;
@@ -51,18 +56,19 @@ h1 {
 
 .buttonContainer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2vh;
+  display: flex;
+  justify-content: center;
+  gap: 2vh;
+  flex-wrap: wrap;
 }
 
-.buttonContainer button {
-  padding: 10px 5vw;
-  margin: 0 10px;
-  margin-top: 10px;
-  max-width: 40%;
-  width: 40%;
+.buttonContainer button, .buttonContainer a button {
+  padding: 1vh 2vh;
+  margin: 1vh;
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
-  font-weight: bold;
+  font-weight: normal;
   border-radius: 8px;
   color: #fff;
   font-size: 2vh;
@@ -70,32 +76,16 @@ h1 {
   transition: background-color 0.3s ease;
 }
 
-.buttonContainer button:hover {
+.buttonContainer button:hover, .buttonContainer a button:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
 #historyBtn {
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 2vh;
-  padding: 10px 3vw;
-  margin: 0 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 #historyBtn:hover {
   background-color: rgba(52, 152, 219, 1);
-}
-
-.buttonContainer a button {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.buttonContainer a button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
 }
 
 #particles-js {
@@ -104,6 +94,24 @@ h1 {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -2;
+  z-index: -1;
   background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3.5vh;
+  }
+  .statItem {
+    font-size: 1.8vh;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 3vh;
+  }
+  .statItem {
+    font-size: 1.6vh;
+  }
 }

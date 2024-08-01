@@ -1,0 +1,20 @@
+[
+  {
+    "listId": 1,
+    "name": "Lista de Compras Semanal",
+    "timestamp": "2024-07-25T12:00:00Z",
+    "items": [
+      {"name": "Lechuga", "quantity": 12, "unit": "kg"},
+      {"name": "Pepino", "quantity": 1, "unit": "unidad"}
+    ]
+  },
+  {
+    "listId": 2,
+    "name": "Lista de Fiesta",
+    "timestamp": "2024-07-25T14:00:00Z",
+    "items": [
+      {"name": "Tomate", "quantity": 5, "unit": "kg"},
+      {"name": "Cebolla", "quantity": 3, "unit": "unidad"}
+    ]
+  }
+]

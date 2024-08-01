@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listas Especiales</title>
+  <link rel="stylesheet" href="listasespeciales.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Listas Especiales</h1>
+    <div id="tokenContainer">
+      <p>Tokens disponibles: <span id="tokenCount">100</span></p>
+    </div>
+    
+    <h2>Listas Disponibles</h2>
+    <div id="listasEspecialesContainer"></div>
+    
+    <h2>Listas Compradas</h2>
+    <div id="listasCompradasContainer"></div>
+    
+    <h2>Historial de Compras</h2>
+    <div id="historialComprasContainer"></div>
+  </div>
+  
+  <div id="listaModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitulo">Detalles de la Lista</h2>
+      <p id="modalContenido"></p>
+      <button id="modalBtnComprar" class="btn-comprar">Comprar</button>
+      
+    </div>
+  </div>
+
+  <div id="backToIndex">
+    <button class="btn-volver" onclick="window.location.href = 'index.html';">Volver al Inicio</button>
+  </div>
+</div>
+
+  <script src="listasespeciales.js"></script>
+</body>
+</html>

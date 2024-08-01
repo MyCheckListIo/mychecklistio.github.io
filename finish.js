@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const userTokens = document.getElementById('userTokens');
   const userGems = document.getElementById('userGems');
 
-  // Información inicial del usuario
   let userInfo = {
     level: 1,
     experience: 0,
@@ -15,28 +14,33 @@ document.addEventListener('DOMContentLoaded', function () {
     gems: 0
   };
 
-  // Recuperar información del usuario desde localStorage
-  const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
-  if (storedUserInfo) {
-    userInfo = storedUserInfo;
+  try {
+    const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (storedUserInfo) {
+      userInfo = storedUserInfo;
+    }
+  } catch (error) {
+    console.error('Error al recuperar la información del usuario:', error);
   }
 
-  // Recuperar productos marcados desde localStorage
-  let savedProducts = JSON.parse(localStorage.getItem('markedProductHistory')) || [];
-  if (!Array.isArray(savedProducts)) {
-    savedProducts = [];
-    console.error('Error al recuperar los productos marcados desde localStorage.');
+  let savedProducts = [];
+  try {
+    savedProducts = JSON.parse(localStorage.getItem('markedProductHistory')) || [];
+    if (!Array.isArray(savedProducts)) {
+      savedProducts = [];
+      console.error('Error al recuperar los productos marcados desde localStorage.');
+    }
+  } catch (error) {
+    console.error('Error al recuperar los productos marcados:', error);
   }
 
-  // Mostrar información del usuario
   function displayUserInfo() {
-    userLevel.textContent = userInfo.level;
-    userExperience.textContent = userInfo.experience;
-    userTokens.textContent = userInfo.tokens;
-    userGems.textContent = userInfo.gems;
+    userLevel.textContent = userInfo.level || 'Desconocido';
+    userExperience.textContent = userInfo.experience || 'Desconocido';
+    userTokens.textContent = userInfo.tokens || 'Desconocido';
+    userGems.textContent = userInfo.gems || 'Desconocido';
   }
 
-  // Calcular recompensas
   function calculateRewards() {
     let redeemedTokens = 0;
     let redeemedExperience = 0;
@@ -44,31 +48,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     savedProducts.forEach(item => {
       if (item.completed) {
-        redeemedTokens += parseInt(item.quantity, 10);
-        redeemedExperience += parseInt(item.quantity, 10) * 10;
+        redeemedTokens += parseInt(item.quantity, 10) || 0;
+        redeemedExperience += (parseInt(item.quantity, 10) || 0) * 10;
       }
     });
 
-    redeemedGems = 1; // Asigna una gema fija como recompensa
+    redeemedGems = 1;
 
-    // Actualizar la información del usuario
     userInfo.tokens += redeemedTokens;
     userInfo.experience += redeemedExperience;
     userInfo.gems += redeemedGems;
 
-    // Recompensas canjeadas
     const redeemedRewards = {
       tokens: redeemedTokens,
       experience: redeemedExperience,
       gems: redeemedGems
     };
 
-    // Mostrar detalles de la compra y recompensas
     displayPurchaseDetails(savedProducts);
     displayRewards(redeemedRewards);
     displayUserInfo();
 
-    // Guardar estadísticas en localStorage
     const stats = {
       redeemedRewards,
       totalProducts: savedProducts.length,
@@ -76,24 +76,34 @@ document.addEventListener('DOMContentLoaded', function () {
       timestamp: new Date().toISOString()
     };
     localStorage.setItem('stats', JSON.stringify(stats));
-
-    // Guardar la información del usuario actualizada en localStorage
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
-    // Actualizar el botón para finalizar
+    // Guardar los detalles de la lista en el historial
+    const listId = saveToHistory({
+      name: 'Lista Finalizada',
+      items: savedProducts,
+      redeemedRewards,
+      totalProducts: savedProducts.length,
+      userInfo
+    });
+
+    // Mostrar el ID de la lista finalizada
+    alert(`Lista finalizada. ID: ${listId}`);
+
     redeemBtn.textContent = 'Finalizar';
     redeemBtn.removeEventListener('click', calculateRewards);
     redeemBtn.addEventListener('click', goToIndex);
   }
 
-  // Mostrar detalles de la compra
   function displayPurchaseDetails(products) {
     const productCounts = {};
     let totalItems = 0;
 
     products.forEach(item => {
-      totalItems += parseInt(item.quantity, 10);
-      productCounts[item.name] = (productCounts[item.name] || 0) + parseInt(item.quantity, 10);
+      totalItems += parseInt(item.quantity, 10) || 0;
+      if (item.completed) {
+        productCounts[item.name] = (productCounts[item.name] || 0) + (parseInt(item.quantity, 10) || 0);
+      }
     });
 
     purchaseDetails.innerHTML = `
@@ -102,13 +112,12 @@ document.addEventListener('DOMContentLoaded', function () {
         <p>Total de Productos Diferentes: ${Object.keys(productCounts).length}</p>
         <p>Cantidad Total de Ítems: ${totalItems}</p>
         <ul>
-          ${Object.entries(productCounts).map(([productName, quantity]) => `<li>${productName}: ${quantity}</li>`).join('')}
+          ${Object.entries(productCounts).map(([productName, quantity]) => `<li>${productName}: ${quantity} kg</li>`).join('')}
         </ul>
       </div>
     `;
   }
 
-  // Mostrar recompensas
   function displayRewards(rewards) {
     const rewardItems = Object.entries(rewards).map(([rewardName, rewardValue]) => {
       return `<li>${rewardName}: ${rewardValue}</li>`;
@@ -117,15 +126,55 @@ document.addEventListener('DOMContentLoaded', function () {
     rewardList.innerHTML = rewardItems;
   }
 
-  // Redirigir a la página de inicio
   function goToIndex() {
     window.location.href = 'index.html';
   }
 
-  // Agregar evento para el botón de canjear
   redeemBtn.addEventListener('click', calculateRewards);
 
-  // Mostrar detalles iniciales de la compra y la información del usuario
   displayPurchaseDetails(savedProducts);
   displayUserInfo();
 });
+
+function saveToHistory(list) {
+  let history = [];
+
+  try {
+    const existingData = localStorage.getItem('history');
+    if (existingData) {
+      history = JSON.parse(existingData);
+    }
+  } catch (error) {
+    console.error('Error al recuperar el historial:', error);
+  }
+
+  // Generar un ID único usando un número aleatorio
+  const generateUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
+
+  const newEntry = {
+    id: generateUniqueId(), // Usar el ID único generado
+    name: list.name || 'Lista sin nombre',
+    items: list.items || [],
+    redeemedRewards: list.redeemedRewards || {},
+    totalProducts: list.totalProducts || 0,
+    userInfo: list.userInfo || {},
+    timestamp: new Date().toISOString()
+  };
+
+  history.push(newEntry);
+
+  try {
+    localStorage.setItem('history', JSON.stringify(history));
+  } catch (error) {
+    console.error('Error al guardar el historial:', error);
+  }
+
+  // Guardar el nuevo objeto con su ID en localStorage
+  try {
+    localStorage.setItem(`list_${newEntry.id}`, JSON.stringify(newEntry));
+  } catch (error) {
+    console.error('Error al guardar el objeto de la lista en localStorage:', error);
+  }
+
+  return newEntry.id; // Retornar el ID único generado
+}

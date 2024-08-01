@@ -35,6 +35,7 @@ h1 {
   font-size: 4.5vh;
   font-family: 'Helvetica', sans-serif;
   margin-bottom: 20px;
+  margin-top: 7vh;
   z-index: 1;
 }
 
@@ -48,7 +49,7 @@ h1 {
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .corner-button:hover {
@@ -60,13 +61,13 @@ h1 {
 }
 
 .top-left {
-  top: 0px;
-  left: 30px;
+  top: 15px; 
+  left: 15px; 
 }
 
 .top-right {
-  top: 0px;
-  right: 3%;
+  top: 15px; 
+  right: 15px;
 }
 
 .menu-button {
@@ -95,6 +96,22 @@ h1 {
   outline: 2px solid #fff;
 }
 
+.toggle-button {
+  position: absolute;
+  top: 2px; 
+  left: 8vw;
+  font-size: 4.5vh;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.toggle-button:hover {
+  transform: scale(1.1);
+}
+
 #particles-js {
   position: absolute;
   width: 100%;
@@ -106,14 +123,158 @@ h1 {
 }
 
 @media (max-width: 768px) {
+  body {
+    font-size: 1.8vh;
+  }
+  h1 {
+    font-size: 4vh;
+    margin-top: 12vh;
+    margin-bottom: 15px;
+  }
+  .container {
+    margin-top: 5vh;
+  }
+  .menu-container {
+    margin-top: 7vh;
+  }
   .menu-button {
     width: 90%;
     font-size: 2vh;
+    padding: 15px 4vw;
+    margin-top: 8px;
   }
   .corner-button {
     width: 100px;
     height: 40px;
-    margin-top: -60px;
     font-size: 1.2vh;
+  }
+  .corner-button.top-left {
+    left: 40px;
+  }
+  .corner-button.top-right {
+    right: 40px;
+  }
+  .toggle-button {
+    font-size: 3vh;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 1.6vh;
+  }
+  h1 {
+    font-size: 4vh;
+    margin-top: 10vh;
+    margin-bottom: 12px;
+  }
+  .container {
+    margin-top: 4vh;
+  }
+  .menu-container {
+    margin-top: 12vh;
+  }
+  .menu-button {
+    width: 95%;
+    font-size: 1.8vh;
+    padding: 20px 5vw;
+    margin-top: 12px;
+  }
+  .corner-button {
+    width: 90px;
+    height: 35px;
+    font-size: 1.1vh;
+  }
+  .corner-button.top-left {
+    margin-right: 45px;
+    top: 60px;
+  }
+  .corner-button.top-right {
+    right: 25px;
+    top: 60px;
+  }
+  .toggle-button {
+    position: absolute;
+    left: 20px;
+    font-size: 4vh;
+    margin-top: -5px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .toggle-button:hover {
+    transform: scale(1.1);
+  }
+
+.hidden {
+  display: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 320px) {
+  body {
+    font-size: 1.4vh;
+  }
+  h1 {
+    font-size: 3vh;
+    margin-bottom: 10px;
+    margin-top: 7vh;
+  }
+  .container {
+    margin-top: 3vh;
+  }
+  .menu-container {
+    margin-top: 3vh;
+  }
+  .menu-button {
+    width: 100%;
+    font-size: 1.5vh;
+    padding: 8px 2vw;
+    margin-top: 5px;
+  }
+  .corner-button {
+    width: 80px;
+    height: 30px;
+    font-size: 1vh;
+  }
+  .corner-button.top-left {
+    left: 10px;
+  }
+  .corner-button.top-right {
+    right: 10px;
+  }
+  .toggle-button {
+    font-size: 3vh;
   }
 }

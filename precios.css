@@ -2,7 +2,7 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   color: #fff;
-  height: 140vh;
+  height: 150vh;
   opacity: 1;
 }
 
@@ -20,8 +20,9 @@ body {
 }
 
 h1 {
-  font-size: 4vh;
-  margin-bottom: 40px;
+  font-size: 3.5vh;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .menu-button {
@@ -45,8 +46,12 @@ h1 {
 .tabla-precios {
   margin-top: 20px;
   margin-bottom: 10px;
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .tabla-precios div {
@@ -69,7 +74,7 @@ h1 {
 .precios-info {
   font-size: 1.4vh;
   margin-bottom: 20px;
-  width: 90%;
+  width: 80%;
   text-align: center;
 }
 
@@ -78,7 +83,7 @@ button {
   margin-right: 10px;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 5px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -130,13 +135,14 @@ button:hover {
 .detalle-producto {
   display: none;
   margin-top: 20px;
-  width: 80%;
-  max-width: 600px;
+  width: 100%;
+  max-width: 80%;
   height: auto;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 20px;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .detalle-producto h2 {
@@ -152,11 +158,24 @@ button:hover {
 #graficoPreciosContainer {
   width: 100%;
   margin: 0 auto;
-  height: 50vh; 
+  height: 50vh;
   max-height: 50vh;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#graficoContainer {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  transition: height 0.3s;
+}
+
+#graficoContainer.minimizado {
+  height: 0;
+  overflow: hidden;
 }
 
 #graficoPrecios {
@@ -165,10 +184,14 @@ button:hover {
   max-height: 50vh;
 }
 
+.minimizado {
+  display: none;
+}
+
 @media (max-width: 600px) {
   #graficoPreciosContainer {
     height: 40vh; 
-    max-height: 50vh;
+    max-height: 40vh;
     width: 100%;
   }
 }

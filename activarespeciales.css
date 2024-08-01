@@ -1,0 +1,246 @@
+body {
+  margin: 0;
+  font-family: 'Helvetica';
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+  opacity: 1;
+}
+
+.container {
+  text-align: center;
+  margin-top: 80px;
+  padding-top: 40px;
+  opacity: 1;
+  width: 100%;
+  margin: 0 auto;
+  transition: opacity 1.5s ease;
+}
+
+h1.title {
+  font-size: 4vh;
+  margin-bottom: 20px;
+}
+
+.list-name {
+  font-size: 3.5vh;
+  margin-bottom: 20px;
+  color: #fff;
+  display: block;
+}
+
+.container.fadeIn {
+  opacity: 1;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.item-list {
+  margin-top: 10px;
+  display: grid;
+  width: 80vw;
+  position: relative;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 5px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.item input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.item input[type="checkbox"]:checked {
+  background-color: rgba(255, 255, 255, 1);
+  border-color: #3498db;
+}
+
+.item input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  width: 10px;
+  height: 5px;
+  border-left: 3px solid green;
+  border-bottom: 3px solid green;
+  transform: rotate(-45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.item input[type="checkbox"]:checked::after {
+  opacity: 0.8;
+}
+
+.dynamicBtn {
+  display: none;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%);
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+.delete-icon:hover {
+  color: #ff4d4d;
+}
+
+.item-list .item.favorite {
+  border-left: 5px solid #FFD700;
+}
+
+.delete-area {
+  position: absolute;
+  top: 50%;
+  left: -160px;
+  transform: translateY(-50%);
+  width: 140px;
+  padding: 10px;
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  border-right: 5px solid red;
+}
+
+.item-list.dragging .delete-area {
+  opacity: 1;
+}
+
+.item-list.dragging .item {
+  opacity: 0.5;
+  visibility: hidden;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+}
+
+.item-list.dragging .delete-icon {
+  display: block;
+}
+
+.item-list .item {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  font-size: 2.2vh;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  margin-bottom: 5px;
+  height: 5vh; /* Ajuste el alto según el diseño deseado */
+  cursor: grabbing; /* Establecer el cursor de agarre por defecto */
+}
+
+.item-list .item:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.item-list.touch-dragging .item {
+  position: relative;
+  width: auto;
+  height: auto;
+  z-index: 1000;
+  transform: translate(20%, -20%);
+  pointer-events: none;
+}
+
+.item-list.touch-dragging .item.dragging {
+  opacity: 0.8;
+  cursor: grabbing;
+}
+
+.item-list .item.dragging {
+  opacity: 0.2;
+}
+
+.item {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  font-size: 2.2vh;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  margin-bottom: 5px;
+  height: 5vh;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.item.dragging {
+  opacity: 0.2;
+}
+
+#itemList.dragover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: #999;
+}
+
+.item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.buttons {
+  margin-top: 10px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 60%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 24px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#copyLinkBtn,
+#whatsappBtn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  cu

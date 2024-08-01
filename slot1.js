@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
     draggedItem.style.position = 'absolute';
     draggedItem.style.zIndex = 1000;
   
-    // Para prevenir el comportamiento predeterminado y permitir el arrastre
     event.preventDefault();
   }
   
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
     draggedItem.style.top = '';
     draggedItem = null;
   
-    // Para prevenir el comportamiento predeterminado
     event.preventDefault();
   }
 
@@ -123,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
     draggedItem.style.left = `${offsetX}px`;
     draggedItem.style.top = `${offsetY}px`;
   
-    // Para prevenir el comportamiento predeterminado
     event.preventDefault();
   }  
   
@@ -146,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     draggedItem = null;
   
-    // Para prevenir el comportamiento predeterminado
     event.preventDefault();
   }
 
@@ -206,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Función para guardar estadísticas en localStorage
   function saveStats(totalProducts, markedProducts, unmarkedProducts) {
     const statsData = {
       totalProducts: totalProducts,
@@ -216,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('stats', JSON.stringify(statsData));
   }
 
-  // Función para redireccionar a la página finish.html
   function redirectToFinishPage() {
     window.location.href = 'finish.html';
   }
@@ -224,8 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function finishList() {
     const markedProducts = [];
     const unmarkedProducts = [];
-  
-    // Separar productos marcados y no marcados
+    
     items.forEach(item => {
       if (item.completed) {
         markedProducts.push({
@@ -243,18 +236,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
-  
-    // Guardar productos marcados en localStorage
+    
     localStorage.setItem('markedProductHistory', JSON.stringify(markedProducts));
-  
-    // Calcular la cantidad total de productos
+    
+    const historyData = JSON.parse(localStorage.getItem('history')) || [];
+    historyData.push({
+      id: localStorage.getItem('idLista'),
+      name: listNameElement.textContent,
+      items: items,
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('history', JSON.stringify(historyData));
+    
     const totalProducts = items.reduce((acc, item) => acc + parseInt(item.quantity), 0);
-  
-    // Llamar a las funciones para guardar estadísticas y redireccionar
-    saveStats(totalProducts, markedProducts, unmarkedProducts);
+    
+    saveStats(totalProducts, markedProducts.length, unmarkedProducts.length);
     redirectToFinishPage();
-  }
-  
+  }  
 
   function compartirLista(id) {
     localStorage.setItem(id, JSON.stringify(items));
