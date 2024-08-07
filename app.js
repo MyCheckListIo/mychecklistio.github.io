@@ -25,6 +25,7 @@ const buttons = [
   { id: 'btnCargarLista', page: 'cargarlista' },
   { id: 'btnStats', page: 'stats' },
   { id: 'btnUsuario', page: 'user' },
+  { id: 'btnIdentificador', page: 'identificador' },
   { id: 'btnPrecios', page: 'precios' },
   { id: 'btnTopLeft', page: 'listasespeciales' }, 
   { id: 'btnTopRight', page: 'recompensadiaria' } 

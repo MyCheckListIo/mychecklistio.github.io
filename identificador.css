@@ -1,0 +1,116 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: 'Helvetica', sans-serif;
+  background: linear-gradient(to bottom right, #3498db, #9b59b6);
+  background-attachment: fixed;
+  color: #fff;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Estilo del encabezado */
+h1 {
+  font-size: 2.5em;
+  margin: 20px 0;
+}
+
+/* Contenedor de pasos */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo de los botones */
+.menu-button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin: 10px 0;
+}
+
+.menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+/* Ocultar elementos */
+.hidden {
+  display: none;
+}
+
+.step {
+  margin: 20px 0;
+}
+
+#previewImage {
+  max-width: 100%;
+  max-height: 400px;
+  margin-top: 10px;
+}
+
+/* Estilo del video */
+#video {
+  width: 100%;
+  max-width: 300px;
+  border: 2px solid #fff;
+}
+
+/* Resultado del código de barras */
+#barcodeResult {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+/* Estilo del campo de texto */
+input[type="text"], textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1em;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px 0;
+}
+
+textarea {
+  height: 100px;
+}
+
+/* Estilo para mostrar mensajes de guardado */
+#saveMessage {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #4CAF50; /* Color verde para mensajes de éxito */
+}
+
+/* Estilo para la imagen del producto */
+#productImage {
+  width: 150px;
+  height: auto;
+  margin-top: 10px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
