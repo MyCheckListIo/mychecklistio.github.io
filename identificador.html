@@ -10,43 +10,55 @@
     <div class="container">
         <h1>Identificador de Productos</h1>
         <div class="menu-container">
-            <!-- Botón para abrir la cámara -->
-            <div class="step">
+            <!-- Step 1: Open Camera -->
+            <div class="step" id="openStep">
                 <button id="openCameraButton" class="menu-button">Abrir la cámara</button>
+                <a href="productos.html">
+                    <button id="savedProductsButton" class="menu-button">Productos Guardados</button>
+                </a>
+                <a href="index.html">
+                    <button id="backButton" class="menu-button">Volver</button>
+                </a>
             </div>
             
-            <!-- Sección para escanear el código de barras -->
+            <!-- Step 2: Scan Product Code -->
             <div class="step hidden" id="scanStep">
-                <video id="video" width="300" height="200" style="border: 1px solid #fff;"></video>
+                <video id="video" width="100%" height="auto" style="border: 1px solid #ddd;" autoplay></video>
                 <p>Enfocar el código del producto</p>
             </div>
             
-            <!-- Sección para mostrar el nombre del producto identificado -->
+            <!-- Step 3: Identify Product -->
             <div class="step hidden" id="identifyStep">
-                <p>Identificar el producto</p>
-                <div id="barcodeResult">Código de barras: <span id="productName"></span></div>
-                <img id="productImage" src="placeholder.png" alt="Imagen del producto" />
-                <button id="captureImageButton" class="menu-button">Capturar imagen del producto</button>
-                <button id="saveIdentifiedProductButton" class="menu-button">Guardar producto identificado</button>
+                <h2>Identificar Producto</h2>
+                <p id="barcodeResult"></p>
+                <img id="productImage" src="placeholder.png" alt="Imagen del Producto" style="width: 100%; max-width: 300px;">
+                <input type="text" id="productNameInput" placeholder="Nombre del Producto" required>
+                <button id="saveIdentifiedProductButton" class="menu-button">Guardar Producto Identificado</button>
+                <div id="saveMessage" class="message"></div>
             </div>
             
-            <!-- Sección para crear y guardar un nuevo producto -->
+            <!-- Step 4: Create New Product -->
             <div class="step hidden" id="createStep">
-                <p>Crear nuevo producto</p>
+                <h2>Crear Nuevo Producto</h2>
                 <label for="newProductName">Nombre del Producto:</label>
-                <input type="text" id="newProductName" placeholder="Ingrese el nombre del producto">
+                <input type="text" id="newProductName" placeholder="Ingrese el nombre del producto" required>
+                
                 <label for="newProductDetails">Detalles del Producto:</label>
-                <textarea id="newProductDetails" placeholder="Ingrese detalles del producto"></textarea>
+                <textarea id="newProductDetails" placeholder="Ingrese detalles del producto" required></textarea>
+                
                 <label for="productImageInput">Imagen del Producto:</label>
                 <input type="file" id="productImageInput" accept="image/*">
-                <img id="previewImage" src="placeholder.png" alt="Vista Previa" style="display:none;">
-                <button id="saveProductButton" class="menu-button">Guardar producto</button>
-                <div id="saveMessage"></div>
+                <img id="previewImage" src="placeholder.png" alt="Vista Previa" style="display:none; width: 100%; max-width: 300px;">
+                
+                <button id="saveProductButton" class="menu-button">Guardar Producto</button>
+                <div id="saveMessage" class="message"></div>
+                <button id="addAnotherProductButton" class="menu-button hidden">Agregar Otro Producto</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.3/dist/tesseract.min.js"></script>
     <script src="identificador.js"></script>
 </body>
 </html>

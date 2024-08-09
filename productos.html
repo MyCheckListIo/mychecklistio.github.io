@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="productos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Productos</h1>
+        <div class="category-container">
+            <label for="categorySelect">Categoría:</label>
+            <select id="categorySelect">
+                <option value="">Todas</option>
+                <!-- Opciones de categorías se agregarán dinámicamente aquí -->
+            </select>
+            <button id="addCategoryButton">Agregar Categoría</button>
+            <input type="text" id="newCategoryInput" placeholder="Nueva categoría" style="display: none;">
+        </div>
+        <div id="productList" class="product-list">
+            <!-- Productos se mostrarán aquí -->
+        </div>
+        <div id="actionContainer" class="action-container hidden">
+            <h2>Acciones</h2>
+            <p>Producto Seleccionado: <span id="selectedProductName"></span></p>
+            <p>Categoría Actual: <span id="selectedProductCategory"></span></p>
+            <input type="text" id="renameInput" placeholder="Nuevo nombre">
+            <button id="renameButton">Renombrar</button>
+            <button id="deleteButton">Eliminar</button>
+            <select id="categorySelectAction">
+                <!-- Opciones de categorías se agregarán dinámicamente aquí -->
+            </select>
+            <button id="assignCategoryButton">Asignar Categoría</button>
+            <input type="text" id="newCategoryInputAction" placeholder="Nueva categoría" style="display: none;">
+            <button id="addCategoryButtonAction">Agregar Categoría</button>
+            <div id="listActions">
+                <button id="addToExistingListButton">Agregar a Lista Existente</button>
+                <button id="addToNewListButton">Agregar a Nueva Lista</button>
+                <select id="existingListSelect" class="hidden">
+                    <!-- Opciones de listas existentes se agregarán dinámicamente aquí -->
+                </select>
+                <input type="text" id="newListInput" class="hidden" placeholder="Nombre de la nueva lista">
+            </div>
+        </div>
+        <a href="index.html" class="back-button">Volver a la Página Principal</a>
+    </div>
+    <script src="productos.js"></script>
+</body>
+</html>
