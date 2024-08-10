@@ -1,22 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Helvetica', sans-serif;
+    background: linear-gradient(to bottom right, #3498db, #9b59b6);
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
+    color: #fff;
+    min-height: 100vh;
 }
 
 .container {
     width: 80%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #fff;
     margin-bottom: 20px;
 }
 
@@ -32,9 +35,9 @@ h1 {
     padding: 10px;
     font-size: 16px;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    color: #333;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
 }
 
 #addCategoryButton,
@@ -43,19 +46,20 @@ h1 {
 #assignCategoryButton {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #4a90e2;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #addCategoryButton:hover,
 #renameButton:hover,
 #deleteButton:hover,
 #assignCategoryButton:hover {
-    background-color: #357abd;
+    background-color: rgba(255, 255, 255, 0.4);
     transform: scale(1.05);
 }
 
@@ -67,10 +71,10 @@ h1 {
 }
 
 .product-card {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 15px;
     width: calc(33% - 20px);
     box-sizing: border-box;
@@ -78,11 +82,12 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .product-card img {
@@ -94,11 +99,12 @@ h1 {
 .product-card h3 {
     margin: 10px 0;
     font-size: 18px;
+    color: #fff;
 }
 
 .product-card p {
     font-size: 14px;
-    color: #666;
+    color: #ddd;
 }
 
 .action-container {
@@ -110,25 +116,25 @@ h1 {
 #existingListSelect {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
     font-size: 16px;
     cursor: pointer;
     margin: 10px 5px;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .action-container button:hover,
 #existingListSelect:hover {
-    background: linear-gradient(135deg, #0092d3, #2a5d9c);
+    background-color: rgba(255, 255, 255, 0.4);
     transform: scale(1.05);
 }
 
 .action-container h2 {
     margin-bottom: 10px;
     font-size: 20px;
-    color: #333;
+    color: #fff;
 }
 
 #renameInput,
@@ -136,6 +142,8 @@ h1 {
 #newListInput {
     width: 100%;
     box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
 }
 
 #listActions {
@@ -146,16 +154,17 @@ h1 {
 #listActions button {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #4a90e2;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #listActions button:hover {
-    background-color: #357abd;
+    background-color: rgba(255, 255, 255, 0.4);
     transform: scale(1.05);
 }
 
@@ -178,14 +187,14 @@ h1 {
     margin: 20px auto;
     padding: 10px 20px;
     text-align: center;
-    background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
     font-size: 16px;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .back-button:hover {
-    background: linear-gradient(135deg, #0092d3, #2a5d9c);
+    background-color: rgba(255, 255, 255, 0.4);
 }

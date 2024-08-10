@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             productCard.className = 'product-card';
 
             productCard.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
+                <img src="${product.image}">
                 <h3>${product.name}</h3>
                 <p>${product.category}</p>
                 <button class="action-button" data-id="${product.id}">Seleccionar</button>

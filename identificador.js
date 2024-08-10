@@ -1,4 +1,8 @@
 let stream;
+let scanAttempts = 0;
+let lastScannedCode = null;
+let consecutiveMatches = 0;
+const requiredMatches = 3;
 
 document.getElementById('openCameraButton').addEventListener('click', openCamera);
 document.getElementById('captureImageButton')?.addEventListener('click', captureProductImage);
@@ -28,12 +32,46 @@ function openCamera() {
             document.getElementById('identifyStep').classList.add('hidden');
             document.getElementById('createStep').classList.add('hidden');
             focusCode();
+
+            // Añadir evento de click para enfocar
+            videoElement.addEventListener('click', focusOnClick);
         })
         .catch(error => {
             console.error("Error accessing camera: ", error);
             alert("Error accessing camera: " + error.message);
         });
 }
+
+function focusOnClick(event) {
+    const videoElement = event.target;
+    const track = stream.getVideoTracks()[0];
+
+    if (track && typeof track.getCapabilities === 'function') {
+        const capabilities = track.getCapabilities();
+        if (capabilities.focusMode.includes('manual')) {
+            const point = calculateFocusPoint(event, videoElement);
+
+            // Establecer el enfoque manual
+            track.applyConstraints({
+                advanced: [{
+                    focusMode: 'manual',
+                    pointsOfInterest: [{ x: point.x, y: point.y }]
+                }]
+            }).catch(error => {
+                console.error("Error applying focus constraints: ", error);
+            });
+        }
+    }
+}
+
+function calculateFocusPoint(event, videoElement) {
+    // Calcula la posición relativa del click en el video
+    const rect = videoElement.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    return { x, y };
+}
+
 
 function focusCode() {
     Quagga.init({
@@ -57,16 +95,67 @@ function focusCode() {
 
     Quagga.onDetected(data => {
         const code = data.codeResult.code;
-        document.getElementById('barcodeResult').textContent = `Código de barras: ${code}`;
+
+        if (lastScannedCode === code) {
+            consecutiveMatches++;
+        } else {
+            consecutiveMatches = 0;
+            lastScannedCode = code;
+        }
+
+        scanAttempts++;
+
+        if (consecutiveMatches >= requiredMatches) {
+            document.getElementById('barcodeResult').textContent = `Código de barras: ${code}`;
+            Quagga.stop();
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            document.getElementById('scanStep').classList.add('hidden');
+            document.getElementById('identifyStep').classList.remove('hidden');
+            identifyProduct(code);
+        } else if (scanAttempts >= 10) { // Limitar a 10 intentos para evitar ciclos infinitos
+            alert("No se pudo escanear el código de barras de forma confiable. Intente nuevamente.");
+            Quagga.stop();
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            resetScan();
+        }
+    });
+}
+
+function resetScan() {
+    scanAttempts = 0;
+    lastScannedCode = null;
+    consecutiveMatches = 0;
+    openCamera();
+}
+
+Quagga.onDetected(data => {
+    const code = data.codeResult.code;
+
+    if (lastScannedCode === code) {
+        consecutiveMatches++;
+    } else {
+        consecutiveMatches = 0;
+        lastScannedCode = code;
+    }
+
+    scanAttempts++;
+
+    if (consecutiveMatches >= requiredMatches) {
+        // Detener escaneo y mostrar resultados
+    } else if (scanAttempts >= 10) {
+        alert("No se pudo escanear el código de barras de forma confiable. Intente nuevamente.");
         Quagga.stop();
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
         }
-        document.getElementById('scanStep').classList.add('hidden');
-        document.getElementById('identifyStep').classList.remove('hidden');
-        identifyProduct(code);
-    });
-}
+        resetScan();
+    }
+});
+
 
 function identifyProduct(barcode) {
     fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`)
