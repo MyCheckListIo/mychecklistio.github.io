@@ -23,12 +23,14 @@ const buttons = [
   { id: 'btnListasGuardadas', page: 'listasguardadas' },
   { id: 'btnActivarLista', page: 'activarlista' },
   { id: 'btnCargarLista', page: 'cargarlista' },
+  { id: 'btnProductos', page: 'productos' },
+  { id: 'btnRecetario', page: 'recetario' },
   { id: 'btnStats', page: 'stats' },
   { id: 'btnUsuario', page: 'user' },
   { id: 'btnIdentificador', page: 'identificador' },
   { id: 'btnPrecios', page: 'precios' },
-  { id: 'btnTopLeft', page: 'listasespeciales' }, 
-  { id: 'btnTopRight', page: 'recompensadiaria' } 
+  { id: 'btnTopLeft', page: 'listasespeciales' },
+  { id: 'btnTopRight', page: 'recompensadiaria' }
 ];
 
 buttons.forEach(btn => addButtonEvent(btn.id, btn.page));

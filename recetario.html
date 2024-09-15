@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recetario - MyCheckList</title>
+  <link rel="stylesheet" href="recetario.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Recetario</h1>
+    
+    <!-- Botón para volver al Home -->
+    <button class="home-btn" onclick="goHome()">Volver al Inicio</button>
+
+    <div class="search-container">
+      <input type="text" id="ingredientInput" placeholder="Ingresa un ingrediente y presiona Enter">
+      <ul id="ingredientList"></ul>
+    </div>
+    
+    <div id="recipeContainer">
+      <h2>Recetas disponibles</h2>
+      <ul id="recipeList"></ul>
+    </div>
+
+    <!-- Sección para mostrar detalles de la receta seleccionada -->
+    <div id="recipeDetails" class="recipe-details"></div>
+
+    <!-- Sección para mostrar la cantidad de tokens disponibles -->
+    <div id="tokensDisplay" class="tokens-display"></div>
+  </div>
+
+  <script src="recetario.js"></script>
+</body>
+</html>
