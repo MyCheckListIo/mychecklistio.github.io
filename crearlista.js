@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const backBtn = document.getElementById('backBtn');
 
   let itemList = [];
-  let savedLists = [];
+  let savedLists = JSON.parse(localStorage.getItem('savedLists')) || [];
 
   function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
@@ -19,29 +19,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function loadSlotInfo() {
     const slotIndex = getUrlParams();
-    const savedList = localStorage.getItem(`savedList${slotIndex}`);
-    if (savedList) {
-      const parsedList = JSON.parse(savedList);
-      document.getElementById('listName').value = parsedList.name;
-      itemList = parsedList.items || [];
-      displayItemList();
+    if (slotIndex) {
+      const savedList = localStorage.getItem(`savedList${slotIndex}`);
+      if (savedList) {
+        const parsedList = JSON.parse(savedList);
+        itemList = parsedList.items || [];
+        displayItemList();
+      }
     }
   }
 
   function addItemToList(event) {
     event.preventDefault();
+    
     const item = itemInput.value.trim();
     const quantity = quantityInput.value.trim();
     const unit = unitInput.value.trim();
 
-    if (item !== '') {
-      const newItem = { item, quantity, unit };
-      itemList.push(newItem);
-      displayItemList();
-      itemInput.value = '';
-      quantityInput.value = '';
-      unitInput.value = '';
+    if (!item || !quantity || !unit) {
+      alert('Por favor complete todos los campos antes de agregar el elemento.');
+      return;
     }
+
+    const newItem = { item, quantity, unit };
+    itemList.push(newItem);
+    displayItemList();
+    
+    itemInput.value = '';
+    quantityInput.value = '';
+    unitInput.value = '';
   }
 
   function displayItemList() {
@@ -73,18 +79,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const itemIndex = event.currentTarget.querySelector('.editBtn').dataset.index;
     const editButton = event.currentTarget.querySelector('.editBtn');
     const deleteButton = event.currentTarget.querySelector('.deleteBtn');
+    
     const buttons = document.querySelectorAll('.editBtn, .deleteBtn');
-    buttons.forEach(button => {
-      button.style.display = 'none';
-    });
+    buttons.forEach(button => button.style.display = 'none');
+    
     editButton.style.display = 'inline-block';
     deleteButton.style.display = 'inline-block';
 
     document.addEventListener('click', function hideButtons(e) {
       if (!itemContainer.contains(e.target)) {
-        buttons.forEach(button => {
-          button.style.display = 'none';
-        });
+        buttons.forEach(button => button.style.display = 'none');
         document.removeEventListener('click', hideButtons);
       }
     });
@@ -116,8 +120,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function saveList() {
+    if (itemList.length === 0) {
+      alert('La lista está vacía. Agregue al menos un elemento antes de guardar.');
+      return;
+    }
+
     const listName = prompt('Ingrese un nombre para la lista:');
-    if (listName === null || listName.trim() === '') {
+    if (!listName) {
       alert('Debe ingresar un nombre para la lista.');
       return;
     }
@@ -133,38 +142,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const existingListIndex = savedLists.findIndex(list => list.slot === slotNumber);
     if (existingListIndex !== -1) {
       const confirmOverride = confirm(`Ya hay una lista guardada en el slot ${slotNumber}. ¿Desea reemplazarla?`);
-      if (!confirmOverride) {
-        return; // Cancelar la operación si el usuario no confirma
-      }
-
-      // Eliminar la lista existente en el slot elegido
-      savedLists.splice(existingListIndex, 1);
+      if (!confirmOverride) return;
     }
 
-    const newItemList = itemList.map(item => ({
-      item: item.item,
-      quantity: item.quantity,
-      unit: item.unit,
-    }));
-
-    const newList = { slot: slotNumber, name: listName, items: newItemList };
-
+    const newList = { slot: slotNumber, name: listName, items: itemList };
     savedLists.push(newList);
-
-    // Guardar savedLists en localStorage
     localStorage.setItem('savedLists', JSON.stringify(savedLists));
 
     alert(`Lista "${listName}" guardada correctamente en el slot ${slotNumber}.`);
     window.location.href = 'index.html';
   }
 
-
-
   backBtn.addEventListener('click', function () {
     window.location.href = 'index.html'; 
   });
 
-  addItemBtn.addEventListener('click', addItemToList);
+  itemForm.addEventListener('submit', addItemToList);
   saveListBtn.addEventListener('click', saveList);
 
   loadSlotInfo();

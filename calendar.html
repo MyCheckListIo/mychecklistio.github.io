@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario</title>
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="container">
+    <h1>Calendario</h1>
+    <div class="calendar-container">
+      <button id="prevDay">←</button>
+      <span id="calendarDate"></span>
+      <button id="nextDay">→</button>
+    </div>
+    <div id="calendarInfo"></div>
+    <div class="list-container">
+      <div class="list-item">
+        <div class="list-card">
+          <div class="card-header">Recordatorio</div>
+          <div class="card-body" id="calendarReminder"></div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button id="btnAgregarRecordatorio">Agregar Recordatorio</button>
+      <button id="btnCrearLista">Crear Lista</button>
+      <button id="btnListasGuardadas">Listas Guardadas</button>
+      <button id="btnHome">Volver al inicio</button>
+    </div>
+  </div>
+  
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span id="popupClose" class="popup-close">&times;</span>
+      <h2>Agregar Recordatorio</h2>
+      <form id="reminderForm">
+        <input type="text" id="reminderText" placeholder="Qué necesitas recordar" required>
+        <input type="date" id="reminderDate" required>
+        <input type="time" id="reminderTime" required>
+        <button type="submit">Guardar Recordatorio</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="calendar.js"></script>
+</body>
+</html>

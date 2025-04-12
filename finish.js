@@ -23,15 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
     console.error('Error al recuperar la información del usuario:', error);
   }
 
-  let savedProducts = [];
-  try {
-    savedProducts = JSON.parse(localStorage.getItem('markedProductHistory')) || [];
-    if (!Array.isArray(savedProducts)) {
-      savedProducts = [];
-      console.error('Error al recuperar los productos marcados desde localStorage.');
-    }
-  } catch (error) {
-    console.error('Error al recuperar los productos marcados:', error);
+  let savedProducts = JSON.parse(localStorage.getItem('markedProductHistory')) || [];
+  console.log('Productos guardados:', savedProducts);
+
+  if (!Array.isArray(savedProducts)) {
+    savedProducts = [];
+    console.error('Error al recuperar los productos marcados desde localStorage.');
   }
 
   function displayUserInfo() {
@@ -46,12 +43,17 @@ document.addEventListener('DOMContentLoaded', function () {
     let redeemedExperience = 0;
     let redeemedGems = 0;
 
+    console.log('Productos guardados:', savedProducts);
+
     savedProducts.forEach(item => {
       if (item.completed) {
         redeemedTokens += parseInt(item.quantity, 10) || 0;
         redeemedExperience += (parseInt(item.quantity, 10) || 0) * 10;
       }
     });
+
+    console.log('Tokens canjeados:', redeemedTokens);
+    console.log('Experiencia canjeada:', redeemedExperience);
 
     redeemedGems = 1;
 
@@ -108,11 +110,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     purchaseDetails.innerHTML = `
       <div class="container">
-        <h2>Detalles</h2>
+        <h2>Detalles de la Compra</h2>
         <p>Total de Productos Diferentes: ${Object.keys(productCounts).length}</p>
         <p>Cantidad Total de Ítems: ${totalItems}</p>
         <ul>
-          ${Object.entries(productCounts).map(([productName, quantity]) => `<li>${productName}: ${quantity} kg</li>`).join('')}
+          ${Object.entries(productCounts).map(([productName, quantity]) => `<li>${productName}: ${quantity} unidades</li>`).join('')}
         </ul>
       </div>
     `;

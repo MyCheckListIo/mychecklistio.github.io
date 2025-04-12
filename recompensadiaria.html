@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recompensas Diarias</title>
+  <link rel="stylesheet" href="recompensadiaria.css">
+</head>
+<body>
+  <div class="top-bar">
+    <button id="btnToggle" class="toggle-button">&#9776;</button>
+    <div class="user-info">
+      <span id="userLevel">Nivel: 1</span>
+      <span id="userXP">Experiencia: 0</span>
+      <span id="userTokens">Tokens: 0</span>
+      <span id="userGems">Gemas: 0</span>
+      
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="text-center mb-4">Recompensas Diarias</h1>
+
+    <div class="recompensas">
+      <div class="bonus-info">
+        <span id="bonusMensaje">¡Recibe tu recompensa diaria!</span>
+        <button id="btnAbrirCofre" class="btn-recompensa">Abrir Cofre</button>
+        <span id="resultadoRecompensa"></span>
+      </div>
+
+      <div class="barra-progreso">
+        <div id="barra" class="barra"></div>
+      </div>
+
+      <div id="rachaContainer"></div>
+
+      <div class="logros-container">
+        <h3>Logros Pendientes</h3>
+        <div id="logrosPendientesList"></div>
+      </div>
+      
+      <div class="logros-container">
+        <h3>Logros Completados</h3>
+        <div id="logrosCompletadosList"></div>
+      </div>
+          
+            
+    </div>
+  </div>
+
+  <div id="particles-js"></div>
+
+  <script src="recompensadiaria.js"></script>
+</body>
+</html>

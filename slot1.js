@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const idMensaje = document.getElementById('idMensaje');
   const listNameElement = document.getElementById('listName');
   const deleteArea = document.getElementById('deleteArea');
+  const backBtn = document.createElement('button');
+  backBtn.textContent = 'Volver';
+  backBtn.classList.add('dynamicBtn');
+  document.body.appendChild(backBtn);
 
   let items = [];
   let draggedItem = null;
@@ -217,26 +221,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function finishList() {
     const markedProducts = [];
-    const unmarkedProducts = [];
-    
     items.forEach(item => {
-      if (item.completed) {
+      const checkbox = document.getElementById(`checkbox${items.indexOf(item)}`);
+      if (checkbox.checked) {
         markedProducts.push({
           name: item.item,
           quantity: item.quantity,
           unit: item.unit,
-          completed: item.completed
-        });
-      } else {
-        unmarkedProducts.push({
-          name: item.item,
-          quantity: item.quantity,
-          unit: item.unit,
-          completed: item.completed
+          completed: true
         });
       }
     });
-    
+
+    if (markedProducts.length === 0) {
+      alert('No hay productos seleccionados para canjear.');
+      return;
+    }
+
     localStorage.setItem('markedProductHistory', JSON.stringify(markedProducts));
     
     const historyData = JSON.parse(localStorage.getItem('history')) || [];
@@ -250,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     const totalProducts = items.reduce((acc, item) => acc + parseInt(item.quantity), 0);
     
-    saveStats(totalProducts, markedProducts.length, unmarkedProducts.length);
+    saveStats(totalProducts, markedProducts.length, items.length - markedProducts.length);
     redirectToFinishPage();
   }  
 
@@ -279,4 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
   finishBtn.addEventListener('click', finishList);
   copyLinkBtn.addEventListener('click', copiarEnlace);
   whatsappBtn.addEventListener('click', compartirPorWhatsApp);
+  backBtn.addEventListener('click', function () {
+    window.location.href = 'index.html'; 
+  });
 });

@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   loadUserData();
 
   editNameBtn.addEventListener('click', function() {
-    
     userNameInput.removeAttribute('readonly');
   });
 
@@ -18,20 +17,19 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function loadUserData() {
-    const userData = JSON.parse(localStorage.getItem('userData')) || {};
+    const userData = JSON.parse(localStorage.getItem('userInfo')) || {};
 
     userNameInput.value = userData.userName || 'Nombre de usuario';
     userLevel.textContent = userData.level || '1';
-    userXP.textContent = userData.xp || '100 XP';
-    userTokens.textContent = userData.tokens || '50';
-    userGems.textContent = userData.gems || '10';
+    userXP.textContent = userData.experience || '0';
+    userTokens.textContent = userData.tokens || '0';
+    userGems.textContent = userData.gems || '0';
   }
 
   function saveUserName(newName) {
-    const userData = JSON.parse(localStorage.getItem('userData')) || {};
-
+    const userData = JSON.parse(localStorage.getItem('userInfo')) || {};
     userData.userName = newName;
 
-    localStorage.setItem('userData', JSON.stringify(userData));
+    localStorage.setItem('userInfo', JSON.stringify(userData));
   }
 });

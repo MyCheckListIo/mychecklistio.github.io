@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swap - MyCheckList</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap">
+  <link rel="stylesheet" href="swap.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Librería para el gráfico -->
+</head>
+<body>
+  <div class="container">
+    <h1>Intercambio de Monedas</h1>
+
+    <div class="instructions">
+      <p>🔄 <strong>Intercambia tus monedas por tokens.</strong></p>
+      <p>📈 <strong>El precio del token cambia en tiempo real.</strong></p>
+      <p>💰 <strong>Puedes retirar tus tokens a tu wallet MetaMask.</strong></p>
+    </div>
+
+    <div class="balance-container">
+      <p><strong>Monedas:</strong> <span id="userCoins">500</span></p>
+      <p><strong>Tokens:</strong> <span id="userTokens">10</span></p>
+    </div>
+
+    <div class="price-chart">
+      <canvas id="tokenChart"></canvas>
+      <p>Precio actual del token: <strong><span id="tokenPrice">0.02</span> USD</strong></p>
+    </div>
+
+    <div class="swap-box">
+      <label for="swapAmount">Cantidad a intercambiar:</label>
+      <input type="number" id="swapAmount" min="1" placeholder="Ingrese cantidad">
+      <button id="swapButton" class="swap-button">Intercambiar</button>
+    </div>
+
+    <div class="withdraw-box">
+      <p>¿Quieres retirar tus tokens?</p>
+      <input type="text" id="walletAddress" placeholder="Tu dirección MetaMask">
+      <button id="withdrawButton" class="withdraw-button">Retirar Tokens</button>
+    </div>
+
+    <div class="purchase-box">
+      <p>¿Necesitas más monedas?</p>
+      <button id="buyCoinsButton" class="buy-button">Comprar Monedas</button>
+      <button id="backBtn">Volver al Inicio</button>
+    </div>
+  </div>
+
+  <script src="swap.js"></script>
+</body>
+</html>

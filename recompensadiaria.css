@@ -1,0 +1,157 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: 'Helvetica', sans-serif;
+    background: linear-gradient(to bottom right, #3498db, #9b59b6);
+    background-attachment: fixed;
+    color: #fff;
+    height: 100vh;
+    max-width: 90%;
+  }
+  
+  h1 {
+    font-size: 4vh;
+    text-align: center;
+    margin: 3vh 0 20px;
+    color: aliceblue;
+  }
+  
+  .container {
+    position: relative;
+    text-align: center;
+    margin-top: 5vh;
+  }
+  
+  .top-bar {
+    background-color: rgba(9, 69, 124, 0.9);
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .toggle-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .user-info {
+    display: flex;
+    gap: 5px;
+    margin-right: 8vw;
+    font-size: 1.4vh;
+    align-items: center;
+  }
+  
+  .user-info span {
+    color: #ffffff;
+  }
+
+  .container {
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .recompensas {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .bonus-info {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2f2f2f;
+  }
+  
+  #btnAbrirCofre {
+    background-color: #00e676;
+    color: #fff;
+    padding: 5px 20px;
+    border: none;
+    font-size: 1.5vh;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  #rachaContainer {
+    font-size: 1.8vh;
+    color: #333;
+  }
+  
+  #btnAbrirCofre:hover {
+    background-color: #00c853;
+  }
+  
+  .barra-progreso {
+    background-color: rgba(224, 224, 224, 0.8);
+    border-radius: 5px;
+    height: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .barra {
+    background-color: #00e676;
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  .logros-container {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .logros-container h3 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .logros-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .logro {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .logro.completado {
+    background: #e0ffe0;
+    border-left: 5px solid #4caf50;
+    color: #2e7d32;
+  }
+  
+  .logro.pendiente {
+    background-color: #ff9800;
+    border-left: 5px solid #ef6c00;
+    color: #fff;
+    font-size: 1.7vh;
+    width: 87%;
+    height: 5.5vh;
+  }
+  
+  #particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    z-index: -1;
+  }
+  

@@ -1,3 +1,4 @@
+/* Estilos generales */
 body {
   margin: 0;
   font-family: 'Helvetica', sans-serif;
@@ -6,35 +7,199 @@ body {
   color: #fff;
   height: 100vh;
   width: 100%;
-  opacity: 1;
-  z-index: 1;
 }
 
+h1 {
+  font-size: 4.5vh;
+  text-align: center;
+  margin: 7vh 0 20px;
+}
+
+/* Contenedor principal */
 .container {
   position: relative;
   text-align: center;
   margin-top: 8vh;
-  opacity: 0; 
-  z-index: 1;
-  transition: opacity 1.5s ease; 
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
 
 .container.fadeIn {
   opacity: 1;
 }
 
-.hidden {
-  display: none;
+/* Menú */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8vh;
 }
 
-.fade-in {
-  animation: fadeIn 0.5s forwards;
+.menu-button {
+  width: 60%;
+  max-width: 70%;
+  padding: 20px 5vw;
+  margin: 10px 0;
+  font-size: 2.2vh;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.fade-out {
-  animation: fadeOut 0.5s forwards;
+.menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
+.menu-button:focus {
+  outline: 2px solid #fff;
+}
+
+/* Botones de esquina */
+.corner-button {
+  position: absolute;
+  width: 130px;
+  height: 50px;
+  font-size: 1.5vh;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.corner-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.corner-button:focus {
+  outline: 2px solid #fff;
+}
+
+.top-left {
+  top: 85px;
+  left: calc(50% - 300px);
+}
+
+.top-right {
+  top: 85px;
+  right: calc(50% - 300px);
+}
+
+.calendar-preview {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  width: 180px;
+  height: 4vh;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+}
+
+.calendar-preview:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.calendar-date {
+  font-size: 2.2vh;
+  margin-top: -4px;
+  font-weight: bold;
+}
+
+.calendar-info {
+  font-size: 1.2vh;
+  margin-top: 0px;
+}
+
+.calendar-arrow {
+  position: absolute;
+  top: 90px;
+  font-size: 2vh;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+}
+
+.calendar-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.left-arrow {
+  left: calc(50% - 160px); 
+}
+
+.right-arrow {
+  right: calc(50% - 160px);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #0763cddc;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.toggle-button:hover {
+  transform: scale(1.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Botón de intercambio */
+.swap-button {
+  background: #ffcc00;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.swap-button:hover {
+  background: #e6b800;
+}
+
+/* Partículas */
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  background-color: transparent;
+}
+
+/* Animaciones */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -57,257 +222,131 @@ body {
   }
 }
 
-.menu-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 8vh;
-  z-index: 1;
+.fade-in {
+  animation: fadeIn 0.5s forwards;
 }
 
-h1 {
-  font-size: 4.5vh;
-  font-family: 'Helvetica', sans-serif;
-  margin-bottom: 20px;
-  margin-top: 7vh;
-  z-index: 1;
+.fade-out {
+  animation: fadeOut 0.5s forwards;
 }
 
-.corner-button {
-  position: absolute;
-  width: 130px; 
-  height: 50px;
-  border-radius: 12px;
-  font-size: 1.5vh;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.corner-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.corner-button:focus {
-  outline: 2px solid #fff;
-}
-
-.top-left {
-  top: 85px; 
-  left: 325px; 
-}
-
-.top-right {
-  top: 85px; 
-  right: 325px;
-}
-
-.menu-button {
-  padding: 20px 5vw;
-  margin: 10px 0;
-  height: 3%; 
-  max-width: 70%;
-  z-index: 1;
-  font-family: 'Helvetica', sans-serif;
-  width: 60%; 
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 7px;
-  margin-top: 10px;
-  color: #fff;
-  font-size: 2.5vh;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.menu-button:hover {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.menu-button:focus {
-  outline: 2px solid #fff;
-}
-
-.toggle-button {
-  position: absolute;
-  top: -10px; 
-  left: 90px;
-  font-size: 5.5vh;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.toggle-button:hover {
-  transform: scale(1.1);
-}
-
-#particles-js {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -2;
-  background-color: transparent;
-}
-
+/* Responsividad */
 @media (max-width: 768px) {
-  body {
-    font-size: 1.8vh;
-  }
   h1 {
     font-size: 4vh;
     margin-top: 12vh;
-    margin-bottom: 15px;
   }
+
   .container {
     margin-top: 5vh;
   }
+
   .menu-container {
     margin-top: 7vh;
   }
+
   .menu-button {
     width: 90%;
     font-size: 2vh;
     padding: 15px 4vw;
-    margin-top: 8px;
   }
+
   .corner-button {
     width: 100px;
     height: 40px;
     font-size: 1.2vh;
   }
+
   .corner-button.top-left {
     left: 40px;
   }
+
   .corner-button.top-right {
     right: 40px;
   }
+
   .toggle-button {
     font-size: 3vh;
   }
 }
 
 @media (max-width: 480px) {
-  body {
-    font-size: 1.6vh;
-  }
   h1 {
     font-size: 4vh;
     margin-top: 10vh;
-    margin-bottom: 12px;
   }
+
   .container {
     margin-top: 4vh;
   }
+
   .menu-container {
     margin-top: 12vh;
   }
+
   .menu-button {
     width: 95%;
     font-size: 1.8vh;
     padding: 20px 5vw;
-    margin-top: 12px;
   }
+
   .corner-button {
     width: 90px;
     height: 35px;
     font-size: 1.1vh;
   }
+
   .corner-button.top-left {
-    margin-right: 45px;
+    left: 25px;
     top: 60px;
   }
+
   .corner-button.top-right {
     right: 25px;
     top: 60px;
   }
+
   .toggle-button {
     position: absolute;
     left: 20px;
     font-size: 4vh;
-    margin-top: -5px;
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.3s ease;
   }
-  .toggle-button:hover {
-    transform: scale(1.1);
-  }
-
-  .hidden {
-    display: none;
-  }
-  
-  .fade-in {
-    animation: fadeIn 0.5s forwards;
-  }
-  
-  .fade-out {
-    animation: fadeOut 0.5s forwards;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-  }
-  
+}
 
 @media (max-width: 320px) {
-  body {
-    font-size: 1.4vh;
-  }
   h1 {
     font-size: 3vh;
-    margin-bottom: 10px;
     margin-top: 7vh;
   }
+
   .container {
     margin-top: 3vh;
   }
+
   .menu-container {
     margin-top: 3vh;
   }
+
   .menu-button {
     width: 100%;
-    font-size: 1.5vh;
+    font-size: 1.4vh;
     padding: 8px 2vw;
-    margin-top: 5px;
   }
+
   .corner-button {
     width: 80px;
     height: 30px;
     font-size: 1vh;
   }
+
   .corner-button.top-left {
     left: 10px;
   }
+
   .corner-button.top-right {
     right: 10px;
   }
+
   .toggle-button {
     font-size: 3vh;
   }

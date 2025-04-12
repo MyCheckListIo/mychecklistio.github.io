@@ -1,0 +1,224 @@
+body {
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    background: linear-gradient(to bottom right, #3498db, #9b59b6);
+    color: #fff;
+    height: 120vh;
+    opacity: 1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 120vh;
+    margin-top: 5vh;
+    padding: 0 50px; 
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 3.2vh;
+    margin-bottom: 40px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+h2 {
+    font-size: 2.5vh;
+    margin-bottom: 10px;
+    color: #3498db;
+    letter-spacing: 1.1px;
+}
+
+.calendar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+#calendarDate {
+    font-size: 4vh;
+    margin: 0 20px;
+}
+
+#calendarReminder {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+button {
+    cursor: pointer;
+    height: 5vh;
+    font-size: 1.8vh;
+    width: 8vw;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 10px;
+    border: none;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #d2d2d2cf;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.list-container {
+    width: 100%;
+    max-width: 80%;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 20px;
+    height: 40%;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.list-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 15px;
+    margin-bottom: 12px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.list-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.list-card {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    height: 15%;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+    font-size: 2vh;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.card-body {
+    margin-bottom: 12px;
+    font-size: 1.4vh;
+}
+
+.buttons button {
+    cursor: pointer;
+    height: vh;
+    font-size: 1.5vh;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffffc5;
+    margin-top: 10px;
+}
+
+.buttons button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background-color: transparent;
+}
+
+.recordatorio-item {
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+    display: none;
+}
+
+.recordatorio-item:hover .acciones {
+    display: block;
+}
+
+button.editar, button.eliminar {
+    font-size: 1.4vh;
+    background-color: rgba(255, 255, 255, 0.231);
+    margin: 5px;
+    padding: 5px;
+    border: none;
+    border-radius: 8px;
+}
+
+button.eliminar {
+    background-color: rgba(255, 255, 255, 0.268);
+}
+
+button.editar:hover, button.eliminar:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    margin: 50% auto;
+    width: 80%;
+    border-radius: 8px;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+input[type="text"], input[type="date"], input[type="time"] {
+    width: 95%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 10%;
+    padding: 10px;
+    background-color: #ffffff3f;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3bff6651;
+}
