@@ -1,7 +1,6 @@
-/* Estilos generales */
 body {
   margin: 0;
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Roboto';
   background: linear-gradient(to bottom right, #3498db, #9b59b6);
   background-attachment: fixed;
   color: #fff;
@@ -10,16 +9,15 @@ body {
 }
 
 h1 {
-  font-size: 4.5vh;
+  font-size: 4.2vh;
   text-align: center;
-  margin: 7vh 0 20px;
+  margin-top: 10px;
 }
 
-/* Contenedor principal */
 .container {
   position: relative;
   text-align: center;
-  margin-top: 8vh;
+  margin-top: 3vh;
   opacity: 0;
   transition: opacity 1.5s ease;
 }
@@ -28,20 +26,20 @@ h1 {
   opacity: 1;
 }
 
-/* Menú */
 .menu-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 8vh;
+  margin-top: 9vh;
 }
 
 .menu-button {
   width: 60%;
   max-width: 70%;
   padding: 20px 5vw;
-  margin: 10px 0;
-  font-size: 2.2vh;
+  margin: 7px 0;
+  font-size: 2vh;
+  font-family: 'Roboto';
   color: #fff;
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -58,11 +56,10 @@ h1 {
   outline: 2px solid #fff;
 }
 
-/* Botones de esquina */
 .corner-button {
   position: absolute;
-  width: 130px;
-  height: 50px;
+  width: 140px;
+  height: 40px;
   font-size: 1.5vh;
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -80,19 +77,24 @@ h1 {
 }
 
 .top-left {
-  top: 85px;
-  left: calc(50% - 300px);
+  top: 68px;
+  left: calc(55% - 300px);
 }
 
 .top-right {
-  top: 85px;
-  right: calc(50% - 300px);
+  top: 68px;
+  right: calc(55% - 300px);
+}
+
+.hidden {
+  display: none !important;
 }
 
 .calendar-preview {
   position: absolute;
   top: 80px;
   left: 50%;
+  margin-top: 7vh;
   transform: translateX(-50%);
   background-color: rgba(255, 255, 255, 0.15);
   color: #fff;
@@ -100,7 +102,7 @@ h1 {
   border-radius: 15px;
   text-align: center;
   cursor: pointer;
-  width: 180px;
+  width: 35%;
   height: 4vh;
   transition: background-color 0.3s ease;
   z-index: 1;
@@ -123,7 +125,7 @@ h1 {
 
 .calendar-arrow {
   position: absolute;
-  top: 90px;
+  top: 7.5vh;
   font-size: 2vh;
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
@@ -140,11 +142,11 @@ h1 {
 }
 
 .left-arrow {
-  left: calc(50% - 160px); 
+  left: calc(38% - 160px); 
 }
 
 .right-arrow {
-  right: calc(50% - 160px);
+  right: calc(38% - 160px);
 }
 
 .top-bar {
@@ -174,7 +176,6 @@ h1 {
   gap: 15px;
 }
 
-/* Botón de intercambio */
 .swap-button {
   background: #ffcc00;
   border: none;
@@ -188,7 +189,6 @@ h1 {
   background: #e6b800;
 }
 
-/* Partículas */
 #particles-js {
   position: absolute;
   width: 100%;
@@ -199,7 +199,6 @@ h1 {
   background-color: transparent;
 }
 
-/* Animaciones */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -234,7 +233,7 @@ h1 {
 @media (max-width: 768px) {
   h1 {
     font-size: 4vh;
-    margin-top: 12vh;
+    margin-top: 10vh;
   }
 
   .container {
@@ -268,16 +267,41 @@ h1 {
   .toggle-button {
     font-size: 3vh;
   }
+
+  .calendar-preview {
+    width: 150px;
+    height: 5vh;
+  }
+
+  .calendar-date {
+    font-size: 1.8vh;
+  }
+
+  .calendar-info {
+    font-size: 1vh;
+  }
+
+  .calendar-arrow {
+    font-size: 1.8vh;
+  }
+
+  .top-bar {
+    padding: 8px;
+  }
+
+  .user-info {
+    gap: 10px;
+  }
 }
 
 @media (max-width: 480px) {
   h1 {
     font-size: 4vh;
-    margin-top: 10vh;
+    margin-top: 1vh;
   }
 
   .container {
-    margin-top: 4vh;
+    margin-top: 2vh;
   }
 
   .menu-container {
@@ -297,19 +321,57 @@ h1 {
   }
 
   .corner-button.top-left {
-    left: 25px;
-    top: 60px;
+    left: 100px;
+    top: 125px;
   }
 
   .corner-button.top-right {
-    right: 25px;
-    top: 60px;
+    right: 100px;
+    top: 125px;
+    
   }
 
   .toggle-button {
     position: absolute;
-    left: 20px;
-    font-size: 4vh;
+    left: 0px;
+    font-size: 3.5vh;
+  }
+
+  .calendar-preview {
+    width: 35%;
+    margin-top: 4.2vh;
+    height: 4vh;
+  }
+
+  .calendar-date {
+    font-size: 2vh;
+  }
+
+  .calendar-info {
+    font-size: 1.4vh;
+  }
+
+  .calendar-arrow {
+    font-size: 2vh;
+    margin-top: -2vh;
+  }
+
+  .left-arrow {
+    left: calc(54% - 160px); 
+  }
+  
+  .right-arrow {
+    right: calc(54% - 160px);
+  }
+
+  .top-bar {
+    padding: 11px;
+  }
+
+  .user-info {
+    gap: 10px;
+    margin-left: 18vw;
+    font-size: 1.4vh;
   }
 }
 
@@ -349,5 +411,30 @@ h1 {
 
   .toggle-button {
     font-size: 3vh;
+  }
+
+  .calendar-preview {
+    width: 120px;
+    height: 7vh;
+  }
+
+  .calendar-date {
+    font-size: 1.4vh;
+  }
+
+  .calendar-info {
+    font-size: 1vh;
+  }
+
+  .calendar-arrow {
+    font-size: 1.4vh;
+  }
+
+  .top-bar {
+    padding: 4px;
+  }
+
+  .user-info {
+    gap: 2px;
   }
 }

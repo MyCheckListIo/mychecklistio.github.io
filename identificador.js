@@ -4,21 +4,32 @@ let lastScannedCode = null;
 let consecutiveMatches = 0;
 const requiredMatches = 3;
 
-document.getElementById('openCameraButton').addEventListener('click', openCamera);
-document.getElementById('captureImageButton')?.addEventListener('click', captureProductImage);
-document.getElementById('saveIdentifiedProductButton').addEventListener('click', saveIdentifiedProduct);
-document.getElementById('saveProductButton').addEventListener('click', createProduct);
-document.getElementById('capturePhotoButton').addEventListener('click', capturePhoto);
-document.getElementById('recognizeTextButton').addEventListener('click', recognizeTextFromCapturedImage);
+const openCameraButton = document.getElementById('openCameraButton');
+const captureImageButton = document.getElementById('captureImageButton');
+const saveIdentifiedProductButton = document.getElementById('saveIdentifiedProductButton');
+const saveProductButton = document.getElementById('saveProductButton');
+const capturePhotoButton = document.getElementById('capturePhotoButton');
+const recognizeTextButton = document.getElementById('recognizeTextButton');
 
-document.getElementById('productImageInput').addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        const imageURL = URL.createObjectURL(file);
-        document.getElementById('previewImage').src = imageURL;
-        document.getElementById('previewImage').style.display = 'block';
-    }
-});
+if (openCameraButton) openCameraButton.addEventListener('click', openCamera);
+if (captureImageButton) captureImageButton.addEventListener('click', captureProductImage);
+if (saveIdentifiedProductButton) saveIdentifiedProductButton.addEventListener('click', saveIdentifiedProduct);
+if (saveProductButton) saveProductButton.addEventListener('click', createProduct);
+if (capturePhotoButton) capturePhotoButton.addEventListener('click', capturePhoto);
+if (recognizeTextButton) recognizeTextButton.addEventListener('click', recognizeTextFromCapturedImage);
+
+const productImageInput = document.getElementById('productImageInput');
+if (productImageInput) {
+    productImageInput.addEventListener('change', event => {
+        const file = event.target.files[0];
+        if (file) {
+            const imageURL = URL.createObjectURL(file);
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = imageURL;
+            previewImage.style.display = 'block';
+        }
+    });
+}
 
 function openCamera() {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
@@ -28,268 +39,210 @@ function openCamera() {
             videoElement.srcObject = mediaStream;
             videoElement.style.display = 'block';
             videoElement.play();
-            document.getElementById('scanStep').classList.remove('hidden');
-            document.getElementById('identifyStep').classList.add('hidden');
-            document.getElementById('createStep').classList.add('hidden');
-            focusCode();
-
-            // Añadir evento de click para enfocar
+            toggleSteps('scan');
             videoElement.addEventListener('click', focusOnClick);
+            startScanner();
         })
-        .catch(error => {
-            console.error("Error accessing camera: ", error);
-            alert("Error accessing camera: " + error.message);
-        });
+        .catch(error => showError("Error al acceder a la cámara: " + error.message));
 }
 
-function focusOnClick(event) {
-    const videoElement = event.target;
-    const track = stream.getVideoTracks()[0];
-
-    if (track && typeof track.getCapabilities === 'function') {
-        const capabilities = track.getCapabilities();
-        if (capabilities.focusMode.includes('manual')) {
-            const point = calculateFocusPoint(event, videoElement);
-
-            // Establecer el enfoque manual
-            track.applyConstraints({
-                advanced: [{
-                    focusMode: 'manual',
-                    pointsOfInterest: [{ x: point.x, y: point.y }]
-                }]
-            }).catch(error => {
-                console.error("Error applying focus constraints: ", error);
-            });
-        }
-    }
-}
-
-function calculateFocusPoint(event, videoElement) {
-    // Calcula la posición relativa del click en el video
-    const rect = videoElement.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    return { x, y };
-}
-
-
-function focusCode() {
+function startScanner() {
     Quagga.init({
         inputStream: {
             type: "LiveStream",
             target: document.querySelector("#video"),
-            constraints: {
-                facingMode: "environment"
-            }
+            constraints: { facingMode: "environment" }
         },
         decoder: {
             readers: ["code_128_reader", "ean_reader", "upc_reader"]
         }
     }, err => {
         if (err) {
-            console.error(err);
+            showError("Error inicializando el escáner: " + err.message);
             return;
         }
         Quagga.start();
     });
-
-    Quagga.onDetected(data => {
-        const code = data.codeResult.code;
-
-        if (lastScannedCode === code) {
-            consecutiveMatches++;
-        } else {
-            consecutiveMatches = 0;
-            lastScannedCode = code;
-        }
-
-        scanAttempts++;
-
-        if (consecutiveMatches >= requiredMatches) {
-            document.getElementById('barcodeResult').textContent = `Código de barras: ${code}`;
-            Quagga.stop();
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            document.getElementById('scanStep').classList.add('hidden');
-            document.getElementById('identifyStep').classList.remove('hidden');
-            identifyProduct(code);
-        } else if (scanAttempts >= 10) { // Limitar a 10 intentos para evitar ciclos infinitos
-            alert("No se pudo escanear el código de barras de forma confiable. Intente nuevamente.");
-            Quagga.stop();
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            resetScan();
-        }
-    });
-}
-
-function resetScan() {
-    scanAttempts = 0;
-    lastScannedCode = null;
-    consecutiveMatches = 0;
-    openCamera();
 }
 
 Quagga.onDetected(data => {
     const code = data.codeResult.code;
+    if (!code) return;
 
     if (lastScannedCode === code) {
         consecutiveMatches++;
     } else {
-        consecutiveMatches = 0;
+        consecutiveMatches = 1;
         lastScannedCode = code;
     }
 
     scanAttempts++;
 
     if (consecutiveMatches >= requiredMatches) {
-        // Detener escaneo y mostrar resultados
+        finishScanning(code);
     } else if (scanAttempts >= 10) {
-        alert("No se pudo escanear el código de barras de forma confiable. Intente nuevamente.");
-        Quagga.stop();
-        if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-        }
-        resetScan();
+        alert("No se pudo escanear de forma confiable. Intente nuevamente.");
+        stopScanner();
     }
 });
 
+function finishScanning(code) {
+    stopScanner();
+    toggleSteps('identify');
+    document.getElementById('barcodeResult').textContent = `Código de barras: ${code}`;
+    identifyProduct(code);
+}
+
+function stopScanner() {
+    Quagga.stop();
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+    scanAttempts = 0;
+    lastScannedCode = null;
+    consecutiveMatches = 0;
+}
+
+function toggleSteps(step) {
+    const steps = ['scanStep', 'identifyStep', 'createStep'];
+    steps.forEach(s => document.getElementById(s)?.classList.add('hidden'));
+    if (step === 'scan') document.getElementById('scanStep')?.classList.remove('hidden');
+    if (step === 'identify') document.getElementById('identifyStep')?.classList.remove('hidden');
+    if (step === 'create') document.getElementById('createStep')?.classList.remove('hidden');
+}
+
+function showError(message) {
+    const errorElement = document.getElementById('errorDisplay');
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    } else {
+        alert(message);
+    }
+}
+
+function focusOnClick(event) {
+    const video = event.target;
+    const track = stream?.getVideoTracks()[0];
+    const capabilities = track?.getCapabilities?.();
+
+    if (capabilities?.focusMode?.includes('manual')) {
+        const rect = video.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const focusPoint = clickX / rect.width;
+
+        track.applyConstraints({
+            advanced: [{ focusMode: 'manual', focusDistance: focusPoint }]
+        }).catch(error => showError("Error aplicando enfoque manual: " + error.message));
+    }
+}
+
+function captureProductImage() {
+    const video = document.getElementById('video');
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    const imageData = canvas.toDataURL('image/png');
+    document.getElementById('previewImage').src = imageData;
+    document.getElementById('previewImage').style.display = 'block';
+    toggleSteps('create');
+    stopScanner();
+}
 
 function identifyProduct(barcode) {
-    fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`)
-        .then(response => response.json())
-        .then(data => {
-            const productName = data.product ? data.product.product_name : "";
-            const productImage = data.product && data.product.image_url ? data.product.image_url : 'placeholder.png';
-                
-            document.getElementById('productNameInput').value = productName;
-            document.getElementById('productImage').src = productImage;
-            
-            document.getElementById('identifyStep').classList.remove('hidden');
-            document.getElementById('createStep').classList.add('hidden');
-        })
-        .catch(error => console.error("Error fetching product data: ", error));
-}
-
-function recognizeTextFromImage(imageElement) {
-    Tesseract.recognize(
-        imageElement.src,
-        'eng',
-        { logger: info => console.log(info) }
-    ).then(({ data: { text } }) => {
-        console.log('Texto reconocido:', text);
-        document.getElementById('recognizedTextOutput').textContent = text;
-        document.getElementById('newProductName').value = text;
-    })
-    .catch(error => console.error("Error en el reconocimiento de texto: ", error));
-}
-
-function capturePhoto() {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-        .then(mediaStream => {
-            const videoElement = document.createElement('video');
-            videoElement.srcObject = mediaStream;
-            videoElement.play();
-
-            const captureButton = document.createElement('button');
-            captureButton.textContent = 'Capturar Foto';
-            captureButton.addEventListener('click', () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = videoElement.videoWidth;
-                canvas.height = videoElement.videoHeight;
-                const context = canvas.getContext('2d');
-                context.drawImage(videoElement, 0, 0);
-                
-                const imageURL = canvas.toDataURL('image/png');
-                document.getElementById('productImage').src = imageURL;
-                
-                mediaStream.getTracks().forEach(track => track.stop());
-                document.body.removeChild(preview);
-            });
-
-            const preview = document.createElement('div');
-            preview.style.position = 'fixed';
-            preview.style.top = '0';
-            preview.style.left = '0';
-            preview.style.width = '100%';
-            preview.style.height = '100%';
-            preview.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            preview.style.display = 'flex';
-            preview.style.justifyContent = 'center';
-            preview.style.alignItems = 'center';
-            preview.appendChild(videoElement);
-            preview.appendChild(captureButton);
-            document.body.appendChild(preview);
-        })
-        .catch(error => {
-            console.error("Error accessing camera for image capture: ", error);
-        });
+    document.getElementById('identifiedProductName').textContent = `Producto encontrado con código: ${barcode}`;
+    document.getElementById('identifiedProductDescription').textContent = "Descripción generada automáticamente del producto.";
 }
 
 function saveIdentifiedProduct() {
-    const productName = document.getElementById('productNameInput').value;
-    const productImageURL = document.getElementById('productImage').src;
+    const name = document.getElementById('identifiedProductName').textContent;
+    const description = document.getElementById('identifiedProductDescription').textContent;
+    const resultContainer = document.getElementById('saveResultContainer');
+    resultContainer.innerHTML = '';
 
-    if (productName && productImageURL) {
-        const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
-        const productData = {
-            name: productName,
-            image: productImageURL
-        };
+    const resultText = document.createElement('p');
+    resultText.textContent = 'Producto guardado: ' + name;
 
-        savedItems.push(productData);
-        localStorage.setItem('savedItems', JSON.stringify(savedItems));
+    const resultDescription = document.createElement('p');
+    resultDescription.textContent = description;
 
-        document.getElementById('saveMessage').innerHTML = `
-            Producto identificado guardado correctamente.
-            <br>
-            <a href="productos.html" class="btn">Ir a productos guardados</a>
-            <br>
-            <button id="addAnotherProductButton" class="btn">Agregar otro producto</button>
-        `;
+    const image = document.getElementById('previewImage');
+    const savedImage = document.createElement('img');
+    savedImage.src = image.src;
+    savedImage.style.maxWidth = '100px';
 
-        document.getElementById('addAnotherProductButton').addEventListener('click', () => {
-            document.getElementById('identifyStep').classList.add('hidden');
-            document.getElementById('scanStep').classList.remove('hidden');
-        });
-    } else {
-        document.getElementById('saveMessage').textContent = "Por favor, complete todos los campos.";
-    }
+    resultContainer.appendChild(resultText);
+    resultContainer.appendChild(resultDescription);
+    resultContainer.appendChild(savedImage);
 }
 
 function createProduct() {
-    const productName = document.getElementById('newProductName').value;
-    const productDetails = document.getElementById('newProductDetails').value;
-    const productImage = document.getElementById('previewImage').src;
+    const name = document.getElementById('productNameInput').value;
+    const description = document.getElementById('productDescriptionInput').value;
+    const image = document.getElementById('previewImage').src;
 
-    if (productName && productDetails && productImage) {
-        console.log("Nuevo producto creado:", {
-            name: productName,
-            details: productDetails,
-            image: productImage
-        });
+    const resultContainer = document.getElementById('saveResultContainer');
+    resultContainer.innerHTML = '';
 
-        alert('Nuevo producto creado con éxito.');
-        document.getElementById('newProductName').value = '';
-        document.getElementById('newProductDetails').value = '';
-        document.getElementById('previewImage').style.display = 'none';
-    } else {
-        alert('Por favor, complete todos los campos.');
-    }
+    const resultText = document.createElement('p');
+    resultText.textContent = 'Producto personalizado guardado: ' + name;
+
+    const resultDescription = document.createElement('p');
+    resultDescription.textContent = description;
+
+    const savedImage = document.createElement('img');
+    savedImage.src = image;
+    savedImage.style.maxWidth = '100px';
+
+    resultContainer.appendChild(resultText);
+    resultContainer.appendChild(resultDescription);
+    resultContainer.appendChild(savedImage);
+}
+
+function capturePhoto() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(mediaStream => {
+            const tempVideo = document.createElement('video');
+            tempVideo.srcObject = mediaStream;
+            tempVideo.autoplay = true;
+            tempVideo.playsInline = true;
+            tempVideo.style.width = '100%';
+            document.body.appendChild(tempVideo);
+
+            const captureButton = document.createElement('button');
+            captureButton.textContent = 'Capturar';
+            document.body.appendChild(captureButton);
+
+            captureButton.addEventListener('click', () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = tempVideo.videoWidth;
+                canvas.height = tempVideo.videoHeight;
+                canvas.getContext('2d').drawImage(tempVideo, 0, 0);
+
+                const dataURL = canvas.toDataURL('image/png');
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = dataURL;
+                previewImage.style.display = 'block';
+
+                mediaStream.getTracks().forEach(track => track.stop());
+                tempVideo.remove();
+                captureButton.remove();
+            });
+        })
+        .catch(error => showError("Error al acceder a la cámara: " + error.message));
 }
 
 function recognizeTextFromCapturedImage() {
-    const imageElement = document.getElementById('productImage');
-    recognizeTextFromImage(imageElement);
-}
+    const image = document.getElementById('previewImage');
+    if (!image.src) {
+        showError("Primero debes capturar o subir una imagen.");
+        return;
+    }
 
-function showSaveMessage(message) {
-    document.getElementById('saveMessage').textContent = message;
+    Tesseract.recognize(image.src, 'eng', { logger: m => console.log(m) })
+        .then(result => {
+            document.getElementById('ocrResult').textContent = result.data.text;
+        })
+        .catch(error => showError("Error reconociendo texto: " + error.message));
 }
-
-function showSuccessMessage() {
-    document.getElementById('successMessage').textContent = "¡Producto guardado con éxito!";
-}
-

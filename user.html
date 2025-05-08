@@ -13,19 +13,23 @@
     <div id="userDetails" class="card">
       <div class="card-body">
         <div class="user-info">
-          <div>
-            <label for="userName">Nombre de Usuario:</label>
-            <input type="text" id="userName" value="Nombre de usuario" readonly>
-            <button id="editNameBtn">Editar</button>
-          </div>
+          
           <div>
             <p>Nivel: <span id="userLevel">1</span></p>
             <p>Experiencia: <span id="userXP">0</span></p>
             <p>Tokens: <span id="userTokens">0</span></p>
             <p>Gemas: <span id="userGems">0</span></p>
           </div>
+          
+          <div>
+          <label for="userName">Nombre de Usuario:</label>
+            <input type="text" id="userName" value="Nombre de usuario" readonly>
+            <button id="editNameBtn">Editar</button>
+          </div>
+
           <div class="button-container">
             <button id="settingsBtn">Ajustes</button>
+            <button onclick="window.location.href = 'history.html'">Historial</button>
             <button onclick="window.location.href = 'index.html'">Volver</button>
           </div>
         </div>
