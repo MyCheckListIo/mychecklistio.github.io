@@ -19,21 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function displaySavedProducts() {
         const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
         productList.innerHTML = '';
-
+    
         savedItems.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
-
+    
             productCard.innerHTML = `
                 <img src="${product.image}">
                 <h3>${product.name}</h3>
                 <p>${product.category}</p>
                 <button class="action-button" data-id="${product.id}">Seleccionar</button>
             `;
-
+    
             productList.appendChild(productCard);
         });
-    }
+    }    
 
     productList.addEventListener('click', (event) => {
         if (event.target.classList.contains('action-button')) {

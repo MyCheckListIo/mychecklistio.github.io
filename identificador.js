@@ -88,7 +88,9 @@ function finishScanning(code) {
     toggleSteps('identify');
     document.getElementById('barcodeResult').textContent = `Código escaneado: ${code}`;
     identifyProduct(code);
+    saveIdentifiedProduct(); 
 }
+
 
 function stopScanner() {
     Quagga.stop();
@@ -139,9 +141,22 @@ function saveIdentifiedProduct() {
     const description = document.getElementById('identifiedProductDescription').textContent;
     const image = document.getElementById('previewImage').src;
 
+    const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
+    const product = {
+        id: new Date().toISOString(), // generate a unique id based on the current date
+        name,
+        description,
+        image,
+        category: 'default', // You can modify this to be dynamic, e.g., let the user assign a category
+    };
+
+    savedItems.push(product);
+    localStorage.setItem('savedItems', JSON.stringify(savedItems));
+
     const container = document.getElementById('saveResultContainer');
     container.innerHTML = `<p>Producto guardado: ${name}</p><p>${description}</p><img src="${image}" style="max-width:100px">`;
 }
+
 
 function createProduct() {
     const name = document.getElementById('productNameInput').value;

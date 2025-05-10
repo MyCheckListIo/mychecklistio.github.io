@@ -12,13 +12,9 @@
         <div class="menu-container">
             <!-- Step 1: Open Camera -->
             <div class="step" id="openStep">
-                <button id="openCameraButton" class="menu-button">Abrir la cámara</button>
-                <a href="productos.html">
-                    <button id="savedProductsButton" class="menu-button">Productos Guardados</button>
-                </a>
-                <a href="index.html">
-                    <button id="backButton" class="menu-button">Volver</button>
-                </a>
+                <button id="openCameraButton" class="menu-button" aria-label="Abrir la cámara">Abrir la cámara</button>
+                <button id="savedProductsButton" class="menu-button" onclick="window.location.href='productos.html'">Productos Guardados</button>
+                <button id="backButton" class="menu-button" onclick="window.location.href='index.html'">Volver</button>
             </div>
             
             <!-- Step 2: Scan Product Code -->
@@ -34,7 +30,7 @@
                 <img id="productImage" src="placeholder.png" alt="Imagen del Producto" style="width: 100%; max-width: 300px;">
                 <input type="text" id="productNameInput" placeholder="Nombre del Producto" required>
                 <button id="saveIdentifiedProductButton" class="menu-button">Guardar Producto Identificado</button>
-                <div id="saveMessage" class="message"></div>
+                <div id="saveMessage1" class="message"></div>
             </div>
             
             <!-- Step 4: Create New Product -->
@@ -51,7 +47,7 @@
                 <img id="previewImage" src="placeholder.png" alt="Vista Previa" style="display:none; width: 100%; max-width: 300px;">
                 
                 <button id="saveProductButton" class="menu-button">Guardar Producto</button>
-                <div id="saveMessage" class="message"></div>
+                <div id="saveMessage2" class="message"></div>
                 <button id="addAnotherProductButton" class="menu-button hidden">Agregar Otro Producto</button>
             </div>
         </div>
