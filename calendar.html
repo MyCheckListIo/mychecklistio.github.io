@@ -9,39 +9,58 @@
 <body>
   <div id="particles-js"></div>
   <div class="container">
-    <h1>Calendario</h1>
-    <div class="calendar-container">
-      <button id="prevDay">←</button>
-      <span id="calendarDate"></span>
-      <button id="nextDay">→</button>
-    </div>
-    <div id="calendarInfo"></div>
-    <div class="list-container">
-      <div class="list-item">
-        <div class="list-card">
-          <div class="card-header">Recordatorio</div>
-          <div class="card-body" id="calendarReminder"></div>
-        </div>
+    <header>
+      <h1>Calendario</h1>
+    </header>
+    
+    <main>
+      <div class="calendar-container">
+        <button id="prevDay" aria-label="Día anterior">←</button>
+        <span id="calendarDate" aria-live="polite"></span>
+        <button id="nextDay" aria-label="Día siguiente">→</button>
       </div>
-    </div>
-    <div class="buttons">
-      <button id="btnAgregarRecordatorio">Agregar Recordatorio</button>
-      <button id="btnCrearLista">Crear Lista</button>
-      <button id="btnListasGuardadas">Listas Guardadas</button>
-      <button id="btnHome">Volver al inicio</button>
-    </div>
+      
+      <div id="calendarInfo" aria-live="polite"></div>
+
+      <section class="list-container">
+        <div class="list-item">
+          <div class="list-card">
+            <div class="card-header">Recordatorio</div>
+            <div class="card-body" id="calendarReminder" aria-labelledby="calendarReminder">
+              <p>No hay recordatorio para esta fecha.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="buttons">
+        <button id="btnAgregarRecordatorio" aria-label="Agregar un nuevo recordatorio">Agregar Recordatorio</button>
+        <a href="index.html" class="back-button" aria-label="Volver al inicio">Volver al Inicio</a>
+      </div>
+    </main>
   </div>
-  
-  <div id="popup" class="popup">
+
+  <!-- Popup para agregar recordatorio -->
+  <div id="popup" class="popup" role="dialog" aria-labelledby="popupClose" aria-hidden="true">
     <div class="popup-content">
-      <span id="popupClose" class="popup-close">&times;</span>
-      <h2>Agregar Recordatorio</h2>
-      <form id="reminderForm">
-        <input type="text" id="reminderText" placeholder="Qué necesitas recordar" required>
-        <input type="date" id="reminderDate" required>
-        <input type="time" id="reminderTime" required>
+      <span id="popupClose" class="popup-close" aria-label="Cerrar ventana">×</span>
+      <h2 id="popupTitle">Agregar Recordatorio</h2>
+      <form id="reminderForm" aria-labelledby="popupTitle">
+        <label for="reminderText">¿Qué necesitas recordar?</label>
+        <input type="text" id="reminderText" placeholder="Escribe tu recordatorio aquí" required aria-describedby="reminderTextHelp">
+        <small id="reminderTextHelp">Por ejemplo: "Llamar a Juan a las 3 PM".</small>
+
+        <label for="reminderDate">Fecha</label>
+        <input type="date" id="reminderDate" required aria-describedby="reminderDateHelp">
+        <small id="reminderDateHelp">Selecciona la fecha del recordatorio.</small>
+
+        <label for="reminderTime">Hora</label>
+        <input type="time" id="reminderTime" required aria-describedby="reminderTimeHelp">
+        <small id="reminderTimeHelp">Establece la hora del recordatorio.</small>
+
         <button type="submit">Guardar Recordatorio</button>
       </form>
+      <button id="btnGuardarExtra">Guardar Recordatorio Extra</button>
     </div>
   </div>
 

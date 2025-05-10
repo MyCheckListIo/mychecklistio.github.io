@@ -14,6 +14,65 @@ h1 {
   margin-top: 10px;
 }
 
+.fadeIn {
+  animation: fadeInAnimation 1s ease-in-out;
+}
+
+.fadeOut {
+  animation: fadeOutAnimation 1s ease-in-out;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform: translateY(150%);
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0; /* Siempre oculta por defecto */
+  visibility: hidden; /* Siempre oculta por defecto */
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0.3s;
+}
+
+.notification.visible {
+  opacity: 1;
+  visibility: visible;
+  animation: fadeInAnimation 1s ease-in-out; /* Animación para mostrar */
+}
+
+.notification.hidden {
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeOutAnimation 1s ease-in-out; /* Animación para ocultar */
+}
+
 .container {
   position: relative;
   text-align: center;
@@ -353,7 +412,7 @@ h1 {
 
   .calendar-arrow {
     font-size: 2vh;
-    margin-top: -2vh;
+    margin-top: 0.5vh;
   }
 
   .left-arrow {

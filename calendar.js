@@ -1,163 +1,130 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const btnCrearLista = document.getElementById("btnCrearLista");
-    const btnListasGuardadas = document.getElementById("btnListasGuardadas");
-    const btnHome = document.getElementById("btnHome");
-    const btnAgregarRecordatorio = document.getElementById("btnAgregarRecordatorio");
-  
-    if (btnCrearLista) {
-      btnCrearLista.addEventListener("click", () => {
-        window.location.href = "/public/crearlista.html";
-      });
-    }
-  
-    if (btnListasGuardadas) {
-      btnListasGuardadas.addEventListener("click", () => {
-        window.location.href = "/public/listasguardadas.html";
-      });
-    }
-  
-    if (btnAgregarRecordatorio) {
-      btnAgregarRecordatorio.addEventListener("click", () => {
-        window.location.href = "/public/calendar.html";
-      });
-    }
-  
-    if (btnHome) {
-      btnHome.addEventListener("click", () => {
-        window.location.href = "/public/index.html";
-      });
-    }
-  });  
-  
+const btnAgregarRecordatorio = document.getElementById('btnAgregarRecordatorio');
+const popup = document.getElementById('popup');
+const popupClose = document.getElementById('popupClose');
+const reminderForm = document.getElementById('reminderForm');
+const calendarDate = document.getElementById('calendarDate');
+const calendarReminder = document.getElementById('calendarReminder');
+const prevDay = document.getElementById('prevDay');
+const nextDay = document.getElementById('nextDay');
+const btnGuardarExtra = document.getElementById('btnGuardarExtra');
 
-const guardados = localStorage.getItem("recordatorios");
-if (guardados) {
-    Object.assign(recordatoriosPorDia, JSON.parse(guardados));
+let currentDate = new Date();
+let holdTimer;
+let editingDate = null;
+
+function updateCalendarDate() {
+  calendarDate.textContent = currentDate.toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  loadReminder();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const calendarDate = document.getElementById("calendarDate");
-    const calendarReminder = document.getElementById("calendarReminder");
-
-    const hoy = new Date();
-    let currentDay = hoy.getDate();
-    calendarDate.textContent = currentDay;
-    
-    const recordatoriosPorDia = {};
-
-    function actualizarRecordatorios() {
-        const recordatorios = recordatoriosPorDia[currentDay] || [];
-        calendarReminder.innerHTML = '';
-    
-        if (recordatorios.length === 0) {
-            calendarReminder.innerHTML = '<p class="sin-recordatorios">Sin recordatorios</p>';
-            return;
-        }
-    
-        recordatorios.forEach((recordatorio, index) => {
-            const div = document.createElement("div");
-            div.classList.add("recordatorio-item");
-            div.innerHTML = `
-                <p>${recordatorio.text} - ${recordatorio.date} ${recordatorio.time}</p>
-                <div class="acciones">
-                    <button class="editar" data-id="${index}">Editar</button>
-                    <button class="eliminar" data-id="${index}">Eliminar</button>
-                </div>
-            `;
-            calendarReminder.appendChild(div);
+function loadReminder() {
+    const dateKey = currentDate.toISOString().split('T')[0];  // Usamos la fecha en formato YYYY-MM-DD
+    const savedReminders = JSON.parse(localStorage.getItem('reminders')) || {};
+    const remindersForDate = savedReminders[dateKey] || [];
+  
+    if (remindersForDate.length > 0) {
+      calendarReminder.innerHTML = remindersForDate.map((reminder, index) => `
+        <div class="reminder-item">
+          <span class="delete-btn" data-date="${dateKey}" data-index="${index}">❌</span>
+          <p><strong>${reminder.text}</strong></p> <!-- Asegúrate de que esto sea un texto -->
+          <p>📅 ${reminder.date} 🕒 ${reminder.time}</p>
+        </div>
+      `).join('');
+  
+      const deleteBtns = calendarReminder.querySelectorAll('.delete-btn');
+      deleteBtns.forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', (e) => {
+          const index = e.target.dataset.index;
+          deleteReminder(dateKey, index);
         });
-    
-        document.querySelectorAll('.editar').forEach(button => {
-            button.addEventListener('click', editarRecordatorio);
-        });
-    
-        document.querySelectorAll('.eliminar').forEach(button => {
-            button.addEventListener('click', eliminarRecordatorio);
-        });
+      });
+  
+    } else {
+      calendarReminder.innerHTML = '<p>No hay recordatorio para esta fecha.</p>';
     }
-    
+  }
+  
 
-    function changeDay(offset) {
-        currentDay += offset;
-        if (currentDay < 1) currentDay = 31;
-        if (currentDay > 31) currentDay = 1;
-        calendarDate.textContent = currentDay;
-        actualizarRecordatorios();
+function saveReminder() {
+    const text = document.getElementById('reminderText').value;
+    const date = document.getElementById('reminderDate').value;
+    const time = document.getElementById('reminderTime').value;
+  
+    if (!text || !date || !time) {
+      alert('Por favor completa todos los campos.');
+      return;
     }
-
-    function editarRecordatorio(event) {
-        const index = event.target.getAttribute('data-id');
-        const nuevoRecordatorio = prompt("Edita tu recordatorio:", recordatoriosPorDia[currentDay][index].text);
-        if (nuevoRecordatorio) {
-            recordatoriosPorDia[currentDay][index].text = nuevoRecordatorio;
-            actualizarRecordatorios();
-        }
+  
+    const savedReminders = JSON.parse(localStorage.getItem('reminders')) || {};
+    const dateKey = date; // Usamos la fecha seleccionada para guardar el recordatorio
+    const newReminder = { text, date, time };
+  
+    if (!savedReminders[dateKey]) {
+      savedReminders[dateKey] = [];
     }
-
-    function eliminarRecordatorio(event) {
-        const index = event.target.getAttribute('data-id');
-        recordatoriosPorDia[currentDay].splice(index, 1);
-        actualizarRecordatorios();
+  
+    savedReminders[dateKey].push(newReminder);
+    localStorage.setItem('reminders', JSON.stringify(savedReminders));
+  
+    if (date === currentDate.toISOString().split('T')[0]) {
+      loadReminder();  // Recarga los recordatorios del día actual
     }
+  
+    reminderForm.reset();
+    popup.style.display = 'none';
+    editingDate = null;
+    loadReminder();  // Recarga los recordatorios después de guardar
+  }
+  
 
-    const prevButton = document.getElementById("prevDay");
-    const nextButton = document.getElementById("nextDay");
+function deleteReminder(dateKey, index) {
+  const savedReminders = JSON.parse(localStorage.getItem('reminders')) || {};
+  savedReminders[dateKey].splice(index, 1);  // Elimina el recordatorio en el índice dado
 
-    if (prevButton) {
-        prevButton.addEventListener("click", () => changeDay(-1));
-    }
+  if (savedReminders[dateKey].length === 0) {
+    delete savedReminders[dateKey];  // Elimina la fecha si no hay recordatorios restantes
+  }
 
-    if (nextButton) {
-        nextButton.addEventListener("click", () => changeDay(1));
-    }
+  localStorage.setItem('reminders', JSON.stringify(savedReminders));
+  loadReminder();  // Recarga los recordatorios después de la eliminación
+}
 
-    const btnHome = document.getElementById("btnHome");
-
-    if (btnHome) {
-        btnHome.addEventListener("click", () => {
-            window.location.href = "index.html";
-        });
-    }
-
-    const btnAgregarRecordatorio = document.getElementById("btnAgregarRecordatorio");
-    const popup = document.getElementById("popup");
-    const popupClose = document.getElementById("popupClose");
-    const reminderForm = document.getElementById("reminderForm");
-
-    btnAgregarRecordatorio.addEventListener("click", () => {
-        popup.style.display = "block";
-    });
-
-    popupClose.addEventListener("click", () => {
-        popup.style.display = "none";
-    });
-
-    reminderForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const reminderText = document.getElementById("reminderText").value;
-        const reminderDate = document.getElementById("reminderDate").value;
-        const reminderTime = document.getElementById("reminderTime").value;
-
-        if (!reminderText || !reminderDate || !reminderTime) return;
-
-        if (!recordatoriosPorDia[currentDay]) {
-            recordatoriosPorDia[currentDay] = [];
-        }
-
-        recordatoriosPorDia[currentDay].push({
-            text: reminderText,
-            date: reminderDate,
-            time: reminderTime
-        });
-
-        actualizarRecordatorios();
-        popup.style.display = "none";
-    });
-
-    actualizarRecordatorios();
+btnAgregarRecordatorio.addEventListener('click', () => {
+  popup.style.display = 'block';
+  reminderForm.reset();
+  editingDate = null;
 });
 
-function guardarEnStorage() {
-    localStorage.setItem("recordatorios", JSON.stringify(recordatoriosPorDia));
-}
+popupClose.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+reminderForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  saveReminder();
+});
+
+btnGuardarExtra.addEventListener('click', saveReminder);
+
+prevDay.addEventListener('click', () => {
+  currentDate.setDate(currentDate.getDate() - 1);
+  updateCalendarDate();
+});
+
+nextDay.addEventListener('click', () => {
+  currentDate.setDate(currentDate.getDate() + 1);
+  updateCalendarDate();
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.style.display = 'none';
+  }
+});
+
+updateCalendarDate();

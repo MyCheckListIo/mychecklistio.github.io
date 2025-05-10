@@ -1,3 +1,4 @@
+// Animación de fade-in para el contenedor
 function fadeInAnimation() {
   const container = document.querySelector('.container');
   if (container) {
@@ -7,10 +8,12 @@ function fadeInAnimation() {
 
 document.addEventListener('DOMContentLoaded', fadeInAnimation);
 
+// Redirección a páginas
 function redirectToPage(pageName) {
   window.location.href = `${pageName}.html`;
 }
 
+// Añadir eventos a los botones para redirección
 function addButtonEvent(buttonId, pageName) {
   const button = document.getElementById(buttonId);
   if (button) {
@@ -35,6 +38,7 @@ const buttons = [
 
 buttons.forEach(btn => addButtonEvent(btn.id, btn.page));
 
+// Función para mostrar u ocultar botones con animación
 function toggleButtonsVisibility() {
   const buttons = ['btnTopLeft', 'btnTopRight'].map(id => document.getElementById(id)).filter(Boolean);
 
@@ -54,6 +58,7 @@ if (toggleButton) {
   toggleButton.addEventListener('click', toggleButtonsVisibility);
 }
 
+// Cargar y mostrar información del usuario
 document.addEventListener('DOMContentLoaded', function() {
   let userInfo = {
     level: 1,
@@ -62,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
     gems: 0
   };
 
-  // Cargar información del usuario desde localStorage
   function loadUserInfo() {
     const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (storedUserInfo) {
@@ -71,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
     displayUserInfo();
   }
 
-  // Mostrar información del usuario en la interfaz
   function displayUserInfo() {
     document.getElementById('userLevel').textContent = `Nivel: ${userInfo.level}`;
     document.getElementById('userXP').textContent = `Experiencia: ${userInfo.experience}`;
@@ -79,29 +82,19 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('userGems').textContent = `Gemas: ${userInfo.gems}`;
   }
 
-  // Actualizar información del usuario
   function updateUserInfo(newTokens, newExperience, newLevel) {
     userInfo.tokens += newTokens;
     userInfo.experience += newExperience;
-    userInfo.level = newLevel; // Actualiza el nivel si es necesario
+    userInfo.level = newLevel;
 
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
-    displayUserInfo(); // Actualiza la visualización
+    displayUserInfo();
   }
 
-  // Ejemplo de función que podría ser llamada al completar una tarea
-  function completeTask() {
-    // Lógica para completar una tarea
-    const tokensEarned = 5; // Ejemplo de tokens ganados
-    const experienceGained = 10; // Ejemplo de experiencia ganada
-    const newLevel = userInfo.experience + experienceGained >= 100 ? userInfo.level + 1 : userInfo.level; // Ejemplo de lógica de nivel
-
-    updateUserInfo(tokensEarned, experienceGained, newLevel);
-  }
-
-  loadUserInfo(); // Cargar la información del usuario al inicio
+  loadUserInfo();
 });
 
+// Calendar Functions
 const calendarDate = document.getElementById("calendarDate");
 const calendarInfo = document.getElementById("calendarInfo");
 
@@ -109,35 +102,95 @@ const hoy = new Date();
 let currentDay = hoy.getDate();
 calendarDate.textContent = currentDay;
 
-const recordatorios = [
-  "Hoy vence: Luz",
-  "Hoy vence: Gas",
-  "Hoy vence: Agua",
-  "Hoy vence: Internet",
-  "Hoy vence: Obra Social",
-  "Sin pagos hoy 😊"
-];
-
-calendarInfo.textContent = recordatorios[Math.floor(Math.random() * recordatorios.length)];
-
-// Función para cambiar la fecha
-function changeDay(offset) {
-  currentDay += offset;
-  if (currentDay < 1) currentDay = 31; // Asumir un mes de 31 días
-  if (currentDay > 31) currentDay = 1; // Asumir un mes de 31 días
-
-  calendarDate.textContent = currentDay;
-  calendarInfo.textContent = recordatorios[Math.floor(Math.random() * recordatorios.length)];
+function formatReminder(reminder) {
+  if (typeof reminder === 'string') {
+    return reminder;
+  } else if (typeof reminder === 'object' && reminder !== null) {
+    return Object.values(reminder).join(" | ");
+  } else {
+    return String(reminder);
+  }
 }
 
-// Asignar eventos a las flechas
+function loadReminders() {
+  const storedReminders = JSON.parse(localStorage.getItem('reminders')) || {};
+  const dateKey = `2025-05-${currentDay < 10 ? '0' + currentDay : currentDay}`;
+  const reminders = storedReminders[dateKey];
+
+  calendarInfo.innerHTML = '';
+
+  if (!reminders) {
+    calendarInfo.innerHTML = "<div>Sin pagos hoy 😊</div>";
+  } else if (Array.isArray(reminders)) {
+    reminders.forEach(reminder => {
+      const div = document.createElement("div");
+      div.textContent = formatReminder(reminder);
+      calendarInfo.appendChild(div);
+    });
+  } else {
+    const div = document.createElement("div");
+    div.textContent = formatReminder(reminders);
+    calendarInfo.appendChild(div);
+  }
+}
+
+loadReminders();
+
+function changeDay(offset) {
+  currentDay += offset;
+  if (currentDay < 1) currentDay = 31;
+  if (currentDay > 31) currentDay = 1;
+  calendarDate.textContent = currentDay;
+  loadReminders();
+}
+
 const prevButton = document.getElementById("prevDay");
 const nextButton = document.getElementById("nextDay");
 
 if (prevButton) {
-  prevButton.addEventListener("click", () => changeDay(-1)); // Retroceder un día
+  prevButton.addEventListener("click", () => changeDay(-1));
 }
 
 if (nextButton) {
-  nextButton.addEventListener("click", () => changeDay(1)); // Avanzar un día
+  nextButton.addEventListener("click", () => changeDay(1));
+}
+
+function saveReminder(day, reminder) {
+  const storedReminders = JSON.parse(localStorage.getItem('reminders')) || {};
+
+  if (!storedReminders[day]) {
+    storedReminders[day] = [];
+  }
+
+  if (!Array.isArray(storedReminders[day])) {
+    storedReminders[day] = [storedReminders[day]];
+  }
+
+  storedReminders[day].push(reminder);
+  localStorage.setItem('reminders', JSON.stringify(storedReminders));
+}
+
+// Notificación al cargar una página
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+  const slotIndex = params.get('slot');
+  if (slotIndex) {
+    showNotification(slotIndex);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (localStorage.getItem('listSaved') === 'true') {
+    showNotification();
+    localStorage.removeItem('listSaved');
+  }
+});
+
+function showNotification() {
+  const notification = document.getElementById('notification');
+  notification.classList.add('visible');
+
+  setTimeout(function() {
+    notification.classList.remove('visible');
+  }, 3000);
 }

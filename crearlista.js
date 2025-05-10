@@ -9,7 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
   const backBtn = document.getElementById('backBtn');
 
   let itemList = [];
-  let savedLists = JSON.parse(localStorage.getItem('savedLists')) || [];
+  let savedLists = getSavedLists();
+
+  function getSavedLists() {
+    try {
+      return JSON.parse(localStorage.getItem('savedLists')) || [];
+    } catch (error) {
+      console.error('Error al cargar las listas guardadas:', error);
+      return [];
+    }
+  }
 
   function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
@@ -19,11 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function loadSlotInfo() {
     const slotIndex = getUrlParams();
-    if (slotIndex) {
-      const savedList = localStorage.getItem(`savedList${slotIndex}`);
+    if (!isNaN(slotIndex) && slotIndex > 0) {
+      const savedList = savedLists.find(list => list.slot === slotIndex);
       if (savedList) {
-        const parsedList = JSON.parse(savedList);
-        itemList = parsedList.items || [];
+        itemList = savedList.items || [];
         displayItemList();
       }
     }
@@ -31,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function addItemToList(event) {
     event.preventDefault();
-    
+
     const item = itemInput.value.trim();
     const quantity = quantityInput.value.trim();
     const unit = unitInput.value.trim();
@@ -41,10 +49,18 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    if (isNaN(quantity) || parseFloat(quantity) <= 0) {
+      alert('La cantidad debe ser un número válido mayor que cero.');
+      return;
+    }
+
     const newItem = { item, quantity, unit };
     itemList.push(newItem);
     displayItemList();
-    
+    clearFormInputs();
+  }
+
+  function clearFormInputs() {
     itemInput.value = '';
     quantityInput.value = '';
     unitInput.value = '';
@@ -52,6 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function displayItemList() {
     itemContainer.innerHTML = '';
+
+    if (itemList.length === 0) {
+      itemContainer.innerHTML = '<p class="empty-message">La lista está vacía.</p>';
+      return;
+    }
+
     itemList.forEach((item, index) => {
       const itemElement = document.createElement('div');
       itemElement.classList.add('item');
@@ -65,24 +87,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const editButton = itemElement.querySelector('.editBtn');
       const deleteButton = itemElement.querySelector('.deleteBtn');
+
       editButton.addEventListener('click', editItem);
       deleteButton.addEventListener('click', confirmDeleteItem);
-    });
 
-    const itemElements = document.querySelectorAll('.item');
-    itemElements.forEach(item => {
-      item.addEventListener('click', showButtons);
+      itemElement.addEventListener('click', function (e) {
+        showButtons(e.currentTarget);
+      });
     });
   }
 
-  function showButtons(event) {
-    const itemIndex = event.currentTarget.querySelector('.editBtn').dataset.index;
-    const editButton = event.currentTarget.querySelector('.editBtn');
-    const deleteButton = event.currentTarget.querySelector('.deleteBtn');
-    
+  function showButtons(itemElement) {
+    const editButton = itemElement.querySelector('.editBtn');
+    const deleteButton = itemElement.querySelector('.deleteBtn');
     const buttons = document.querySelectorAll('.editBtn, .deleteBtn');
+
     buttons.forEach(button => button.style.display = 'none');
-    
+
     editButton.style.display = 'inline-block';
     deleteButton.style.display = 'inline-block';
 
@@ -95,21 +116,30 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function editItem(event) {
+    event.stopPropagation();
     const index = event.target.dataset.index;
-    const editedItem = prompt('Ingrese el nuevo nombre del elemento:', itemList[index].item);
-    if (editedItem !== null && editedItem.trim() !== '') {
-      const editedQuantity = prompt('Ingrese la nueva cantidad:', itemList[index].quantity);
-      const editedUnit = prompt('Ingrese la nueva unidad de medida:', itemList[index].unit);
+    const currentItem = itemList[index];
 
-      itemList[index].item = editedItem.trim();
-      itemList[index].quantity = editedQuantity.trim();
-      itemList[index].unit = editedUnit.trim();
+    const editedItem = prompt('Ingrese el nuevo nombre del elemento:', currentItem.item);
+    if (editedItem === null || editedItem.trim() === '') return;
 
-      displayItemList();
-    }
+    const editedQuantity = prompt('Ingrese la nueva cantidad:', currentItem.quantity);
+    if (editedQuantity === null || editedQuantity.trim() === '' || isNaN(editedQuantity)) return;
+
+    const editedUnit = prompt('Ingrese la nueva unidad de medida:', currentItem.unit);
+    if (editedUnit === null || editedUnit.trim() === '') return;
+
+    itemList[index] = {
+      item: editedItem.trim(),
+      quantity: editedQuantity.trim(),
+      unit: editedUnit.trim()
+    };
+
+    displayItemList();
   }
 
   function confirmDeleteItem(event) {
+    event.stopPropagation();
     const index = event.target.dataset.index;
     const itemToDelete = itemList[index].item;
     const confirmDelete = confirm(`¿Está seguro que desea eliminar "${itemToDelete}"?`);
@@ -126,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const listName = prompt('Ingrese un nombre para la lista:');
-    if (!listName) {
+    if (!listName || listName.trim() === '') {
       alert('Debe ingresar un nombre para la lista.');
       return;
     }
@@ -139,22 +169,33 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    const existingListIndex = savedLists.findIndex(list => list.slot === slotNumber);
-    if (existingListIndex !== -1) {
+    const newList = { slot: slotNumber, name: listName.trim(), items: itemList };
+
+    const existingIndex = savedLists.findIndex(list => list.slot === slotNumber);
+    if (existingIndex !== -1) {
       const confirmOverride = confirm(`Ya hay una lista guardada en el slot ${slotNumber}. ¿Desea reemplazarla?`);
       if (!confirmOverride) return;
+      savedLists[existingIndex] = newList;
+    } else {
+      savedLists.push(newList);
     }
 
-    const newList = { slot: slotNumber, name: listName, items: itemList };
-    savedLists.push(newList);
-    localStorage.setItem('savedLists', JSON.stringify(savedLists));
+    try {
+      localStorage.setItem('savedLists', JSON.stringify(savedLists));
+      alert(`Lista "${listName}" guardada correctamente en el slot ${slotNumber}.`);
 
-    alert(`Lista "${listName}" guardada correctamente en el slot ${slotNumber}.`);
-    window.location.href = 'index.html';
+      localStorage.setItem('lastSavedSlot', slotNumber);
+      localStorage.setItem('listSaved', 'true');
+
+      window.location.href = 'index.html';
+    } catch (error) {
+      console.error('Error guardando la lista:', error);
+      alert('Ocurrió un error al guardar la lista. Inténtelo nuevamente.');
+    }
   }
 
   backBtn.addEventListener('click', function () {
-    window.location.href = 'index.html'; 
+    window.location.href = 'index.html';
   });
 
   itemForm.addEventListener('submit', addItemToList);
