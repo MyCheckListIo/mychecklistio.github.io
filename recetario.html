@@ -9,13 +9,11 @@
 <body>
   <div class="container">
     <h1>Recetario</h1>
-    
-    <!-- Botón para volver al Home -->
-    <button class="home-btn" onclick="goHome()">Volver al Inicio</button>
 
     <div class="search-container">
       <input type="text" id="ingredientInput" placeholder="Ingresa un ingrediente y presiona Enter">
       <ul id="ingredientList"></ul>
+      <button id="btnMenuInteligente" class="menu-button" onclick="location.href='menu.html'">Menú Inteligente</button>
     </div>
     
     <div id="recipeContainer">
@@ -23,12 +21,12 @@
       <ul id="recipeList"></ul>
     </div>
 
-    <!-- Sección para mostrar detalles de la receta seleccionada -->
     <div id="recipeDetails" class="recipe-details"></div>
 
-    <!-- Sección para mostrar la cantidad de tokens disponibles -->
     <div id="tokensDisplay" class="tokens-display"></div>
   </div>
+
+  <button class="home-btn" onclick="goHome()">Volver al Inicio</button>
 
   <script src="recetario.js"></script>
 </body>

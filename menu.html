@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Semanal Inteligente</title>
+  <link rel="stylesheet" href="menu.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" />
+</head>
+<body>
+  <div class="top-bar">
+    <button class="toggle-button" onclick="window.location.href='index.html'">&#9776;</button>
+    <h1>Menú Semanal</h1>
+    <div class="user-info">🍽️</div>
+  </div>
+
+  <div class="container fadeIn">
+    <form id="menuForm" class="formulario-menu">
+      <label for="tipoDieta">Tipo de dieta:</label>
+      <select id="tipoDieta" required>
+        <option value="estandar">Estándar</option>
+        <option value="saludable">Saludable</option>
+        <option value="vegana">Vegana</option>
+        <option value="keto">Keto</option>
+      </select>
+
+      <label for="personas">Personas:</label>
+      <input type="number" id="personas" min="1" max="10" value="2" required />
+
+      <label for="dias">Días:</label>
+      <select id="dias" required>
+        <option value="5">5 días</option>
+        <option value="7" selected>7 días</option>
+        <option value="10">10 días</option>
+      </select>
+
+      <button type="submit" class="menu-button">Generar Menú</button>
+    </form>
+
+    <div id="resultadoMenu" class="menu-result hidden"></div>
+  </div>
+
+  <script src="menu.js"></script>
+</body>
+</html>

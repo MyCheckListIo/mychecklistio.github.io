@@ -121,19 +121,39 @@ h1 {
   background-color: #3498db;
 }
 
+.menu-button {
+  width: 60%;
+  max-width: 70%;
+  padding: 10px 5vw;
+  margin: 7px 0;
+  font-size: 2vh;
+  font-family: 'Roboto';
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .home-btn {
-  background-color: #196eee;
+  background-color: #17c1ff8c;
   color: white;
   border: none;
   padding: 10px 20px;
-  font-size: 1.2vh;
+  font-size: 1.4vh;
   border-radius: 5px;
+  margin-top: 20px;
   cursor: pointer;
   margin-bottom: 20px;
 }
 
 .home-btn:hover {
-  background-color: #1a8fe8;
+  background-color: #1a8fe869;
 }
 
 .hidden {

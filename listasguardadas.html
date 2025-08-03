@@ -8,15 +8,30 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h1 class="text-center mb-4">Listas Guardadas</h1>
+    <h1 class="text-center mb-2">Listas Guardadas</h1>
+    <div class="text-center mb-3">
+      <div class="text-center mb-3">
+        <button id="especialesToggleBtn">Ver Especiales</button>
+      </div>
+      <div id="comprarEspecialesWrapper" class="text-center" style="display: none;">
+        <button id="irASlotBtn">Ir a comprar más especiales</button>
+      </div>
+    </div>
+    
     <div id="listContainer" class="list-container">
       <div id="noListsMessage" style="display: none;">No hay listas guardadas.</div>
     </div>
+
+    <div id="comprarEspecialesWrapper" class="text-center" style="display: none; margin-top: 1rem;">
+      <button id="irASlotBtn">Ir a comprar más especiales</button>
+    </div>
+
     <div class="buttons">
       <button id="backBtn">Volver al Inicio</button>
       <button id="premiumBtn" style="display: none;">Mejorar a Premium</button>
     </div>
   </div>
+
   <div id="particles-js"></div>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="particles-config.js"></script>

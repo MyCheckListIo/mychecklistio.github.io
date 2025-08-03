@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Receta</title>
+  <link rel="stylesheet" href="slotdieta.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">🍴 Lista de Ingredientes</h1>
+    <h2 id="listName" class="list-name">Cargando...</h2>
+    <div id="itemList" class="item-list"></div>
+
+    <div class="buttons">
+      <button id="shareBtn">Crear ID de Lista</button>
+      <p id="idMensaje" style="display: none;">ID de Lista creada:</p>
+      <button id="copyLinkBtn" style="display: none;">Copiar Enlace</button>
+      <button id="whatsappBtn" style="display: none;">Compartir por WhatsApp</button>
+      <button id="finishBtn">Finalizar Lista</button>
+      
+    </div>
+  </div>
+
+  <div id="deleteArea" class="delete-area">Soltar aquí para eliminar</div>
+
+  <script src="slotdieta.js"></script>
+</body>
+</html>

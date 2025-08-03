@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Receta del Día</title>
+  <link rel="stylesheet" href="receta.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="top-bar">
+    <button class="back-button" onclick="window.history.back()">← Volver</button>
+    <h1 id="tituloReceta">Receta</h1>
+  </div>
+
+  <div class="token-info">
+    <div class="token-info">Tokens: <span id="userTokens">0</span></div>
+
+
+  </div>
+
+  <main>
+    <section id="recetaDetalle" class="receta-detalle">
+      <h2 id="nombreReceta"></h2>
+      <ul id="listaIngredientes"></ul>
+    </section>
+
+    <div class="botones-compra">
+      <button id="btnComprarDia" class="btn-comprar">Comprar receta del día (10 tokens)</button>
+      <button id="btnComprarCompleto" class="btn-comprar">Comprar menú completo (50 tokens)</button>
+    </div>
+  </main>
+
+  <script src="receta.js"></script>
+</body>
+</html>
