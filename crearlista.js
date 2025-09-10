@@ -227,40 +227,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   scanListBtn.addEventListener('click', async () => {
     scanPopup.style.display = 'none';
-
-    async function openCamera(constraints) {
-      try { return await navigator.mediaDevices.getUserMedia(constraints); } 
-      catch { return null; }
-    }
-
+    async function openCamera(constraints) { try { return await navigator.mediaDevices.getUserMedia(constraints); } catch { return null; } }
     let stream = await openCamera({ video: { facingMode: 'environment' } });
     if (!stream) stream = await openCamera({ video: true });
-
     if (stream) {
       const video = document.createElement('video');
       video.srcObject = stream;
-      video.play();
-
+      await video.play();
       const scanVideoPopup = document.createElement('div');
-      Object.assign(scanVideoPopup.style, {
-        position: 'fixed', top: '0', left: '0', width: '100%', height: '100%',
-        background: 'rgba(0,0,0,0.8)', display: 'flex', justifyContent: 'center',
-        alignItems: 'center', flexDirection: 'column', zIndex: '9999'
-      });
+      Object.assign(scanVideoPopup.style, { position:'fixed', top:'0', left:'0', width:'100%', height:'100%', background:'rgba(0,0,0,0.8)', display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column', zIndex:'9999' });
       scanVideoPopup.appendChild(video);
-
       const captureBtn = document.createElement('button');
       captureBtn.textContent = 'Capturar lista';
       captureBtn.style.marginTop = '20px';
       scanVideoPopup.appendChild(captureBtn);
-
       const cancelBtn = document.createElement('button');
       cancelBtn.textContent = 'Cancelar';
       cancelBtn.style.marginTop = '10px';
       scanVideoPopup.appendChild(cancelBtn);
-
       document.body.appendChild(scanVideoPopup);
-
       captureBtn.addEventListener('click', () => {
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
@@ -271,35 +256,38 @@ document.addEventListener('DOMContentLoaded', () => {
         stream.getTracks().forEach(track => track.stop());
         scanVideoPopup.remove();
       });
-
-      cancelBtn.addEventListener('click', () => {
-        stream.getTracks().forEach(track => track.stop());
-        scanVideoPopup.remove();
-      });
-    } else {
-      cameraInput.click();
-    }
+      cancelBtn.addEventListener('click', () => { stream.getTracks().forEach(track => track.stop()); scanVideoPopup.remove(); });
+    } else { cameraInput.click(); }
   });
 
   openPhotosBtn.addEventListener('click', () => { scanPopup.style.display = 'none'; photoInput.click(); });
 
   async function processImageWithLoading(file) {
     if (!file) return;
-    const imageURL = URL.createObjectURL(file);
-    loadingPopup.style.display = 'flex';
-    const steps = ['Creando lista...', 'Desencriptando los items...', 'Analizando la nueva lista...'];
-    for (let step of steps) { loadingText.textContent = step; await new Promise(r => setTimeout(r, 800)); }
-    try {
-      const { data: { text } } = await Tesseract.recognize(imageURL, 'spa');
-      const lines = text.split('\n').map(l => l.trim()).filter(l => l !== '');
-      lines.forEach(line => itemList.push({ item: line, quantity: '', unit: '' }));
-      displayItemList();
-      loadingPopup.style.display = 'none';
-      alert('Ítems agregados desde la imagen');
-    } catch {
-      loadingPopup.style.display = 'none';
-      alert('Error al procesar la imagen.');
-    }
+    const reader = new FileReader();
+    reader.onload = async e => {
+      const imageData = e.target.result;
+      loadingPopup.style.display = 'flex';
+      const steps = ['Creando lista...', 'Desencriptando los items...', 'Analizando la nueva lista...'];
+      for (let step of steps) { loadingText.textContent = step; await new Promise(r => setTimeout(r, 800)); }
+      try {
+        const worker = Tesseract.createWorker({ logger: m => console.log(m) });
+        await worker.load();
+        await worker.loadLanguage('spa');
+        await worker.initialize('spa');
+        const { data: { text } } = await worker.recognize(imageData);
+        await worker.terminate();
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l !== '');
+        lines.forEach(line => itemList.push({ item: line, quantity: '', unit: '' }));
+        displayItemList();
+        loadingPopup.style.display = 'none';
+        alert('Ítems agregados desde la imagen');
+      } catch {
+        loadingPopup.style.display = 'none';
+        alert('Error al procesar la imagen.');
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   cameraInput.addEventListener('change', function () { processImageWithLoading(this.files[0]); });
