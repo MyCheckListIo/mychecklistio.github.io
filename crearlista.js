@@ -39,32 +39,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function addItemToList(event) {
     event.preventDefault();
-
+  
     const item = itemInput.value.trim();
     const quantity = quantityInput.value.trim();
     const unit = unitInput.value.trim();
-
-    if (!item || !quantity || !unit) {
-      alert('Por favor complete todos los campos antes de agregar el elemento.');
+  
+    if (!item) {
+      alert('Por favor complete el nombre del elemento.');
       return;
     }
-
-    if (isNaN(quantity) || parseFloat(quantity) <= 0) {
+  
+    if (quantity && (isNaN(quantity) || parseFloat(quantity) <= 0)) {
       alert('La cantidad debe ser un número válido mayor que cero.');
       return;
     }
-
-    const newItem = { item, quantity, unit };
+  
+    const newItem = {
+      item,
+      quantity: quantity || '',
+      unit: unit || ''
+    };
+  
     itemList.push(newItem);
     displayItemList();
     clearFormInputs();
   }
-
+  
   function clearFormInputs() {
     itemInput.value = '';
     quantityInput.value = '';
     unitInput.value = '';
   }
+  
 
   function displayItemList() {
     itemContainer.innerHTML = '';
@@ -202,4 +208,100 @@ document.addEventListener('DOMContentLoaded', function () {
   saveListBtn.addEventListener('click', saveList);
 
   loadSlotInfo();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const scanBtn = document.getElementById('scanBtn');
+  const scanPopup = document.getElementById('scanPopup');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const scanListBtn = document.getElementById('scanListBtn');
+  const openPhotosBtn = document.getElementById('openPhotosBtn');
+  const cameraInput = document.getElementById('cameraInput');
+  const photoInput = document.getElementById('photoInput');
+  const loadingPopup = document.getElementById('loadingPopup');
+  const loadingText = document.getElementById('loadingText');
+
+  scanBtn.addEventListener('click', () => scanPopup.style.display = 'flex');
+  closePopupBtn.addEventListener('click', () => scanPopup.style.display = 'none');
+  window.addEventListener('click', e => { if (e.target === scanPopup) scanPopup.style.display = 'none'; });
+
+  scanListBtn.addEventListener('click', async () => {
+    scanPopup.style.display = 'none';
+
+    async function openCamera(constraints) {
+      try { return await navigator.mediaDevices.getUserMedia(constraints); } 
+      catch { return null; }
+    }
+
+    let stream = await openCamera({ video: { facingMode: 'environment' } });
+    if (!stream) stream = await openCamera({ video: true });
+
+    if (stream) {
+      const video = document.createElement('video');
+      video.srcObject = stream;
+      video.play();
+
+      const scanVideoPopup = document.createElement('div');
+      Object.assign(scanVideoPopup.style, {
+        position: 'fixed', top: '0', left: '0', width: '100%', height: '100%',
+        background: 'rgba(0,0,0,0.8)', display: 'flex', justifyContent: 'center',
+        alignItems: 'center', flexDirection: 'column', zIndex: '9999'
+      });
+      scanVideoPopup.appendChild(video);
+
+      const captureBtn = document.createElement('button');
+      captureBtn.textContent = 'Capturar lista';
+      captureBtn.style.marginTop = '20px';
+      scanVideoPopup.appendChild(captureBtn);
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.textContent = 'Cancelar';
+      cancelBtn.style.marginTop = '10px';
+      scanVideoPopup.appendChild(cancelBtn);
+
+      document.body.appendChild(scanVideoPopup);
+
+      captureBtn.addEventListener('click', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(blob => processImageWithLoading(blob));
+        stream.getTracks().forEach(track => track.stop());
+        scanVideoPopup.remove();
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        stream.getTracks().forEach(track => track.stop());
+        scanVideoPopup.remove();
+      });
+    } else {
+      cameraInput.click();
+    }
+  });
+
+  openPhotosBtn.addEventListener('click', () => { scanPopup.style.display = 'none'; photoInput.click(); });
+
+  async function processImageWithLoading(file) {
+    if (!file) return;
+    const imageURL = URL.createObjectURL(file);
+    loadingPopup.style.display = 'flex';
+    const steps = ['Creando lista...', 'Desencriptando los items...', 'Analizando la nueva lista...'];
+    for (let step of steps) { loadingText.textContent = step; await new Promise(r => setTimeout(r, 800)); }
+    try {
+      const { data: { text } } = await Tesseract.recognize(imageURL, 'spa');
+      const lines = text.split('\n').map(l => l.trim()).filter(l => l !== '');
+      lines.forEach(line => itemList.push({ item: line, quantity: '', unit: '' }));
+      displayItemList();
+      loadingPopup.style.display = 'none';
+      alert('Ítems agregados desde la imagen');
+    } catch {
+      loadingPopup.style.display = 'none';
+      alert('Error al procesar la imagen.');
+    }
+  }
+
+  cameraInput.addEventListener('change', function () { processImageWithLoading(this.files[0]); });
+  photoInput.addEventListener('change', function () { processImageWithLoading(this.files[0]); });
 });

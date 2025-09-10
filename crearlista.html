@@ -7,6 +7,32 @@
   <link rel="stylesheet" href="crearlista.css">
 </head>
 <body>
+  <div class="scan-icon">
+    <button id="scanBtn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z"/>
+      </svg>
+    </button>
+  </div>
+  
+  <div id="scanPopup" class="popup">
+    <div class="popup-content">
+      <button id="openPhotosBtn">Abrir desde fotos</button>
+      <button id="scanListBtn">Escanear lista</button>
+      <button id="closePopupBtn">Volver</button>
+    </div>
+  </div>
+
+  <div id="loadingPopup" class="popup" style="display:none; justify-content:center; align-items:center;">
+    <div class="popup-content">
+      <p id="loadingText">Procesando...</p>
+    </div>
+  </div>  
+  
+  <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;">
+  <input type="file" id="photoInput" accept="image/*" style="display:none;">
+  
+  
   <div class="container mt-5">
     <h1 class="text-center mb-4">Crear Lista</h1>
     <div class="top-info">
@@ -29,6 +55,7 @@
   <div id="particles-js"></div>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="particles-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
   <script src="crearlista.js"></script>
 </body>
 </html>
