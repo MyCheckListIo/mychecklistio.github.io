@@ -1,7 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
   const btnMercadoCentral = document.getElementById("btnMercadoCentral");
   const btnFrutas = document.getElementById("btnFrutas");
   const btnHortalizas = document.getElementById("btnHortalizas");
+  const btnCarnes = document.getElementById("btnCarnes");
   const tablaPrecios = document.getElementById("tablaPrecios");
   const opcionesProductos = document.getElementById("opcionesProductos");
   const detalleProducto = document.getElementById("detalleProducto");
@@ -14,185 +15,145 @@ document.addEventListener("DOMContentLoaded", function() {
   let chartInstance = null;
   let productosAbiertos = null;
 
+  // Tus datos de precios (igual que antes)
   const precios = {
     frutas: {
-      '29/06/2024 - 01/07/2024': {
-        Mandarina: 500,
-        Naranja: 500,
-        Limón: 350,
-        Pera: 1000,
+      '01/08/2024 - 15/08/2025': {
+        Mandarina: [500, 520, 480, 500, 1000],
+        Banana: [650, 670, 690, 1000, 1500],
+        Naranja: [480, 490, 500, 500, 500],
+        Limón: [340, 350, 360, 350, 350],
+        Pera: [950, 960, 1000, 1000, 1000],
+        "Manzana Red Del": [1000, 1000, 1000, 1000, 1000]
       },
-      '06/07/2024 - 08/07/2024': {
-        Mandarina: 500,
-        Banana: 1000,
-        Naranja: 500,
-        Limón: 350,
-        Pera: 1000
-      },
-      '13/07/2024 - 15/07/2024': {
-        Mandarina: 500,
-        Banana: 670,
-        Naranja: 500,
-        Limón: 350,
-        Batata: 800,
-        Tomate: 1000,
-        Pera: 1000
-      },
-      '20/07/2024 - 22/07/2024': {
-        Mandarina: 500,
-        Banana: 1000,
-        Magrón: 3000,
-        Naranja: 500,
-        Limón: 350,
-        Batata: 800,
-        Papa_Negra: 475,
-        Manzana: 1000,
-        Pera: 1000
-      },
-      '31/07/2024 - 06/08/2024': {
-        Naranja: 500,
-        Espinaca: 1500,
-        Batata: 800,
-        Papa_Negra: 500,
-        Morrón: [2500, 1000],  // Suponiendo que hay dos precios diferentes para este producto
-        Limón: 350,
-        Manzana: 1000,
-        Pera: 1000,
-        Mandarina: 330
+      '01/09/2025 - 15/09/2025': {
+        Mandarina: [520, 540, 560, 580, 600],
+        Banana: [690, 710, 730, 750, 770],
+        Naranja: [500, 510, 520, 530, 540],
+        Limón: [360, 370, 380, 390, 400],
+        Pera: [1000, 1020, 1040, 1050, 1060],
+        "Manzana Red Del": [1000, 1010, 1020, 1030, 1040]
       }
     },
     hortalizas: {
-      '29/06/2024 - 01/07/2024': {
-        Batata: 700,
-        Papa_Negra: 400,
-        Zanahoria: 700
+      '01/08/2024 - 15/08/2025': {
+        Batata: [700, 720, 740, 800, 1000],
+        Papa: [400, 475, 500, 1000, 1000],
+        Papa_Negra: [400, 475, 475, 500, 500],
+        Tomate: [1500, 1550, 1600, 1000, 1000],
+        Cebolla: [1000, 1000, 1000, 1000, 1000],
+        Zanahoria: [690, 700, 710, 720, 730],
+        Brocoli: [1000, 1000, 1000, 1000, 1000]
       },
-      '06/07/2024 - 08/07/2024': {
-        Batata: 5800,
-        Papa_Negra: 475,
-        Tomate: 1500
+      '01/09/2025 - 15/09/2025': {
+        Acelga: [447.33],
+        Papa: [326.64],
+        Tomate: [1552.29],
+        Cebolla: [305.71],
+        Zapallo: [437.93],
+        Zanahoria: [412.67],
+        Pimiento: [2778.98],
+        Zapallito: [849.65],
+        Lechuga: [809.17],
+        Berenjena: [799.58]
+      }
+    },
+    carnes: {
+      '01/08/2024 - 15/08/2025': {
+        "Picada especial": [18000, 18000, 18000, 18000, 18000],
+        Calamar: [8100, 8100, 8100, 8100, 8100],
+        Jamón: [4000, 4000, 4000, 4000, 4000],
+        "Capellettis/torteletis": [11800, 11800, 11800, 11800, 11800],
+        "Pata y muslo de campo": [14000, 14000, 14000, 14000, 14000]
       },
-      '13/07/2024 - 15/07/2024': {
-        Batata: 800,
-        Papa_Negra: 475,
-        Tomate: 1000
-      },
-      '20/07/2024 - 22/07/2024': {
-        Batata: 800,
-        Papa_Negra: 475
-      },
-      '31/07/2024 - 06/08/2024': {
-        Batata: 800,
-        Papa_Negra: 500
+      '01/09/2025 - 15/09/2025': {
+        "Picada especial": [18200, 18300, 18400, 18500, 18600],
+        Calamar: [8200, 8250, 8300, 8350, 8400],
+        Jamón: [4050, 4100, 4150, 4200, 4250],
+        "Capellettis/torteletis": [11900, 12000, 12100, 12200, 12300],
+        "Pata y muslo de campo": [14100, 14200, 14300, 14400, 14500]
       }
     }
   };
 
-  const detallesProductos = {
-    Mandarina: {
-      info: "La mandarina es una fruta cítrica rica en vitamina C.",
-      preciosHistoricos: [480, 490, 500, 510, 520, 500, 500]
-    },
-    Banana: {
-      info: "La banana es una fruta rica en potasio.",
-      preciosHistoricos: [650, 670, 690, 700, 710, 1000]
-    },
-    Naranja: {
-      info: "La naranja es rica en vitamina C y antioxidantes.",
-      preciosHistoricos: [480, 490, 500, 510, 520, 500]
-    },
-    Limón: {
-      info: "El limón es un cítrico muy versátil en la cocina.",
-      preciosHistoricos: [340, 350, 360, 370, 380, 350]
-    },
-    Pera: {
-      info: "La pera es una fruta refrescante y rica en fibra.",
-      preciosHistoricos: [950, 960, 1000, 1020, 1040, 1000]
-    },
-    Batata: {
-      info: "La batata es un tubérculo dulce y nutritivo.",
-      preciosHistoricos: [700, 720, 740, 760, 780, 800]
-    },
-    Papa_Negra: {
-      info: "La papa negra es una variedad de papa muy consumida.",
-      preciosHistoricos: [400, 475, 475, 475, 475, 475, 500]
-    },
-    Tomate: {
-      info: "El tomate es un ingrediente básico en muchas recetas.",
-      preciosHistoricos: [1500, 1550, 1600, 1650, 1700]
-    },
-    Zanahoria: {
-      info: "La zanahoria es una raíz comestible rica en vitamina A.",
-      preciosHistoricos: [690, 700, 710, 720, 730]
-    },
-    Magrón: {
-      info: "El magrón es un alimento específico con su precio listado.",
-      preciosHistoricos: [3000]
-    },
-    Manzana: {
-      info: "La manzana es una fruta popular rica en fibra.",
-      preciosHistoricos: [1000]
-    },
-    Espinaca: {
-      info: "La espinaca es una hoja verde rica en nutrientes.",
-      preciosHistoricos: [1500]
-    },
-    Morrón: {
-      info: "El morrón es un pimiento con precios variados.",
-      preciosHistoricos: [2500, 1000]
-    }
-  };
-
-  function mostrarProductos(tipo, periodo) {
+  // Mostrar productos de un grupo y periodo
+  function mostrarProductos(tipo) {
     if (productosAbiertos === tipo) {
-      // Si el tipo de producto ya está abierto, ciérralo y restablece
-      opcionesProductos.style.display = "block";
       tablaPrecios.innerHTML = "";
       detalleProducto.style.display = "none";
-      productosAbiertos = null;  // Restablece la variable
-    } else {
-      // Si no está abierto, muéstralo
-      opcionesProductos.style.display = "none";
-      tablaPrecios.innerHTML = "";
-      detalleProducto.style.display = "none";
-
-      const productos = precios[tipo][periodo];
-      for (const producto in productos) {
-          const precio = productos[producto];
-          const item = document.createElement("div");
-          item.textContent = `${producto}: $${Array.isArray(precio) ? precio.join(' / ') : precio}`;
-          item.style.cursor = "pointer";
-          item.addEventListener("click", () => mostrarDetalleProducto(producto));
-          tablaPrecios.appendChild(item);
-      }
-
-      productosAbiertos = tipo;  // Marca el tipo de producto como abierto
+      productosAbiertos = null;
+      return;
     }
+
+    tablaPrecios.innerHTML = "";
+    detalleProducto.style.display = "none";
+
+    // Tomar último periodo disponible automáticamente
+    const periodos = Object.keys(precios[tipo]);
+    const ultimoPeriodo = periodos[periodos.length - 1];
+
+    for (const producto in precios[tipo][ultimoPeriodo]) {
+      const precio = precios[tipo][ultimoPeriodo][producto];
+      const item = document.createElement("div");
+      item.textContent = `${producto}: $${Array.isArray(precio) ? precio.join(' / ') : precio}`;
+      item.style.cursor = "pointer";
+      item.addEventListener("click", () => mostrarDetalleProducto(producto));
+      tablaPrecios.appendChild(item);
+    }
+
+    productosAbiertos = tipo;
   }
 
   function mostrarDetalleProducto(producto) {
-    const detalles = detallesProductos[producto];
     nombreProducto.textContent = producto;
-    infoProducto.textContent = detalles.info;
-
-    if (chartInstance) {
-      chartInstance.destroy();
-    }
-
+    infoProducto.textContent = "";
+  
+    if (chartInstance) chartInstance.destroy();
+  
+    // detectar grupo automáticamente
+    let grupo = Object.keys(precios).find(g =>
+      Object.values(precios[g])[0][producto] !== undefined ||
+      Object.values(precios[g])[1] && Object.values(precios[g])[1][producto] !== undefined
+    );
+  
+    const labels = [];
+    const data = [];
+  
+    // recorrer periodos
+    const periodos = Object.keys(precios[grupo]);
+  
+    periodos.forEach(periodo => {
+      let valores = precios[grupo][periodo][producto];
+  
+      // si no hay valores para ese periodo pero sí en otro, usa el del anterior
+      if (!valores) {
+        // buscamos en periodos anteriores el primero que tenga valores
+        for (let i = periodos.indexOf(periodo) - 1; i >= 0; i--) {
+          const anterior = precios[grupo][periodos[i]][producto];
+          if (anterior) {
+            valores = anterior; // copiamos valores anteriores
+            break;
+          }
+        }
+      }
+  
+      // si encontramos valores (originales o copiados) los añadimos al gráfico
+      if (valores) {
+        valores.forEach((v, idx) => {
+          labels.push(`${periodo} (${idx + 1})`);
+          data.push(v);
+        });
+      }
+    });
+  
     chartInstance = new Chart(graficoPrecios, {
       type: 'line',
       data: {
-        labels: [
-          "29/06/2024 - 01/07/2024",
-          "06/07/2024 - 08/07/2024",
-          "13/07/2024 - 15/07/2024",
-          "20/07/2024 - 22/07/2024",
-          "31/07/2024 - 06/08/2024"
-        ],
+        labels,
         datasets: [{
           label: `Evolución precio de ${producto}`,
-          data: detalles.preciosHistoricos,
-          borderColor: 'rgba(255, 102, 0, 1)',
+          data,
+          borderColor: 'rgba(55, 102, 0, 1)',
           borderWidth: 2,
           fill: false
         }]
@@ -201,45 +162,33 @@ document.addEventListener("DOMContentLoaded", function() {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: {
-            beginAtZero: true
-          },
           y: {
             beginAtZero: false,
-            min: Math.min(...detalles.preciosHistoricos) - 50,
-            max: Math.max(...detalles.preciosHistoricos) + 50
+            min: Math.min(...data) - 50,
+            max: Math.max(...data) + 50
           }
         }
       }
     });
-
+  
     detalleProducto.style.display = "block";
   }
+  
 
-  btnMercadoCentral.addEventListener("click", function() {
-    if (opcionesProductos.style.display === "none") {
-      opcionesProductos.style.display = "block"; 
-      tablaPrecios.innerHTML = ""; 
-      detalleProducto.style.display = "none";
-    } else {
-      opcionesProductos.style.display = "none";
-      tablaPrecios.innerHTML = "";
-      detalleProducto.style.display = "none";
-    }
+  // Eventos
+  btnMercadoCentral.addEventListener("click", () => {
+    opcionesProductos.style.display = opcionesProductos.style.display === "none" ? "block" : "none";
+    tablaPrecios.innerHTML = "";
+    detalleProducto.style.display = "none";
   });
 
-  btnFrutas.addEventListener("click", function() {
-    mostrarProductos("frutas", '29/06/2024 - 01/07/2024');
-  });
+  btnFrutas.addEventListener("click", () => mostrarProductos("frutas"));
+  btnHortalizas.addEventListener("click", () => mostrarProductos("hortalizas"));
+  if (btnCarnes) btnCarnes.addEventListener("click", () => mostrarProductos("carnes"));
 
-  btnHortalizas.addEventListener("click", function() {
-    mostrarProductos("hortalizas", '29/06/2024 - 01/07/2024');
-  });
-
-  btnMinimizar.addEventListener("click", function() {
+  btnMinimizar.addEventListener("click", () => {
     graficoContainer.classList.toggle('minimizado');
     btnMinimizar.textContent = graficoContainer.classList.contains('minimizado') ? 'Restaurar' : 'Minimizar';
     detalleProducto.classList.toggle('minimizado');
   });
 });
-
