@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const comprarEspecialesWrapper = document.getElementById('comprarEspecialesWrapper');
   const irASlotBtn = document.getElementById('irASlotBtn');
 
+  // Overlay
+  const shareOverlay = document.getElementById('shareOverlay');
+  const loadingAnimation = document.getElementById('loadingAnimation');
+  const shareResult = document.getElementById('shareResult');
+  const shareLink = document.getElementById('shareLink');
+  const copyLinkBtn = document.getElementById('copyLinkBtn');
+  const openLinkBtn = document.getElementById('openLinkBtn');
+
   let mostrandoEspeciales = false;
   let savedLists = [];
 
@@ -46,25 +54,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
     savedLists.forEach((list, index) => {
       const listCard = document.createElement('div');
-      listCard.classList.add('list-card');
-      const listName = list.name || `Lista ${list.slot}`;
+      listCard.classList.add('card');
       listCard.innerHTML = `
-        <div class="card-header">${listName}</div>
+        <div class="card-header">${list.name || 'Lista sin nombre'}</div>
         <div class="card-body">Slot ${list.slot}</div>
         <div class="card-footer">
           <button class="activateBtn" data-index="${index}">Activar</button>
           <button class="editBtn" data-index="${index}">Editar</button>
           <button class="deleteBtn" data-index="${index}">Eliminar</button>
           <button class="alarmBtn" data-index="${index}">Alarma</button>
+          <button class="shareBtn" data-index="${index}">Compartir</button>
         </div>
       `;
+
       listContainer.appendChild(listCard);
 
       listCard.querySelector('.editBtn').addEventListener('click', editList);
       listCard.querySelector('.deleteBtn').addEventListener('click', deleteList);
       listCard.querySelector('.activateBtn').addEventListener('click', activateList);
       listCard.querySelector('.alarmBtn').addEventListener('click', setAlarm);
+      listCard.querySelector('.shareBtn').addEventListener('click', shareList);
     });
+  }
+
+  function shareList(e) {
+    const index = e.target.dataset.index;
+    const list = savedLists[index];
+
+    // Mostrar overlay y animación
+    shareOverlay.style.display = 'flex';
+    loadingAnimation.style.display = 'block';
+    shareResult.style.display = 'none';
+
+    // Simulamos "crear lista" (aquí iría el push a Firestore/Realtime DB)
+    setTimeout(() => {
+      // Generar ID único (6-7 caracteres)
+      const uniqueId = Math.random().toString(36).substring(2, 8);
+      const link = `https://mychecklistio.github.io/${uniqueId}`;
+
+      // Aquí subirías "list" al backend con ese uniqueId
+
+      // Mostrar resultado
+      loadingAnimation.style.display = 'none';
+      shareResult.style.display = 'block';
+      shareLink.value = link;
+
+      copyLinkBtn.onclick = () => {
+        navigator.clipboard.writeText(link);
+        alert('Link copiado al portapapeles');
+      };
+
+      openLinkBtn.onclick = () => {
+        window.open(link, '_blank');
+      };
+
+      // Cerrar overlay al hacer click fuera
+      shareOverlay.addEventListener('click', (ev) => {
+        if (ev.target === shareOverlay) {
+          shareOverlay.style.display = 'none';
+        }
+      });
+
+    }, 1500); // Simula tiempo de creación
   }
 
   function loadEspeciales() {
@@ -82,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
     claves.forEach(id => {
       const acceso = accesos[id];
       const card = document.createElement('div');
-      card.classList.add('list-card');
+      card.classList.add('card');
       card.innerHTML = `
         <div class="card-header">${acceso.tipoCompra}</div>
         <div class="card-body">${acceso.tipoDieta} - Día ${acceso.dia}</div>
@@ -107,11 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function activateList(e) {
     const index = e.target.dataset.index;
     const slotNumber = parseInt(savedLists[index].slot);
-    const activeList = localStorage.getItem(`savedList${slotNumber}`);
-    if (activeList) {
-      window.location.href = `slot${slotNumber}.html`;
-      return;
-    }
     localStorage.setItem('activeList', JSON.stringify(savedLists[index]));
     window.location.href = `slot${slotNumber}.html`;
   }

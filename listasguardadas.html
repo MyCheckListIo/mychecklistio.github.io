@@ -10,9 +10,7 @@
   <div class="container mt-5">
     <h1 class="text-center mb-2">Listas Guardadas</h1>
     <div class="text-center mb-3">
-      <div class="text-center mb-3">
-        <button id="especialesToggleBtn">Ver Especiales</button>
-      </div>
+      <button id="especialesToggleBtn">Ver Especiales</button>
       <div id="comprarEspecialesWrapper" class="text-center" style="display: none;">
         <button id="irASlotBtn">Ir a comprar más especiales</button>
       </div>
@@ -22,13 +20,23 @@
       <div id="noListsMessage" style="display: none;">No hay listas guardadas.</div>
     </div>
 
-    <div id="comprarEspecialesWrapper" class="text-center" style="display: none; margin-top: 1rem;">
-      <button id="irASlotBtn">Ir a comprar más especiales</button>
-    </div>
-
     <div class="buttons">
       <button id="backBtn">Volver al Inicio</button>
       <button id="premiumBtn" style="display: none;">Mejorar a Premium</button>
+    </div>
+  </div>
+
+  <div id="shareOverlay" class="overlay">
+    <div class="overlay-content">
+      <div id="loadingAnimation" class="loading">Creando lista…</div>
+      <div id="shareResult" class="share-result" style="display:none;">
+        <p>Tu lista está lista para compartir:</p>
+        <input type="text" id="shareLink" readonly>
+        <div class="share-buttons">
+          <button id="copyLinkBtn">Copiar Link</button>
+          <button id="openLinkBtn">Abrir Lista</button>
+        </div>
+      </div>
     </div>
   </div>
 
